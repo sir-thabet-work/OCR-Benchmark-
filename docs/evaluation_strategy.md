@@ -70,7 +70,7 @@ Six specialized models (found in the [search methodology](search_methodology.md#
 | # | Model | Contributor | Size | What it tests | Link |
 |---|-------|-------------|------|---------------|------|
 | 1 | Qari-OCR-0.4.0-VL-4B-Instruct | NAMAA-Space 🇸🇦 | 4B | Latest version of the best-known Arabic OCR series; strong general printed text | [HF](https://huggingface.co/NAMAA-Space/Qari-OCR-0.4.0-VL-4B-Instruct) |
-| 2 | Baseer-Qwen2.5-VL-3B-Instruct | Misraj AI 🇸🇦 | 3B | Structure-aware: outputs Markdown with headings and tables, not just plain text | [HF](https://huggingface.co/Misraj/Baseer-Qwen2.5-VL-3B-Instruct) |
+| 2 | Baseer__Nakba | Misraj AI 🇸🇦 | 3B | Baseer adapted to historical handwriting; 1st place in the NAKBA 2026 HTR competition (see note below) | [HF](https://huggingface.co/Misraj/Baseer__Nakba) |
 | 3 | arabic-legal-documents-ocr-1.0 | bakrianoo 🇪🇬 | ~4.3B | Whether domain fine-tuning beats general models on its own domain | [HF](https://huggingface.co/bakrianoo/arabic-legal-documents-ocr-1.0) |
 | 4 | Katib-Qwen3.5-0.8B-0.1 | oddadmix 🇪🇬 | 0.8B | The smallest option: how far a sub-1B model can go | [HF](https://huggingface.co/oddadmix/Katib-Qwen3.5-0.8B-0.1) |
 | 5 | waqf-ocr-hand-written-v1 | Waqf AI 🇪🇬 | ~1B | Handwriting specialist on a newer base (PaddleOCR-VL) | [HF](https://huggingface.co/Waqf-AI/waqf-ocr-hand-written-v1) |
@@ -80,9 +80,28 @@ Plus one reference point that is not part of the six:
 
 - **Gemini**: frontier upper bound.
 
-**What to expect on the 10-image set:** the two handwriting models (#5, #6) should lead on images 02, 03 and 04 and may do poorly on the rest. Baseer (#2) is the one to watch on the table (06) and invoice (09), where structure matters. The legal model (#3) has no matching image yet, so it is tested here only as a general model until legal scans are added (Route B).
+**Notes from the model cards** (checked 2026-10-06):
 
-Store every output as `outputs/<model_name>/NN_name.txt`, so each prediction sits next to its ground truth by file name.
+- **Baseer (#2):** the structure-aware `Misraj/Baseer-Qwen2.5-VL-3B-Instruct` (document → Markdown) is no longer public; Misraj now offers it only through the hosted product at [baseerocr.com](https://baseerocr.com/). The only open Baseer weights are **Baseer__Nakba**, the same 3B Baseer further trained for historical handwriting. It is tested in this slot, so it no longer tests structure output. Its settings come from Misraj's [Nakba-pipeline](https://github.com/misraj-ai/Nakba-pipeline).
+- **Legal model (#3):** answers in **JSON**, and its card makes preprocessing mandatory (grayscale, max width 1024 px, contrast ×1.5). For CER/WER, all JSON values are joined into plain text; the raw JSON is kept in `NN_name.raw.txt`.
+- **Qari (#1) and Katib (#4)** are LoRA adapters; they are loaded on their base models (`Qwen3-VL-4B-Instruct`, `Qwen3.5-0.8B`) and merged.
+- **Waqf (#5):** the code in its card points to a repo id that is not public; the weights are in `Waqf-AI/waqf-ocr-hand-written-v1`. It was trained on single text lines.
+- **sherif1313 (#6):** the card's `min_new_tokens=50` is dropped, because it forces extra text on short images such as the one-word scene photo.
+
+**What to expect on the 10-image set:** the handwriting models (#2, #5, #6) should lead on images 02, 03 and 04, and may do poorly on the rest. Only Gemini is likely to keep the table (06) and invoice (09) structure. The legal model (#3) has no matching image yet, so it is tested here only as a general model until legal scans are added (Route B).
+
+### How to run
+
+The code is in [eval/](../eval/) and runs on a GPU notebook (Colab or Kaggle):
+
+| File | What it does |
+|------|--------------|
+| [eval/ocr_eval_colab.ipynb](../eval/ocr_eval_colab.ipynb) | Step-by-step notebook: install, run all seven models, score, show the leaderboard and CER matrix |
+| [eval/models.py](../eval/models.py) | How each model is loaded and prompted, following its card |
+| [eval/run_models.py](../eval/run_models.py) | Runs models on `test_images/`. Writes `outputs/<model>/NN_name.txt` plus `_run.json` (prompt, model revision, library versions, GPU, latency and VRAM per image, errors) |
+| [eval/score.py](../eval/score.py) | Normalizes, computes the metrics in Section 4, writes `results/results.json` |
+
+Each prediction is stored as `outputs/<model_name>/NN_name.txt`, next to its ground truth by file name.
 
 ---
 

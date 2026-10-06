@@ -1,0 +1,10 @@
+# Install the latest transformers: Qwen3.5 (Katib) and Qwen3-VL (Qari) need recent releases.
+transformers
+accelerate
+peft
+bitsandbytes
+huggingface_hub
+pillow
+json-repair
+google-genai
+jiwer
