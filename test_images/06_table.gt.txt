@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            direction: rtl;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #2c3e50;
+            color: #fff;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        caption {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #34495e;
+        }
+        @media (min-width: 600px) {
+            th, td {
+                padding: 15px;
+            }
+        }
+    </style>
+    <title>جدول الإيرادات المتوقعة للتطبيقات الجديدة</title>
+</head>
+<body>
+    <table>
+        <caption>الإيرادات المتوقعة للتطبيقات الجديدة المُطورة باستخدام دارت في السوق المحلي</caption>
+        <thead>
+            <tr>
+                <th>الإسم</th>
+                <th>الفئة</th>
+                <th>الإيرادات السنوية المتوقعة</th>
+                <th>السوق المستهدف</th>
+                <th>الأعمال المنافسة</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>ChatApp Messenger</td>
+                <td>تطبيقات المراسلة</td>
+                <td>٢٥٠٬٠٠٠ دولار</td>
+                <td>المملكة العربية السعودية</td>
+                <td>واتساب، تلغرام</td>
+            </tr>
+            <tr>
+                <td>HealthTracker Plus</td>
+                <td>تطبيقات الصحة واللياقة</td>
+                <td>١٥٠٬٠٠٠ دولار</td>
+                <td>الإمارات العربية المتحدة</td>
+                <td>فتمبيت، ماي فيتنس بال</td>
+            </tr>
+            <tr>
+                <td>EduLearn Hub</td>
+                <td>تطبيقات التعليم</td>
+                <td>١٢٠٬٠٠٠ دولار</td>
+                <td>مصر</td>
+                <td>كورسيرا، يوديمي</td>
+            </tr>
+            <tr>
+                <td>ShopEase</td>
+                <td>تطبيقات التجارة الإلكترونية</td>
+                <td>٣٥٠٬٠٠٠ دولار</td>
+                <td>الكويت</td>
+                <td>نمشي، سوق.كوم</td>
+            </tr>
+            <tr>
+                <td>TravelBuddy</td>
+                <td>تطبيقات السفر</td>
+                <td>٢٧٠٬٠٠٠ دولار</td>
+                <td>قطر</td>
+                <td>تريب أدفايزور، بوكينج</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
