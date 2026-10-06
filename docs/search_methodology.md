@@ -121,7 +121,7 @@ After finishing my own search, I found that **Hesham Haroon** (h9-tec) also main
 
 1. **Define the use case first.** Pick the document type (legal, handwriting, printed books, forms), because Step 3 showed the winner depends on it.
 2. **Build a test set** of 150–300 real images with verified ground truth.
-3. **Candidates:** 3–5 specialized models matching the use case, plus one frontier model (e.g. Gemini) as the upper bound and PP-OCRv5 as the traditional baseline.
+3. **Candidates:** 3–5 specialized models matching the use case, plus one frontier model (e.g. Gemini) as the upper bound.
 4. **Fixed protocol:** the same images for every model, greedy decoding, each model's documented prompt, and pinned model versions.
 5. **Metrics:**
    - CER and WER after Arabic normalization (NFC, strip tatweel and bidi marks, unify digits)

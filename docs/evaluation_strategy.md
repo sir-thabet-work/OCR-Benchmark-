@@ -63,10 +63,24 @@ Every model gets the same conditions, so differences come from the model only:
 - **Pinned versions**: model revision, quantization, and library versions recorded with the results.
 - **Same hardware** for all self-hosted models, so latency and memory are comparable.
 
-**Candidates:** 3–5 specialized models that match the use case (see [search methodology §5](search_methodology.md#5-findings-organized-resources)), plus:
+### Candidate models
+
+Six specialized models (found in the [search methodology](search_methodology.md#5-findings-organized-resources)), each chosen to answer a specific question:
+
+| # | Model | Contributor | Size | What it tests | Link |
+|---|-------|-------------|------|---------------|------|
+| 1 | Qari-OCR-0.4.0-VL-4B-Instruct | NAMAA-Space 🇸🇦 | 4B | Latest version of the best-known Arabic OCR series; strong general printed text | [HF](https://huggingface.co/NAMAA-Space/Qari-OCR-0.4.0-VL-4B-Instruct) |
+| 2 | Baseer-Qwen2.5-VL-3B-Instruct | Misraj AI 🇸🇦 | 3B | Structure-aware: outputs Markdown with headings and tables, not just plain text | [HF](https://huggingface.co/Misraj/Baseer-Qwen2.5-VL-3B-Instruct) |
+| 3 | arabic-legal-documents-ocr-1.0 | bakrianoo 🇪🇬 | ~4.3B | Whether domain fine-tuning beats general models on its own domain | [HF](https://huggingface.co/bakrianoo/arabic-legal-documents-ocr-1.0) |
+| 4 | Katib-Qwen3.5-0.8B-0.1 | oddadmix 🇪🇬 | 0.8B | The smallest option: how far a sub-1B model can go | [HF](https://huggingface.co/oddadmix/Katib-Qwen3.5-0.8B-0.1) |
+| 5 | waqf-ocr-hand-written-v1 | Waqf AI 🇪🇬 | ~1B | Handwriting specialist on a newer base (PaddleOCR-VL) | [HF](https://huggingface.co/Waqf-AI/waqf-ocr-hand-written-v1) |
+| 6 | Arabic-handwritten-OCR-4bit-Qwen2.5-VL-3B-v2 | sherif1313 | 3B (4-bit) | A second handwriting specialist, quantized; compare against #5 | [HF](https://huggingface.co/sherif1313/Arabic-handwritten-OCR-4bit-Qwen2.5-VL-3B-v2) |
+
+Plus one reference point that is not part of the six:
 
 - **Gemini**: frontier upper bound.
-- **PP-OCRv5** ([arabic_PP-OCRv5_mobile_rec](https://huggingface.co/PaddlePaddle/arabic_PP-OCRv5_mobile_rec)): traditional, non-VLM baseline.
+
+**What to expect on the 10-image set:** the two handwriting models (#5, #6) should lead on images 02, 03 and 04 and may do poorly on the rest. Baseer (#2) is the one to watch on the table (06) and invoice (09), where structure matters. The legal model (#3) has no matching image yet, so it is tested here only as a general model until legal scans are added (Route B).
 
 Store every output as `outputs/<model_name>/NN_name.txt`, so each prediction sits next to its ground truth by file name.
 
@@ -131,7 +145,6 @@ For the 10-image smoke test, all items are small enough to score by hand. The ju
 | Model | CER ↓ | CER no-diac ↓ | WER ↓ | Failure rate ↓ | p95 CER ↓ | Latency (s/page) ↓ | VRAM (GB) ↓ | $ / 1k pages ↓ | Judge: structure ↑ | Judge: order ↑ |
 |-------|-------|---------------|-------|----------------|-----------|--------------------|-------------|----------------|--------------------|----------------|
 | Gemini (upper bound) | | | | | | | — | | | |
-| PP-OCRv5 (baseline) | | | | | | | | | | |
 | Candidate 1 | | | | | | | | | | |
 | … | | | | | | | | | | |
 
