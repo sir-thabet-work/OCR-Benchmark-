@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { fmt, gb, modelById, pct, secs } from '../lib.js'
+import { SHORT, fmt, gb, modelById, pct, secs } from '../lib.js'
 import { Caveat, RoundBadge, StatusChip } from './Chips.jsx'
 import { ModelTip } from './Tips.jsx'
 import { TipCard, TipRows, TipText, useTip } from './Tooltip.jsx'
@@ -92,82 +92,86 @@ export default function Leaderboard({ models, onPick }) {
     setSort((s) => (s.key === key ? { key, dir: -s.dir } : { key, dir: 1 }))
 
   return (
-    <div className="table-wrap">
-      <table className="board">
-        <thead>
-          <tr>
-            <th scope="col" className="col-model">Model</th>
-            {COLUMNS.map((c) => (
-              <th
-                scope="col"
-                key={c.key}
-                aria-sort={sort.key === c.key ? (sort.dir === 1 ? 'ascending' : 'descending') : 'none'}
-              >
-                <button
-                  className="sort"
-                  onClick={() => toggle(c.key)}
-                  {...tip(() => (
-                    <TipCard eyebrow="Column" title={c.label} hint="Click to sort; click again to reverse">
-                      <TipText>{c.help}</TipText>
-                    </TipCard>
-                  ))}
+    <>
+      <p className="swipe-hint" aria-hidden="true">Swipe the table sideways for all {COLUMNS.length} columns</p>
+      <div className="table-wrap">
+        <table className="board">
+          <thead>
+            <tr>
+              <th scope="col" className="col-model">Model</th>
+              {COLUMNS.map((c) => (
+                <th
+                  scope="col"
+                  key={c.key}
+                  aria-sort={sort.key === c.key ? (sort.dir === 1 ? 'ascending' : 'descending') : 'none'}
                 >
-                  {c.label}
-                  <span className="sort-mark" aria-hidden="true">
-                    {sort.key === c.key ? (sort.dir === 1 ? '▲' : '▼') : ''}
-                  </span>
-                </button>
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((m) => (
-            <tr key={m.id} className={m.level === 'reference' ? 'row-ref' : ''}>
-              <th scope="row" className="col-model">
-                <button
-                  className="link"
-                  onClick={() => onPick(m.id)}
-                  {...tip(() => <ModelTip m={m} hint="Click to see this model's weakest image" />)}
-                >
-                  {m.name}
-                </button>
-                <div className="row-sub">
-                  <RoundBadge round={m.round} />
-                  <StatusChip level={m.level} tipText={m.note}>
-                    {m.verdict}
-                  </StatusChip>
-                  <span className="muted">{m.size}</span>
-                </div>
-              </th>
-              {COLUMNS.map((c) => {
-                const v = c.get(m.summary)
-                const text = v == null ? (c.key === 'vram' ? 'API' : '—') : (c.format ?? fmt)(v)
-                return (
-                  <td key={c.key} className="num">
-                    <span className="num-hit" {...tip(() => <CellTip m={m} col={c} models={models} />)}>
-                      {c.bar ? (
-                        <span className="bar-cell">
-                          <span className="bar-track">
-                            <span
-                              className={`bar ${m.level === 'reference' ? 'bar-ref' : ''}`}
-                              style={{ width: `${Math.min(v / BAR_MAX, 1) * 100}%` }}
-                            />
-                          </span>
-                          <span>{text}</span>
-                        </span>
-                      ) : (
-                        text
-                      )}
+                  <button
+                    className="sort"
+                    onClick={() => toggle(c.key)}
+                    {...tip(() => (
+                      <TipCard eyebrow="Column" title={c.label} hint="Click to sort; click again to reverse">
+                        <TipText>{c.help}</TipText>
+                      </TipCard>
+                    ))}
+                  >
+                    {c.label}
+                    <span className="sort-mark" aria-hidden="true">
+                      {sort.key === c.key ? (sort.dir === 1 ? '▲' : '▼') : ''}
                     </span>
-                    {c.caveat && <Caveat text={m.latencyCaveat} />}
-                  </td>
-                )
-              })}
+                  </button>
+                </th>
+              ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody>
+            {rows.map((m) => (
+              <tr key={m.id} className={m.level === 'reference' ? 'row-ref' : ''}>
+                <th scope="row" className="col-model">
+                  <button
+                    className="link"
+                    onClick={() => onPick(m.id)}
+                    {...tip(() => <ModelTip m={m} hint="Click to see this model's weakest image" />)}
+                  >
+                    <span className="name-full">{m.name}</span>
+                    <span className="name-short">{SHORT[m.id] ?? m.name}</span>
+                  </button>
+                  <div className="row-sub">
+                    <RoundBadge round={m.round} />
+                    <StatusChip level={m.level} tipText={m.note}>
+                      {m.verdict}
+                    </StatusChip>
+                    <span className="muted">{m.size}</span>
+                  </div>
+                </th>
+                {COLUMNS.map((c) => {
+                  const v = c.get(m.summary)
+                  const text = v == null ? (c.key === 'vram' ? 'API' : '—') : (c.format ?? fmt)(v)
+                  return (
+                    <td key={c.key} className="num">
+                      <span className="num-hit" {...tip(() => <CellTip m={m} col={c} models={models} />)}>
+                        {c.bar ? (
+                          <span className="bar-cell">
+                            <span className="bar-track">
+                              <span
+                                className={`bar ${m.level === 'reference' ? 'bar-ref' : ''}`}
+                                style={{ width: `${Math.min(v / BAR_MAX, 1) * 100}%` }}
+                              />
+                            </span>
+                            <span>{text}</span>
+                          </span>
+                        ) : (
+                          text
+                        )}
+                      </span>
+                      {c.caveat && <Caveat text={m.latencyCaveat} />}
+                    </td>
+                  )
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </>
   )
 }

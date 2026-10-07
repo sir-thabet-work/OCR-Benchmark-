@@ -47,6 +47,7 @@ export default function SpeedChart({ models, onPick }) {
           <span className="dot dot-ref" /> API reference
         </span>
       </div>
+      <p className="swipe-hint" aria-hidden="true">Swipe the chart sideways to see all of it</p>
       <div className="chart-box">
         <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label="Median CER against median latency per page, one point per model, log scales">
           <rect x={M.l} y={M.t} width={PW} height={PH} className="plot-bg" />

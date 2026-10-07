@@ -92,43 +92,46 @@ export function ModelCards({ models, onPick }) {
   const tip = useTip()
   let rank = 0
   return (
-    <div className="cards">
-      {models.map((m) => (
-        <button
-          className={`card card-${m.level}`}
-          key={m.id}
-          onClick={() => onPick(m.id)}
-          {...tip(() => <ModelTip m={m} hint="Click to see this model's weakest image" />)}
-        >
-          <div className="card-top">
-            <span className="card-rank">
-              {m.level === 'reference' ? 'Ref' : `#${++rank}`} <RoundBadge round={m.round} plain />
-            </span>
-            <StatusChip level={m.level} plain>
-              {m.verdict}
-            </StatusChip>
-          </div>
-          <div className="card-name">{m.name}</div>
-          <div className="card-meta">
-            {m.org} · {m.base}
-          </div>
-          <dl className="card-stats">
-            <div>
-              <dt>Median CER</dt>
-              <dd>{fmt(m.summary.cerMedian)}</dd>
+    <>
+      <p className="swipe-hint" aria-hidden="true">Swipe through all {models.length} models</p>
+      <div className="cards">
+        {models.map((m) => (
+          <button
+            className={`card card-${m.level}`}
+            key={m.id}
+            onClick={() => onPick(m.id)}
+            {...tip(() => <ModelTip m={m} hint="Click to see this model's weakest image" />)}
+          >
+            <div className="card-top">
+              <span className="card-rank">
+                {m.level === 'reference' ? 'Ref' : `#${++rank}`} <RoundBadge round={m.round} plain />
+              </span>
+              <StatusChip level={m.level} plain>
+                {m.verdict}
+              </StatusChip>
             </div>
-            <div>
-              <dt>Failures</dt>
-              <dd>{pct(m.summary.failureRate)}</dd>
+            <div className="card-name">{m.name}</div>
+            <div className="card-meta">
+              {m.org} · {m.base}
             </div>
-            <div>
-              <dt>Memory</dt>
-              <dd>{m.summary.vram == null ? 'API' : gb(m.summary.vram)}</dd>
-            </div>
-          </dl>
-          <p className="card-note">{m.note}</p>
-        </button>
-      ))}
-    </div>
+            <dl className="card-stats">
+              <div>
+                <dt>Median CER</dt>
+                <dd>{fmt(m.summary.cerMedian)}</dd>
+              </div>
+              <div>
+                <dt>Failures</dt>
+                <dd>{pct(m.summary.failureRate)}</dd>
+              </div>
+              <div>
+                <dt>Memory</dt>
+                <dd>{m.summary.vram == null ? 'API' : gb(m.summary.vram)}</dd>
+              </div>
+            </dl>
+            <p className="card-note">{m.note}</p>
+          </button>
+        ))}
+      </div>
+    </>
   )
 }

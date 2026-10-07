@@ -8,6 +8,7 @@ import { createContext, useCallback, useContext, useLayoutEffect, useRef, useSta
   <g {...tip(() => <TipCard ... />, (el) => el.querySelector('.mark'))}>
 
   Shows on mouse hover and on keyboard focus, hides on leave, blur, scroll or Escape.
+  On touch screens a tap shows the card at once and a tap anywhere else hides it.
   Placed above the element, flipped below when there is no room, kept inside the viewport.
 */
 
@@ -22,6 +23,9 @@ export function TooltipProvider({ children }) {
   const [pos, setPos] = useState(null) // { left, top, side, arrow }
   const boxRef = useRef(null)
   const timer = useRef(null)
+  const lastTouch = useRef(0)
+  const current = useRef(null)
+  current.current = state
 
   const hide = useCallback(() => {
     clearTimeout(timer.current)
@@ -37,7 +41,9 @@ export function TooltipProvider({ children }) {
   // anchor: optional (element) => element to place the card against, e.g. a chart dot inside a group
   const tip = useCallback(
     (render, anchor) => ({
-      onMouseEnter: (e) => show(anchor ? anchor(e.currentTarget) : e.currentTarget, render, 90),
+      // a tap fires mouseenter too; skip the hover delay for it
+      onMouseEnter: (e) =>
+        show(anchor ? anchor(e.currentTarget) : e.currentTarget, render, Date.now() - lastTouch.current < 800 ? 0 : 90),
       onMouseLeave: hide,
       onFocus: (e) => show(anchor ? anchor(e.currentTarget) : e.currentTarget, render, 0),
       onBlur: hide,
@@ -63,6 +69,17 @@ export function TooltipProvider({ children }) {
     const arrow = Math.min(Math.max(cx - left, 14), box.width - 14)
     setPos({ left, top, side, arrow })
   }, [state])
+
+  // touch: remember taps, and close the card when the tap lands outside its element
+  useLayoutEffect(() => {
+    const onTouch = (e) => {
+      lastTouch.current = Date.now()
+      const s = current.current
+      if (s && !s.el.contains(e.target)) hide()
+    }
+    document.addEventListener('touchstart', onTouch, { passive: true, capture: true })
+    return () => document.removeEventListener('touchstart', onTouch, { capture: true })
+  }, [hide])
 
   useLayoutEffect(() => {
     if (!state) return

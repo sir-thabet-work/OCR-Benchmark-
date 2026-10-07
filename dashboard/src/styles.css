@@ -122,6 +122,8 @@ body {
   color: var(--ink);
   font: 15px/1.55 var(--font-ui);
   -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
 button { font: inherit; color: inherit; }
@@ -507,11 +509,117 @@ code { font-family: var(--font-num); font-size: 0.88em; }
 
 .footer { margin-top: 56px; padding-top: 16px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
 
+.name-short { display: none; }
+.swipe-hint { display: none; }
+
+/* ---------- phones ---------- */
 @media (max-width: 760px) {
-  .page { padding-inline: 16px; padding-block: 24px 40px; }
+  .page {
+    padding-inline: max(16px, env(safe-area-inset-left)) max(16px, env(safe-area-inset-right));
+    padding-block: 24px 40px;
+  }
   .source, .method, .context { grid-template-columns: 1fr; }
   .outputs { grid-template-columns: 1fr; }
-  .tile-value { font-size: 28px; }
+  .section { margin-top: 44px; scroll-margin-top: 56px; }
+  .section-head h2 { font-size: 21px; }
+  .masthead-lede { font-size: 15.5px; }
+
+  /* the masthead's children join the page, so the section links can stick to the top while scrolling */
+  .masthead { display: contents; }
+  .toc {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    flex-wrap: nowrap;
+    gap: 6px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    margin: 16px -16px 18px;
+    padding: 8px 16px;
+    background: color-mix(in srgb, var(--bg) 92%, transparent);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .toc::-webkit-scrollbar { display: none; }
+  .toc a {
+    flex: none;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    font-size: 13.5px;
+  }
+
+  .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .tile { padding: 12px 14px; }
+  .tile-value { font-size: 26px; }
+  .tile-label, .tile-foot { font-size: 12px; }
+  .round-filter .seg { padding: 8px 14px; }
+
+  .swipe-hint { display: block; margin: 0 0 8px; font-size: 12.5px; color: var(--muted); }
+  .swipe-hint::after { content: ' →'; }
+
+  /* tables: keep the model column pinned while the numbers scroll */
+  .name-full { display: none; }
+  .name-short { display: inline; }
+  .board { font-size: 13px; }
+  .board th, .board td { padding: 9px 10px; }
+  .board .col-model {
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    min-width: 112px;
+    max-width: 132px;
+    background: var(--surface);
+    box-shadow: inset -1px 0 0 var(--line);
+  }
+  .board thead th.col-model { background: var(--surface-2); }
+  .row-ref .col-model { background: color-mix(in srgb, var(--reference-bg) 35%, var(--surface)); }
+  .board .link { font-size: 14px; }
+  .row-sub .chip, .row-sub .muted { display: none; }
+  .bar-track { display: none; }
+
+  .heat { min-width: 660px; padding: 4px; }
+  .heat tbody th, .heat-corner {
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    background: var(--surface);
+    font-size: 12.5px;
+    padding-left: 4px;
+    box-shadow: inset -1px 0 0 var(--line);
+  }
+  .heat thead th:not(.heat-corner) { min-width: 56px; }
+  .heat-cell { min-height: 38px; font-size: 12px; }
+
+  .chart { padding: 12px; }
+  .chart-box { overflow-x: auto; margin-inline: -4px; }
+  .chart svg { min-width: 600px; }
+
+  /* long lists become swipeable strips */
+  .cards, .picker {
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    margin-inline: -16px;
+    padding: 4px 16px 8px;
+    scroll-padding-inline: 16px;
+  }
+  .cards::-webkit-scrollbar, .picker::-webkit-scrollbar { display: none; }
+  .cards { grid-auto-columns: 82%; }
+  .picker { grid-auto-columns: 136px; }
+  .card, .pick { scroll-snap-align: start; }
+  .card:hover { transform: none; }
+
+  .specimen-img img { max-height: 300px; }
+  .ocr { font-size: 17px; max-height: 280px; }
+  .out .ocr { font-size: 16px; max-height: 170px; }
+  .out-metrics { gap: 4px 12px; }
+  .fold summary { padding: 11px 12px; }
+  .context-card { padding: 16px; }
 }
 
 /* ---------- rounds ---------- */

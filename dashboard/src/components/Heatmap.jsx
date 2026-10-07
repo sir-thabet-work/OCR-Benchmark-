@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { BINS, METRICS, binOf, binWord, data, fmt, isOverlap, preview, secs } from '../lib.js'
+import { BINS, METRICS, SHORT, binOf, binWord, data, fmt, isOverlap, preview, secs } from '../lib.js'
 import { ErrorPill, RoundBadge } from './Chips.jsx'
 import { ImageTip, ModelTip } from './Tips.jsx'
 import { TipCard, TipFlags, TipRows, TipText, useTip } from './Tooltip.jsx'
@@ -82,6 +82,7 @@ export default function Heatmap({ models, onSelect }) {
         ))}
       </div>
 
+      <p className="swipe-hint" aria-hidden="true">Swipe the grid sideways for all 10 images</p>
       <div className="table-wrap">
         <table className="heat">
           <thead>
@@ -101,7 +102,8 @@ export default function Heatmap({ models, onSelect }) {
                 <th scope="row" className={m.level === 'reference' ? 'heat-ref' : ''}>
                   <RoundBadge round={m.round} />{' '}
                   <span className="heat-name" tabIndex={0} {...tip(() => <ModelTip m={m} />)}>
-                    {m.name}
+                    <span className="name-full">{m.name}</span>
+                    <span className="name-short">{SHORT[m.id] ?? m.name}</span>
                   </span>
                 </th>
                 {data.images.map((img) => {
