@@ -1,6 +1,8 @@
 import { useEffect, useRef } from 'react'
 import { data, imageById, fmt, isOverlap, secs } from '../lib.js'
 import { ErrorPill, RoundBadge, StatusChip } from './Chips.jsx'
+import { ImageTip, ModelTip } from './Tips.jsx'
+import { useTip } from './Tooltip.jsx'
 
 const GT_FORMAT = { '06': 'HTML source', '09': 'Markdown source' }
 
@@ -27,6 +29,7 @@ function OutputText({ output }) {
 }
 
 export default function Explorer({ models, imageId, setImageId, focusModel }) {
+  const tip = useTip()
   const img = imageById[imageId]
   const cardRefs = useRef({})
 
@@ -48,6 +51,7 @@ export default function Explorer({ models, imageId, setImageId, focusModel }) {
             aria-selected={i.id === imageId}
             className={`pick ${i.id === imageId ? 'pick-on' : ''}`}
             onClick={() => setImageId(i.id)}
+            {...tip(() => <ImageTip img={i} models={models} />)}
           >
             <span className="pick-num">{i.num}</span>
             <span className="pick-scn">{i.scenario}</span>
@@ -86,7 +90,11 @@ export default function Explorer({ models, imageId, setImageId, focusModel }) {
             >
               <div className="out-head">
                 <span className="out-rank">{i + 1}</span>
-                <span className="out-name">{m.name}</span>
+                <span className="out-name">
+                  <span className="out-name-hit" tabIndex={0} {...tip(() => <ModelTip m={m} />)}>
+                    {m.name}
+                  </span>
+                </span>
                 <RoundBadge round={m.round} />
                 <StatusChip level={m.level}>{m.verdict}</StatusChip>
               </div>

@@ -354,21 +354,6 @@ code { font-family: var(--font-num); font-size: 0.88em; }
 .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; }
 .dot-open { background: var(--accent); }
 .dot-ref { background: var(--ref); }
-.tooltip {
-  position: absolute;
-  transform: translate(-50%, calc(-100% - 14px));
-  background: var(--ink);
-  color: var(--bg);
-  border-radius: 8px;
-  padding: 8px 10px;
-  font-size: 12.5px;
-  display: grid;
-  gap: 2px;
-  pointer-events: none;
-  white-space: nowrap;
-  box-shadow: 0 4px 14px var(--ring);
-}
-.tooltip-note { max-width: 240px; white-space: normal; opacity: 0.85; }
 .chart figcaption { margin-top: 8px; font-size: 13px; color: var(--muted); }
 
 /* ---------- explorer ---------- */
@@ -480,3 +465,84 @@ code { font-family: var(--font-num); font-size: 0.88em; }
 .round-filter .seg-on { border-color: var(--accent); }
 .heat-cell.is-overlap { outline: 2px dashed var(--warning-ink); outline-offset: -4px; }
 .overlap-mark { position: absolute; bottom: 0; right: 4px; font-size: 10px; }
+
+/* ---------- hover cards ---------- */
+.tip {
+  position: fixed;
+  z-index: 50;
+  width: max-content;
+  max-width: min(340px, calc(100vw - 16px));
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  box-shadow: 0 12px 32px -8px rgba(13, 17, 23, 0.28), 0 2px 6px rgba(13, 17, 23, 0.08);
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(4px) scale(0.98);
+  transition: opacity 0.12s ease, transform 0.12s ease;
+}
+.tip-in { opacity: 1; transform: none; }
+.tip::after {
+  content: '';
+  position: absolute;
+  left: calc(var(--arrow, 50%) - 6px);
+  width: 10px;
+  height: 10px;
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  transform: rotate(45deg);
+}
+.tip-above::after { bottom: -6px; border-top: 0; border-left: 0; }
+.tip-below::after { top: -6px; border-bottom: 0; border-right: 0; }
+.tip-card { padding: 12px 14px; display: grid; gap: 8px; font-size: 13px; line-height: 1.45; }
+.tip-card > .tip-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.tip-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.tip-badges { display: inline-flex; gap: 4px; }
+.tip-title { font-size: 15px; font-weight: 600; line-height: 1.3; margin-top: -4px; }
+.tip-metric { display: flex; align-items: center; gap: 10px; }
+.tip-metric .pill { font-size: 15px; padding: 2px 10px; }
+.tip-metric-label { color: var(--ink-2); font-weight: 500; }
+.tip-rows { margin: 0; display: grid; gap: 3px; }
+.tip-rows > div { display: grid; grid-template-columns: minmax(110px, auto) 1fr; gap: 12px; }
+.tip-rows dt { color: var(--muted); }
+.tip-rows dd { margin: 0; text-align: right; font-family: var(--font-num); font-size: 12.5px; font-variant-numeric: tabular-nums; }
+.tip-text { margin: 0; color: var(--ink-2); }
+.tip-flags { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.tip-flag { padding: 3px 8px; border-radius: 6px; font-size: 12px; font-weight: 600; }
+.tip-flag-good { background: var(--good-bg); color: var(--good-ink); }
+.tip-flag-warning { background: var(--warning-bg); color: var(--warning-ink); }
+.tip-flag-critical { background: var(--critical-bg); color: var(--critical-ink); }
+.tip-preview {
+  margin: 0;
+  padding: 8px 10px;
+  border-radius: 6px;
+  background: var(--surface-2);
+  font: 15px/1.7 var(--font-ar);
+  unicode-bidi: plaintext;
+  max-height: 96px;
+  overflow: hidden;
+}
+.tip-thumb {
+  display: block;
+  max-width: 100%;
+  max-height: 150px;
+  margin: 0 auto;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+  object-fit: contain;
+}
+.tip-hint { padding-top: 8px; border-top: 1px solid var(--line); font-size: 12px; color: var(--accent-ink); font-weight: 500; }
+
+/* elements that open a hover card */
+.chip[tabindex], .round[tabindex], .caveat, .legend-item[tabindex], .heat-col, .heat-name, .out-name-hit, .tile { cursor: help; }
+.heat-col { cursor: help; border-radius: 4px; }
+.heat-col:hover, .heat-name:hover, .out-name-hit:hover { color: var(--accent-ink); }
+.heat-name, .out-name-hit { text-decoration: underline dotted var(--line-strong); text-underline-offset: 3px; }
+.num-hit { display: inline-flex; justify-content: flex-end; cursor: help; }
+.tile { transition: border-color 0.15s; }
+.tile:hover { border-color: var(--line-strong); }
+@media (prefers-reduced-motion: reduce) {
+  .tip { transition: none; transform: none; }
+}
