@@ -513,10 +513,28 @@ class DotsOCR(Round2):
         self.model = AutoModelForCausalLM.from_pretrained(  # torch_dtype: transformers 4.51 has no dtype=
             local, torch_dtype=dtype, device_map="cuda", trust_remote_code=True, attn_implementation="sdpa",
         ).eval()
+        if dtype != torch.bfloat16:
+            # its vision encoder casts input to bf16 by default (forward(..., bf16=True));
+            # without bf16 weights (T4) that clashes with the fp16 weights
+            vision = self.model.vision_tower
+            vision_forward = vision.forward
+            vision.forward = lambda hidden_states, grid_thw, bf16=False: vision_forward(hidden_states, grid_thw, bf16=False)
         self.processor = load_processor(local, trust_remote_code=True)
         self.precision = str(dtype)
 
+    @staticmethod
+    def pad_to_min(image, side=28):
+        """transformers 4.51 rejects images under 28 px (newer versions upscale them).
+        Pad with white instead: image 10 is 24 px tall."""
+        w, h = image.size
+        if w >= side and h >= side:
+            return image
+        canvas = Image.new("RGB", (max(w, side), max(h, side)), "white")
+        canvas.paste(image, ((canvas.width - w) // 2, (canvas.height - h) // 2))
+        return canvas
+
     def predict(self, image):
+        image = self.pad_to_min(image)
         text = self.processor.apply_chat_template(chat(image, self.prompt), tokenize=False, add_generation_prompt=True)
         inputs = self.processor(text=[text], images=[image], padding=True, return_tensors="pt")
         # newer Qwen-VL processors add this field; dots.ocr's older remote code rejects it
