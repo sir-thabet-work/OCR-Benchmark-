@@ -495,6 +495,10 @@ class DotsOCR(Round2):
     Uses the repo's plain-text prompt ("prompt_ocr"), not the layout-JSON one.
     The weights must sit in a folder without a dot in its name (a known issue
     with its remote code), so they are downloaded to .../DotsOCR first.
+
+    Needs transformers==4.51.3, the version its GitHub repo pins: on 4.57 its
+    processor fails (no video processor), and on 5.x its generation code does
+    (cache_position is None). Run it alone on 4.51.3, then upgrade back.
     """
     id = "dots"
     repo = "dots-studio/dots.ocr"
@@ -506,8 +510,8 @@ class DotsOCR(Round2):
 
         local = snapshot_download(self.repo, local_dir=os.path.join(os.path.expanduser("~"), "weights", "DotsOCR"))
         dtype = pick_dtype()
-        self.model = AutoModelForCausalLM.from_pretrained(
-            local, dtype=dtype, device_map="cuda", trust_remote_code=True, attn_implementation="sdpa",
+        self.model = AutoModelForCausalLM.from_pretrained(  # torch_dtype: transformers 4.51 has no dtype=
+            local, torch_dtype=dtype, device_map="cuda", trust_remote_code=True, attn_implementation="sdpa",
         ).eval()
         self.processor = load_processor(local, trust_remote_code=True)
         self.precision = str(dtype)
