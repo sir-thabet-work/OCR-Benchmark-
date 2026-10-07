@@ -2,6 +2,8 @@
 
 > **Goal:** compare the candidate models from the [search methodology](search_methodology.md) on the same images, with the same metrics, so the choice is based on measured results and not on leaderboard claims.
 
+> **Round 1** (this document): results in [round1_notes.md](round1_notes.md). **Round 2**, six more candidates under the same protocol: [evaluation_strategy_round2.md](evaluation_strategy_round2.md).
+
 ---
 
 ## 1. Strategy at a Glance
@@ -98,10 +100,10 @@ The code is in [eval/](../eval/) and runs on a GPU notebook (Colab or Kaggle):
 |------|--------------|
 | [eval/ocr_eval_colab.ipynb](../eval/ocr_eval_colab.ipynb) | Step-by-step notebook: install, run all seven models, score, show the leaderboard and CER matrix |
 | [eval/models.py](../eval/models.py) | How each model is loaded and prompted, following its card |
-| [eval/run_models.py](../eval/run_models.py) | Runs models on `test_images/`. Writes `outputs/<model>/NN_name.txt` plus `_run.json` (prompt, model revision, library versions, GPU, latency and VRAM per image, errors) |
+| [eval/run_models.py](../eval/run_models.py) | Runs models on `test_images/`. Writes `outputs/round1/<model>/NN_name.txt` plus `_run.json` (prompt, model revision, library versions, GPU, latency and VRAM per image, errors) |
 | [eval/score.py](../eval/score.py) | Normalizes, computes the metrics in Section 4, writes `results/results.json` |
 
-Each prediction is stored as `outputs/<model_name>/NN_name.txt`, next to its ground truth by file name.
+Each prediction is stored as `outputs/round1/<model_name>/NN_name.txt`, next to its ground truth by file name.
 
 ---
 

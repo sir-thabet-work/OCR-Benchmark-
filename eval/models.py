@@ -7,6 +7,7 @@ the cards is repetition_penalty, where the card sets one.
 """
 import io
 import os
+import re
 import time
 
 from PIL import Image, ImageEnhance
@@ -63,14 +64,51 @@ def chat(image, prompt, system=None):
     return messages
 
 
+def strip_think(raw):
+    """Thinking models (amad) may reason in <think>...</think> first; keep the answer after it.
+
+    An unfinished <think> block means the budget ran out before the answer: that
+    returns an empty string, which scoring counts as a failure.
+    """
+    if "</think>" in raw:
+        raw = raw.rsplit("</think>", 1)[1]
+    return re.sub(r"^\s*<think>.*", "", raw, flags=re.S).strip()
+
+
+def load_4bit(model_class, repo, **processor_kwargs):
+    """7-8B Qwen-VL models in nf4 so they fit a 16 GB T4.
+
+    The vision encoder ("visual") and lm_head stay in 16-bit: only the language
+    model is quantized, so image reading is not degraded by quantization.
+    """
+    import transformers
+    from transformers import BitsAndBytesConfig
+
+    dtype = pick_dtype()
+    model = getattr(transformers, model_class).from_pretrained(
+        repo,
+        dtype=dtype,
+        device_map="cuda",
+        quantization_config=BitsAndBytesConfig(
+            load_in_4bit=True,
+            bnb_4bit_quant_type="nf4",
+            bnb_4bit_compute_dtype=dtype,
+            llm_int8_skip_modules=["visual", "lm_head"],
+        ),
+    ).eval()
+    return model, load_processor(repo, **processor_kwargs), f"nf4 language model, 16-bit vision, {dtype} compute"
+
+
 class OCRModel:
     id = ""
     repo = ""
     prompt = ""
     is_api = False
+    round = 1  # benchmark round the model belongs to: outputs go to outputs/round<N>/<id>/
+    card_max_new_tokens = None  # set when the card requires a larger budget than the default
 
     def __init__(self, max_new_tokens=MAX_NEW_TOKENS):
-        self.max_new_tokens = max_new_tokens
+        self.max_new_tokens = max(max_new_tokens, self.card_max_new_tokens or 0)
         self.model = None
         self.processor = None
         self.precision = None
@@ -346,6 +384,140 @@ class Sherif(OCRModel):
         return generate(self.model, self.processor, inputs, self.max_new_tokens, repetition_penalty=1.1), {}
 
 
+# ---------------------------------------------------------------- round 2
+
+class Round2(OCRModel):
+    round = 2
+
+
+class AmadVLM6(Round2):
+    """amad-iq amad-vlm6: TIES merge of amad-vlm5 and DIMI-Arabic-OCR-V2 (Qwen2.5-VL-7B), 4-bit here.
+
+    Card settings: its prompt, repetition_penalty=1.05, 4,096 new tokens (shorter
+    budgets truncate dense pages), and only the text after the last </think> is kept.
+    Training overlap: amad-vlm5 saw KHATT and Muharaf benchmark images (our 02, 04).
+    """
+    id = "amad6"
+    repo = "amad-iq/amad-vlm6"
+    prompt = "Extract the text in the image. Give me the final text, nothing else."
+    card_max_new_tokens = 4096
+
+    def load(self):
+        self.model, self.processor, self.precision = load_4bit("Qwen2_5_VLForConditionalGeneration", self.repo)
+
+    def predict(self, image):
+        inputs = self.processor.apply_chat_template(
+            chat(image, self.prompt), tokenize=True, add_generation_prompt=True,
+            return_dict=True, return_tensors="pt",
+        )
+        raw = generate(self.model, self.processor, inputs, self.max_new_tokens, repetition_penalty=1.05)
+        return strip_think(raw), {"raw": raw, "thinking": "<think>" in raw}
+
+
+class AmadVLM5(AmadVLM6):
+    """amad-iq amad-vlm5: Arabic OCR thinking model on Qwen2.5-VL-7B, 4-bit here. Same card settings as vlm6."""
+    id = "amad5"
+    repo = "amad-iq/amad-vlm5"
+
+
+class Hunyuan(Round2):
+    """Tencent HunyuanOCR-1.5 (1B), native transformers integration (needs transformers >= 5.13).
+
+    Card: plain text-extraction prompt, greedy, repetition_penalty=1.08. Without
+    bf16 (T4) it runs in fp32: fp16 risks overflow, and at 1B fp32 still fits easily.
+    """
+    id = "hunyuan"
+    repo = "tencent/HunyuanOCR"
+    prompt = "请提取图片中的文字内容。"  # "Extract the text content in the image."
+
+    def load(self):
+        from transformers import HunYuanVLForConditionalGeneration
+
+        dtype = torch.bfloat16 if pick_dtype() == torch.bfloat16 else torch.float32
+        self.model = HunYuanVLForConditionalGeneration.from_pretrained(
+            self.repo, dtype=dtype, device_map="cuda", trust_remote_code=True,
+        ).eval()
+        self.processor = load_processor(self.repo, trust_remote_code=True, use_fast=False)
+        self.precision = str(dtype)
+
+    def predict(self, image):
+        inputs = self.processor.apply_chat_template(
+            chat(image, self.prompt), tokenize=True, add_generation_prompt=True,
+            return_dict=True, return_tensors="pt",
+        )
+        return generate(self.model, self.processor, inputs, self.max_new_tokens, repetition_penalty=1.08), {}
+
+
+GENERAL_VLM_PROMPT = "Extract all text from the image."
+
+
+class AIN(Round2):
+    """MBZUAI AIN-7B: bilingual general VLM on Qwen2-VL-7B, 4-bit here.
+
+    Not an OCR specialist and the card gives no OCR prompt, so it gets the same
+    plain prompt as Fanar. No repetition penalty: the card sets none.
+    """
+    id = "ain"
+    repo = "MBZUAI/AIN"
+    prompt = GENERAL_VLM_PROMPT
+
+    def load(self):
+        self.model, self.processor, self.precision = load_4bit("Qwen2VLForConditionalGeneration", self.repo)
+
+    def predict(self, image):
+        text = self.processor.apply_chat_template(chat(image, self.prompt), tokenize=False, add_generation_prompt=True)
+        inputs = self.processor(text=[text], images=[image], padding=True, return_tensors="pt")
+        return generate(self.model, self.processor, inputs, self.max_new_tokens), {}
+
+
+class Fanar(Round2):
+    """QCRI Fanar-2-Oryx-IVU: Arabic-tuned image understanding on Qwen2.5-VL-7B, 4-bit here.
+
+    Trained partly on Arabic fonts and calligraphy transcription. The card gives no
+    OCR prompt, so it gets the same plain prompt as AIN.
+    """
+    id = "fanar"
+    repo = "QCRI/Fanar-2-Oryx-IVU"
+    prompt = GENERAL_VLM_PROMPT
+
+    def load(self):
+        self.model, self.processor, self.precision = load_4bit("Qwen2_5_VLForConditionalGeneration", self.repo)
+
+    def predict(self, image):
+        text = self.processor.apply_chat_template(chat(image, self.prompt), tokenize=False, add_generation_prompt=True)
+        inputs = self.processor(text=[text], images=[image], padding=True, return_tensors="pt")
+        return generate(self.model, self.processor, inputs, self.max_new_tokens), {}
+
+
+class DotsOCR(Round2):
+    """dots.ocr (1.7B LLM + vision): multilingual document parser, custom code in repo.
+
+    Uses the repo's plain-text prompt ("prompt_ocr"), not the layout-JSON one.
+    The weights must sit in a folder without a dot in its name (a known issue
+    with its remote code), so they are downloaded to .../DotsOCR first.
+    """
+    id = "dots"
+    repo = "dots-studio/dots.ocr"
+    prompt = "Extract the text content from this image."
+
+    def load(self):
+        from huggingface_hub import snapshot_download
+        from transformers import AutoModelForCausalLM
+
+        local = snapshot_download(self.repo, local_dir=os.path.join(os.path.expanduser("~"), "weights", "DotsOCR"))
+        dtype = pick_dtype()
+        self.model = AutoModelForCausalLM.from_pretrained(
+            local, dtype=dtype, device_map="cuda", trust_remote_code=True, attn_implementation="sdpa",
+        ).eval()
+        self.processor = load_processor(local, trust_remote_code=True)
+        self.precision = str(dtype)
+
+    def predict(self, image):
+        text = self.processor.apply_chat_template(chat(image, self.prompt), tokenize=False, add_generation_prompt=True)
+        inputs = self.processor(text=[text], images=[image], padding=True, return_tensors="pt")
+        return generate(self.model, self.processor, inputs, self.max_new_tokens), {}
+
+
 class Gemini(OCRModel):
     """Frontier upper bound via the Gemini API.
 
@@ -413,4 +585,6 @@ class Gemini(OCRModel):
         return (resp.text or "").strip(), extra
 
 
-MODELS = {m.id: m for m in [Qari, Baseer, Legal, Katib, Waqf, Sherif, Gemini]}
+ROUND_1 = [Qari, Baseer, Legal, Katib, Waqf, Sherif, Gemini]
+ROUND_2 = [AmadVLM6, AmadVLM5, Hunyuan, AIN, Fanar, DotsOCR]
+MODELS = {m.id: m for m in ROUND_1 + ROUND_2}

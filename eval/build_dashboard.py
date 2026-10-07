@@ -19,7 +19,7 @@ OUT_JSON = ROOT / "dashboard" / "src" / "data" / "benchmark.json"
 OUT_IMAGES = ROOT / "dashboard" / "public" / "images"
 
 sys.path.insert(0, str(ROOT / "eval"))
-from models import clean_repeated_substrings  # noqa: E402
+from score import find_loop  # noqa: E402
 
 # level: reference | good | warning | critical
 MODEL_INFO = {
@@ -82,25 +82,6 @@ SOURCES = {
 }
 
 
-def find_loop(text):
-    """Return (chars before the loop, repeated unit) or None.
-
-    Uses the Nakba pipeline's detector (a unit repeated 10+ times at the end).
-    Outputs cut at the token limit end mid-unit, so a short partial tail is trimmed
-    first. Pure whitespace padding does not count as a loop.
-    """
-    text = text.rstrip("�").rstrip()
-    for trim in range(40):
-        head = text[:len(text) - trim] if trim else text
-        kept = clean_repeated_substrings(head)
-        if len(kept) < len(head):
-            unit = head[len(kept):][:60]
-            if not unit.strip():
-                return None
-            return len(kept), unit
-    return None
-
-
 def main():
     res = json.loads((ROOT / "results" / "results.json").read_text(encoding="utf-8"))
 
@@ -125,7 +106,7 @@ def main():
             )
         s = m["summary"]
         models.append(dict(
-            id=mid, **info, latencyCaveat=LATENCY_CAVEATS.get(mid),
+            id=mid, round=m.get("round", 1), **info, latencyCaveat=LATENCY_CAVEATS.get(mid),
             precision=m["info"].get("precision"), repo=m["info"].get("repo"),
             summary=dict(cerMean=s["cer_mean"], cerMedian=s["cer_median"], cerP95=s["cer_p95"],
                          cerNdMean=s["cer_no_diacritics_mean"], werMean=s["wer_mean"],

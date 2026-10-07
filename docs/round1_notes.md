@@ -6,7 +6,7 @@
 |------|---------------|
 | [results/outputs.md](../results/outputs.md) | Every model's raw output next to the ground truth, per image, with CER/WER/latency |
 | [results/results.json](../results/results.json) | Full scores (per image and per model) produced by `eval/score.py` |
-| `outputs/<model>/` | One `.txt` per image (what was scored), `.raw.txt` where the raw output differs, `_run.json` (prompt, revision, versions, latency, VRAM) |
+| `outputs/round1/<model>/` | One `.txt` per image (what was scored), `.raw.txt` where the raw output differs, `_run.json` (prompt, revision, versions, latency, VRAM) |
 
 ---
 

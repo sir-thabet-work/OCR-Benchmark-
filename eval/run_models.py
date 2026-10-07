@@ -4,12 +4,13 @@ Usage:
     python eval/run_models.py qari                # one model
     python eval/run_models.py qari katib waqf     # several, one after another
     python eval/run_models.py all
+    python eval/run_models.py round2              # the six round-2 models
     python eval/run_models.py gemini --resume     # only rerun images that failed or are missing
 
 Writes, per model:
-    outputs/<model>/<image>.txt       text that gets scored
-    outputs/<model>/<image>.raw.txt   raw model output, when it differs (JSON, loop cleanup)
-    outputs/<model>/_run.json         prompt, versions, GPU, latency and VRAM per image, errors
+    outputs/round<N>/<model>/<image>.txt       text that gets scored
+    outputs/round<N>/<model>/<image>.raw.txt   raw model output, when it differs (JSON, loop cleanup, thinking)
+    outputs/round<N>/<model>/_run.json         prompt, versions, GPU, latency and VRAM per image, errors
 """
 import argparse
 import json
@@ -28,7 +29,7 @@ except ImportError:  # API-only runs (Gemini) work without torch
     torch = None
 
 sys.path.insert(0, str(Path(__file__).parent))
-from models import MAX_NEW_TOKENS, MODELS  # noqa: E402
+from models import MAX_NEW_TOKENS, MODELS, ROUND_1, ROUND_2  # noqa: E402
 
 IMAGE_EXTS = {".png", ".jpg", ".jpeg", ".webp"}
 
@@ -55,15 +56,16 @@ def model_revision(repo):
 
 def run_model(model_id, images, out_root, max_new_tokens, resume=False):
     model = MODELS[model_id](max_new_tokens=max_new_tokens)
-    out_dir = out_root / model_id
+    out_dir = out_root / f"round{model.round}" / model_id
     out_dir.mkdir(parents=True, exist_ok=True)
     run_file = out_dir / "_run.json"
     now = datetime.now(timezone.utc).isoformat()
     run = {
         "model": model_id,
+        "round": model.round,
         "started_at": now,
         "prompt": model.prompt,
-        "max_new_tokens": max_new_tokens,
+        "max_new_tokens": model.max_new_tokens,  # a card may require more than the default
         "environment": environment(),
         "images": {},
     }
@@ -136,15 +138,16 @@ def run_model(model_id, images, out_root, max_new_tokens, resume=False):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("models", nargs="+", help=f"model ids ({', '.join(MODELS)}) or 'all'")
+    ap.add_argument("models", nargs="+", help=f"model ids ({', '.join(MODELS)}), 'round1', 'round2' or 'all'")
     ap.add_argument("--images", default="test_images", type=Path)
     ap.add_argument("--out", default="outputs", type=Path)
     ap.add_argument("--max-new-tokens", default=MAX_NEW_TOKENS, type=int)
     ap.add_argument("--resume", action="store_true",
-                    help="skip images that already succeeded in outputs/<model>/_run.json")
+                    help="skip images that already succeeded in outputs/round<N>/<model>/_run.json")
     args = ap.parse_args()
 
-    ids = list(MODELS) if args.models == ["all"] else args.models
+    groups = {"all": list(MODELS), "round1": [m.id for m in ROUND_1], "round2": [m.id for m in ROUND_2]}
+    ids = [i for name in args.models for i in groups.get(name, [name])]
     unknown = [m for m in ids if m not in MODELS]
     if unknown:
         ap.error(f"unknown model(s): {', '.join(unknown)}")

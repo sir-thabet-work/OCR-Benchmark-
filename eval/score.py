@@ -17,7 +17,12 @@ from datetime import datetime, timezone
 from html.parser import HTMLParser
 from pathlib import Path
 
+import sys
+
 import jiwer
+
+sys.path.insert(0, str(Path(__file__).parent))
+from models import clean_repeated_substrings  # noqa: E402
 
 IMAGE_EXTS = {".png", ".jpg", ".jpeg", ".webp"}
 
@@ -102,6 +107,23 @@ def error_rate(fn, reference, hypothesis):
     return float(fn(reference, hypothesis))
 
 
+def find_loop(text):
+    """Return (chars before the loop, repeated unit) or None.
+
+    Uses the Nakba pipeline's detector (a unit repeated 10+ times at the end).
+    Outputs cut at the token limit end mid-unit, so a short partial tail is
+    trimmed first. Pure whitespace padding does not count as a loop.
+    """
+    text = text.rstrip("�").rstrip()
+    for trim in range(40):
+        head = text[:len(text) - trim] if trim else text
+        kept = clean_repeated_substrings(head)
+        if len(kept) < len(head):
+            unit = head[len(kept):][:60]
+            return (len(kept), unit) if unit.strip() else None
+    return None
+
+
 def percentile(values, q):
     values = sorted(values)
     if not values:
@@ -128,6 +150,9 @@ def score_model(model_dir, images, args):
         ref, hyp = normalize(gt), normalize(pred)
         ref_nd, hyp_nd = normalize(gt, False), normalize(pred, False)
         cer = error_rate(jiwer.cer, ref, hyp)
+        # secondary score: the same CER after cutting a repetition loop (headline stays raw CER)
+        loop = find_loop(pred)
+        cer_cut = error_rate(jiwer.cer, ref, normalize(pred[:loop[0]])) if loop else cer
         error = meta.get("error") or (None if pred_file.exists() else "no output file")
         reasons = [why for why, hit in (
             ("error", bool(error)),
@@ -139,6 +164,9 @@ def score_model(model_dir, images, args):
             "cer": r(cer),
             "cer_no_diacritics": r(error_rate(jiwer.cer, ref_nd, hyp_nd)),
             "wer": r(error_rate(jiwer.wer, ref, hyp)),
+            "loop": bool(loop),
+            "loop_kept_chars": loop[0] if loop else None,
+            "cer_loop_cut": r(cer_cut),
             "failed": bool(reasons),
             "failure_reasons": reasons,
             "latency_s": meta.get("latency_s"),
@@ -172,6 +200,9 @@ def score_model(model_dir, images, args):
         "cer_median": r(statistics.median(cers)),
         "cer_p95": r(percentile(cers, 95)),
         "cer_no_diacritics_mean": r(statistics.mean(x["cer_no_diacritics"] for x in rows)),
+        "loops": sum(x["loop"] for x in rows),
+        "cer_mean_loop_cut": r(statistics.mean(x["cer_loop_cut"] for x in rows)),
+        "cer_median_loop_cut": r(statistics.median(x["cer_loop_cut"] for x in rows)),
         "wer_mean": r(statistics.mean(x["wer"] for x in rows)),
         "failure_rate": r(sum(x["failed"] for x in rows) / len(rows)),
         "failed_images": [k for k, x in per_image.items() if x["failed"]],
@@ -197,8 +228,11 @@ def main():
     args = ap.parse_args()
 
     images = sorted(p for p in args.images.iterdir() if p.suffix.lower() in IMAGE_EXTS)
-    model_dirs = sorted(d for d in args.outputs.iterdir() if d.is_dir())
-    models = {d.name: score_model(d, images, args) for d in model_dirs}
+    # outputs/round<N>/<model>/: model ids are unique across rounds
+    model_dirs = sorted((d for r in args.outputs.glob("round*") if r.is_dir() for d in r.iterdir() if d.is_dir()),
+                        key=lambda d: (d.parent.name, d.name))
+    models = {d.name: {"round": int(d.parent.name.removeprefix("round")), **score_model(d, images, args)}
+              for d in model_dirs}
 
     results = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
@@ -221,13 +255,15 @@ def main():
     args.results.parent.mkdir(parents=True, exist_ok=True)
     args.results.write_text(json.dumps(results, ensure_ascii=False, indent=2), encoding="utf-8")
 
-    print(f"{'model':<8} {'CER':>7} {'CER-nd':>7} {'WER':>7} {'p95':>7} {'fail':>6} {'s/page':>7} {'VRAM':>6}")
+    print(f"{'model':<8} {'rnd':>3} {'CER':>7} {'CER-nd':>7} {'WER':>7} {'p95':>7} {'fail':>6} {'loops':>5} "
+          f"{'cut':>7} {'s/page':>7} {'VRAM':>6}")
     ranked = sorted(models.items(), key=lambda kv: kv[1]["summary"]["cer_median"])
     for name, m in ranked:
         s = m["summary"]
         fmt = lambda v, f="{:.3f}": "-" if v is None else f.format(v)  # noqa: E731
-        print(f"{name:<8} {fmt(s['cer_mean']):>7} {fmt(s['cer_no_diacritics_mean']):>7} "
+        print(f"{name:<8} {m['round']:>3} {fmt(s['cer_mean']):>7} {fmt(s['cer_no_diacritics_mean']):>7} "
               f"{fmt(s['wer_mean']):>7} {fmt(s['cer_p95']):>7} {fmt(s['failure_rate'], '{:.0%}'):>6} "
+              f"{s['loops']:>5} {fmt(s['cer_mean_loop_cut']):>7} "
               f"{fmt(s['latency_median_s'], '{:.1f}'):>7} {fmt(s['peak_vram_gb'], '{:.1f}'):>6}")
     print(f"\nwrote {args.results}")
 
