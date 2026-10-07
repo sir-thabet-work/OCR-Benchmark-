@@ -5,6 +5,7 @@ import Leaderboard from './components/Leaderboard.jsx'
 import Heatmap from './components/Heatmap.jsx'
 import SpeedChart from './components/SpeedChart.jsx'
 import Explorer from './components/Explorer.jsx'
+import Context from './components/Context.jsx'
 
 function Section({ id, title, lede, children }) {
   return (
@@ -60,13 +61,14 @@ export default function App() {
           test images and scored against verified ground truth. Lower error is better.
         </p>
         <nav className="toc" aria-label="Sections">
+          <a href="#context">Context</a>
+          <a href="#leaderboard">Leaderboard</a>
+          <a href="#method">Metrics</a>
           <a href="#models">Models</a>
           <a href="#findings">Findings</a>
-          <a href="#leaderboard">Leaderboard</a>
           <a href="#heatmap">Per image</a>
           <a href="#speed">Speed</a>
           <a href="#outputs">Outputs</a>
-          <a href="#method">Method</a>
         </nav>
         <StatTiles />
         <div className="round-filter" role="radiogroup" aria-label="Show models from">
@@ -87,16 +89,8 @@ export default function App() {
       </header>
 
       <main>
-        <Section
-          id="models"
-          title="Where each model stands"
-          lede="Ranked by median CER. Select a model to see its weakest image."
-        >
-          <ModelCards models={models} onPick={pickModel} />
-        </Section>
-
-        <Section id="findings" title="What the two rounds show">
-          <Findings />
+        <Section id="context" title="Before the numbers">
+          <Context />
         </Section>
 
         <Section
@@ -107,31 +101,7 @@ export default function App() {
           <Leaderboard models={models} onPick={pickModel} />
         </Section>
 
-        <Section
-          id="heatmap"
-          title="Error on every image"
-          lede="Each cell is one model reading one image. Select a cell to compare that image's outputs."
-        >
-          <Heatmap models={models} onSelect={openOutputs} />
-        </Section>
-
-        <Section
-          id="speed"
-          title="Accuracy against speed"
-          lede="Median CER against median seconds per page. Points toward the bottom left are better."
-        >
-          <SpeedChart models={models} onPick={pickModel} />
-        </Section>
-
-        <Section
-          id="outputs"
-          title="Read the outputs"
-          lede="Pick a test image to see what every model wrote, best first. Repetition loops are marked where they begin."
-        >
-          <Explorer models={models} imageId={imageId} setImageId={setImageId} focusModel={focusModel} />
-        </Section>
-
-        <Section id="method" title="How the scores work">
+        <Section id="method" title="How we measure">
           <div className="method">
             <dl className="defs">
               <div>
@@ -183,6 +153,42 @@ export default function App() {
               </ul>
             </div>
           </div>
+        </Section>
+
+        <Section
+          id="models"
+          title="Where each model stands"
+          lede="Ranked by median CER. Select a model to see its weakest image."
+        >
+          <ModelCards models={models} onPick={pickModel} />
+        </Section>
+
+        <Section id="findings" title="What the two rounds show">
+          <Findings />
+        </Section>
+
+        <Section
+          id="heatmap"
+          title="Error on every image"
+          lede="Each cell is one model reading one image. Select a cell to compare that image's outputs."
+        >
+          <Heatmap models={models} onSelect={openOutputs} />
+        </Section>
+
+        <Section
+          id="speed"
+          title="Accuracy against speed"
+          lede="Median CER against median seconds per page. Points toward the bottom left are better."
+        >
+          <SpeedChart models={models} onPick={pickModel} />
+        </Section>
+
+        <Section
+          id="outputs"
+          title="Read the outputs"
+          lede="Pick a test image to see what every model wrote, best first. Repetition loops are marked where they begin."
+        >
+          <Explorer models={models} imageId={imageId} setImageId={setImageId} focusModel={focusModel} />
         </Section>
       </main>
 
