@@ -515,6 +515,8 @@ class DotsOCR(Round2):
     def predict(self, image):
         text = self.processor.apply_chat_template(chat(image, self.prompt), tokenize=False, add_generation_prompt=True)
         inputs = self.processor(text=[text], images=[image], padding=True, return_tensors="pt")
+        # newer Qwen-VL processors add this field; dots.ocr's older remote code rejects it
+        inputs.pop("mm_token_type_ids", None)
         return generate(self.model, self.processor, inputs, self.max_new_tokens), {}
 
 
