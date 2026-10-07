@@ -508,10 +508,21 @@ class DotsOCR(Round2):
         from huggingface_hub import snapshot_download
         from transformers import AutoModelForCausalLM
 
+        from transformers import AutoConfig
+
         local = snapshot_download(self.repo, local_dir=os.path.join(os.path.expanduser("~"), "weights", "DotsOCR"))
+        # its vision config asks for flash-attention; without it the code falls back to eager
+        # attention, which runs out of memory on large pages. Its own sdpa class is memory-efficient.
+        config = AutoConfig.from_pretrained(local, trust_remote_code=True)
+        vision_config = config.vision_config
+        if isinstance(vision_config, dict):
+            vision_config["attn_implementation"] = "sdpa"
+        else:
+            vision_config.attn_implementation = "sdpa"
         dtype = pick_dtype()
         self.model = AutoModelForCausalLM.from_pretrained(  # torch_dtype: transformers 4.51 has no dtype=
-            local, torch_dtype=dtype, device_map="cuda", trust_remote_code=True, attn_implementation="sdpa",
+            local, config=config, torch_dtype=dtype, device_map="cuda", trust_remote_code=True,
+            attn_implementation="sdpa",
         ).eval()
         if dtype != torch.bfloat16:
             # its vision encoder casts input to bf16 by default (forward(..., bf16=True));
