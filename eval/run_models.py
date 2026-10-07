@@ -4,6 +4,7 @@ Usage:
     python eval/run_models.py qari                # one model
     python eval/run_models.py qari katib waqf     # several, one after another
     python eval/run_models.py all
+    python eval/run_models.py gemini --resume     # only rerun images that failed or are missing
 
 Writes, per model:
     outputs/<model>/<image>.txt       text that gets scored
@@ -19,8 +20,12 @@ import traceback
 from datetime import datetime, timezone
 from pathlib import Path
 
-import torch
 from PIL import Image
+
+try:
+    import torch
+except ImportError:  # API-only runs (Gemini) work without torch
+    torch = None
 
 sys.path.insert(0, str(Path(__file__).parent))
 from models import MAX_NEW_TOKENS, MODELS  # noqa: E402
@@ -29,13 +34,13 @@ IMAGE_EXTS = {".png", ".jpg", ".jpeg", ".webp"}
 
 
 def environment():
-    env = {"python": platform.python_version(), "torch": torch.__version__}
+    env = {"python": platform.python_version(), "torch": torch.__version__ if torch else None}
     for pkg in ("transformers", "peft", "bitsandbytes", "google.genai"):
         try:
             env[pkg] = __import__(pkg, fromlist=["__version__"]).__version__
         except Exception:
             env[pkg] = None
-    env["gpu"] = torch.cuda.get_device_name(0) if torch.cuda.is_available() else None
+    env["gpu"] = torch.cuda.get_device_name(0) if torch and torch.cuda.is_available() else None
     return env
 
 
@@ -48,19 +53,33 @@ def model_revision(repo):
         return None
 
 
-def run_model(model_id, images, out_root, max_new_tokens):
+def run_model(model_id, images, out_root, max_new_tokens, resume=False):
     model = MODELS[model_id](max_new_tokens=max_new_tokens)
     out_dir = out_root / model_id
     out_dir.mkdir(parents=True, exist_ok=True)
+    run_file = out_dir / "_run.json"
+    now = datetime.now(timezone.utc).isoformat()
     run = {
         "model": model_id,
-        "started_at": datetime.now(timezone.utc).isoformat(),
+        "started_at": now,
         "prompt": model.prompt,
         "max_new_tokens": max_new_tokens,
         "environment": environment(),
         "images": {},
     }
-    cuda = torch.cuda.is_available() and not model.is_api
+    if resume and run_file.exists():
+        # keep images that already succeeded; rerun only the failed or missing ones
+        previous = json.loads(run_file.read_text(encoding="utf-8"))
+        run["started_at"] = previous.get("started_at", now)
+        run["resumed_at"] = previous.get("resumed_at", []) + [now]
+        run["images"] = {
+            stem: meta for stem, meta in previous.get("images", {}).items()
+            if not meta.get("error") and (out_dir / f"{stem}.txt").exists()
+        }
+        images = [p for p in images if p.stem not in run["images"]]
+        print(f"=== {model_id}: resuming, {len(run['images'])} done, {len(images)} to run", flush=True)
+    save = lambda: run_file.write_text(json.dumps(run, ensure_ascii=False, indent=2), encoding="utf-8")  # noqa: E731
+    cuda = torch is not None and torch.cuda.is_available() and not model.is_api
 
     print(f"\n=== {model_id}: loading", flush=True)
     t0 = time.perf_counter()
@@ -69,7 +88,7 @@ def run_model(model_id, images, out_root, max_new_tokens):
     except Exception as e:
         run["load_error"] = f"{type(e).__name__}: {e}"
         traceback.print_exc()
-        (out_dir / "_run.json").write_text(json.dumps(run, ensure_ascii=False, indent=2), encoding="utf-8")
+        save()
         print(f"=== {model_id}: FAILED TO LOAD, skipped", flush=True)
         return
     run.update(repo=model.repo, revision=None if model.is_api else model_revision(model.repo),
@@ -106,9 +125,11 @@ def run_model(model_id, images, out_root, max_new_tokens):
         }
         status = f"ERROR {error}" if error else f"{len(text)} chars"
         print(f"  {path.name:<36} {latency:6.1f}s  {status}", flush=True)
+        save()  # after every image, so an interrupted run can be resumed
 
+    run["images"] = dict(sorted(run["images"].items()))
     run["finished_at"] = datetime.now(timezone.utc).isoformat()
-    (out_dir / "_run.json").write_text(json.dumps(run, ensure_ascii=False, indent=2), encoding="utf-8")
+    save()
     model.unload()
     print(f"=== {model_id}: done -> {out_dir}", flush=True)
 
@@ -119,6 +140,8 @@ def main():
     ap.add_argument("--images", default="test_images", type=Path)
     ap.add_argument("--out", default="outputs", type=Path)
     ap.add_argument("--max-new-tokens", default=MAX_NEW_TOKENS, type=int)
+    ap.add_argument("--resume", action="store_true",
+                    help="skip images that already succeeded in outputs/<model>/_run.json")
     args = ap.parse_args()
 
     ids = list(MODELS) if args.models == ["all"] else args.models
@@ -129,7 +152,7 @@ def main():
     images = sorted(p for p in args.images.iterdir() if p.suffix.lower() in IMAGE_EXTS)
     print(f"{len(images)} images from {args.images}")
     for model_id in ids:
-        run_model(model_id, images, args.out, args.max_new_tokens)
+        run_model(model_id, images, args.out, args.max_new_tokens, args.resume)
 
 
 if __name__ == "__main__":

@@ -7,9 +7,14 @@ the cards is repetition_penalty, where the card sets one.
 """
 import io
 import os
+import time
 
-import torch
 from PIL import Image, ImageEnhance
+
+try:
+    import torch
+except ImportError:  # API-only runs (Gemini) work without torch
+    torch = None
 
 MAX_NEW_TOKENS = 2048
 
@@ -80,7 +85,7 @@ class OCRModel:
     def unload(self):
         self.model = None
         self.processor = None
-        if torch.cuda.is_available():
+        if torch is not None and torch.cuda.is_available():
             torch.cuda.empty_cache()
 
 
@@ -254,18 +259,51 @@ class Waqf(OCRModel):
 
     The card's snippet points at Waqf-AI/written_ocr_paddle1.6, which is not
     public; the weights are in this repo. Trained on text lines (KHATT).
+
+    Needs transformers 4.x (its code uses ROPE_INIT_FUNCTIONS["default"],
+    removed in 5.x). Two fixes so the repo's own code loads and runs:
+    - config.json was saved by PaddleFormers with the language-model settings
+      nested under text_config, which the repo's config class never unpacks
+      (vocab_size stays at its 32000 default and generation setup crashes).
+      They are flattened back to the top level.
+    - the modeling code calls create_causal_mask(inputs_embeds=...), while
+      transformers 4.57 names it input_embeds; the keyword is renamed.
     """
     id = "waqf"
     repo = "Waqf-AI/waqf-ocr-hand-written-v1"
     prompt = "OCR:"
 
     def load(self):
-        from transformers import AutoModelForImageTextToText
+        import inspect
+        import sys
+
+        from transformers import AutoConfig, AutoModelForImageTextToText
+
+        config = AutoConfig.from_pretrained(self.repo, trust_remote_code=True)
+        text_config = getattr(config, "text_config", None)
+        if isinstance(text_config, dict):
+            for key, value in text_config.items():
+                setattr(config, key, value)
+            del config.text_config
 
         dtype = pick_dtype()
         self.model = AutoModelForImageTextToText.from_pretrained(
-            self.repo, trust_remote_code=True, dtype=dtype
+            self.repo, config=config, trust_remote_code=True, dtype=dtype
         ).to("cuda").eval()
+
+        module = sys.modules[type(self.model).__module__]
+        for name in [n for n in dir(module) if n.startswith("create_") and n.endswith("mask")]:
+            original = getattr(module, name)
+            params = inspect.signature(original).parameters
+
+            def renamed(*args, _original=original, _params=params, **kwargs):
+                for old, new in (("inputs_embeds", "input_embeds"), ("input_embeds", "inputs_embeds")):
+                    if old in kwargs and old not in _params and new in _params:
+                        kwargs[new] = kwargs.pop(old)
+                return _original(*args, **kwargs)
+
+            setattr(module, name, renamed)
+
         self.processor = load_processor(self.repo, trust_remote_code=True)
         self.precision = str(dtype)
 
@@ -332,18 +370,41 @@ class Gemini(OCRModel):
         self.client = genai.Client()
         self.precision = "api"
 
+    RETRY_CODES = {429, 500, 503}  # rate limit / temporary overload
+    RETRY_WAITS = [10, 20, 40, 80, 160]  # seconds
+
     def predict(self, image):
-        from google.genai import types
+        from google.genai import errors, types
 
         buf = io.BytesIO()
         image.save(buf, format="PNG")
-        resp = self.client.models.generate_content(
-            model=self.model_name,
-            contents=[types.Part.from_bytes(data=buf.getvalue(), mime_type="image/png"), self.prompt],
-            config=types.GenerateContentConfig(temperature=0),
-        )
+        retries = 0
+        while True:
+            t = time.perf_counter()
+            try:
+                resp = self.client.models.generate_content(
+                    model=self.model_name,
+                    contents=[types.Part.from_bytes(data=buf.getvalue(), mime_type="image/png"), self.prompt],
+                    config=types.GenerateContentConfig(
+                        temperature=0,
+                        automatic_function_calling=types.AutomaticFunctionCallingConfig(disable=True),
+                    ),
+                )
+                break
+            except errors.APIError as e:
+                if e.code not in self.RETRY_CODES or retries == len(self.RETRY_WAITS):
+                    raise
+                wait = self.RETRY_WAITS[retries]
+                retries += 1
+                print(f"    {e.code} {e.status}: retry {retries}/{len(self.RETRY_WAITS)} in {wait}s", flush=True)
+                time.sleep(wait)
         usage = resp.usage_metadata
         extra = {
+            # overrides the runner's timing, so retry waits don't count as latency
+            "latency_s": round(time.perf_counter() - t, 3),
+            "retries": retries,
+            # per image, since a resumed run may use a different GEMINI_MODEL
+            "model_version": getattr(resp, "model_version", None) or self.model_name,
             "input_tokens": getattr(usage, "prompt_token_count", None) or 0,
             # thinking tokens are billed as output
             "output_tokens": (getattr(usage, "candidates_token_count", None) or 0)

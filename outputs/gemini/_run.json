@@ -1,0 +1,116 @@
+{
+  "model": "gemini",
+  "started_at": "2026-10-07T08:09:37.089805+00:00",
+  "prompt": "Extract all text from this image exactly as written. Keep the original language, spelling, diacritics (tashkeel), numbers and reading order. Write tables as Markdown tables. Output only the extracted text, with no explanations.",
+  "max_new_tokens": 2048,
+  "environment": {
+    "python": "3.14.8",
+    "torch": null,
+    "transformers": null,
+    "peft": null,
+    "bitsandbytes": null,
+    "google.genai": "2.28.0",
+    "gpu": null
+  },
+  "images": {
+    "01_printed_book_page": {
+      "latency_s": 5.833,
+      "peak_vram_gb": null,
+      "output_chars": 864,
+      "error": null,
+      "retries": 0,
+      "input_tokens": 1151,
+      "output_tokens": 671
+    },
+    "02_handwritten_paragraph": {
+      "latency_s": 6.258,
+      "peak_vram_gb": null,
+      "output_chars": 297,
+      "error": null,
+      "retries": 0,
+      "input_tokens": 1130,
+      "output_tokens": 249
+    },
+    "03_historical_manuscript": {
+      "latency_s": 6.24,
+      "peak_vram_gb": null,
+      "output_chars": 445,
+      "error": null,
+      "retries": 2,
+      "input_tokens": 1141,
+      "output_tokens": 991
+    },
+    "04_handwritten_archive_line": {
+      "latency_s": 15.676,
+      "peak_vram_gb": null,
+      "output_chars": 71,
+      "error": null,
+      "retries": 3,
+      "input_tokens": 1081,
+      "output_tokens": 756
+    },
+    "05_scene_text_photo": {
+      "latency_s": 15.857,
+      "peak_vram_gb": null,
+      "output_chars": 5,
+      "error": null,
+      "retries": 0,
+      "input_tokens": 1127,
+      "output_tokens": 72
+    },
+    "06_table": {
+      "latency_s": 6.181,
+      "peak_vram_gb": null,
+      "output_chars": 653,
+      "error": null,
+      "retries": 0,
+      "input_tokens": 1129,
+      "output_tokens": 660
+    },
+    "07_diacritics_tashkeel": {
+      "latency_s": 7.764,
+      "peak_vram_gb": null,
+      "output_chars": 57,
+      "error": null,
+      "retries": 4,
+      "input_tokens": 1155,
+      "output_tokens": 1502
+    },
+    "08_darija_moroccan": {
+      "latency_s": 21.214,
+      "peak_vram_gb": null,
+      "output_chars": 555,
+      "error": null,
+      "retries": 5,
+      "input_tokens": 1099,
+      "output_tokens": 1829
+    },
+    "09_invoice_mixed_degraded": {
+      "latency_s": 15.529,
+      "peak_vram_gb": null,
+      "output_chars": 633,
+      "error": null,
+      "retries": 5,
+      "input_tokens": 1129,
+      "output_tokens": 844
+    },
+    "10_presentation_slide_text": {
+      "latency_s": 9.572,
+      "peak_vram_gb": null,
+      "output_chars": 75,
+      "error": null,
+      "retries": 2,
+      "input_tokens": 1087,
+      "output_tokens": 653
+    }
+  },
+  "resumed_at": [
+    "2026-10-07T08:28:50.707278+00:00",
+    "2026-10-07T08:48:22.397572+00:00"
+  ],
+  "repo": "gemini-3.7-flash",
+  "revision": null,
+  "precision": "api",
+  "load_seconds": 0.1,
+  "finished_at": "2026-10-07T08:56:57.980081+00:00"
+}

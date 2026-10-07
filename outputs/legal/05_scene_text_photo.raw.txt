@@ -1,0 +1,1 @@
+{"subject": "سيجارة", "subject_translation": "سيجارة", "keywords": ["سيجارة"], "category": "other", "location": null, "date": null, "related_entities": []}

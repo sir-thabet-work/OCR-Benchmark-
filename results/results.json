@@ -1,0 +1,1420 @@
+{
+  "generated_at": "2026-10-07T09:18:22.478163+00:00",
+  "normalization": "NFC; markup stripped; tatweel and bidi marks removed; Arabic-Indic digits mapped to Western; thousands separators unified; whitespace collapsed",
+  "failure_rule": "CER > 1.0, empty output, or error",
+  "pricing": {
+    "gpu_hourly_usd": null,
+    "gemini_input_usd_per_m": null,
+    "gemini_output_usd_per_m": null
+  },
+  "test_set": {
+    "01_printed_book_page": {
+      "file": "01_printed_book_page.png",
+      "scenario": "Printed book page",
+      "ground_truth": "\t\t\tوأسوق مثلًا آخر وأخيرًا، لاختلاف الرأي الموهوم، حين تختلف العبارات في لفظها، حتى إذا\tما أمعنت النظر في مدلولاتها، ألفيتها تستهدف هدفًا واحدًا، والمثل الذي أسوقه هو اختلاف\tالقائلين بالفردية والاجتماعية، ففي ظني أنه لو ترك التقابل بين الطرفين هكذا مطلقًا من\tالقيود، لأفرغناه من معناه، فالمعنى الحقيقي المقصود هو ألا ينشط الفرد في ميادين العمل\tوالفكر إلَّا بما عساه أن يخدم المجموع، لكن هذا نفسه لا ينفي أن يكون الفرد في نشاطه فردًا،\tوإنما هو مطالب بنوع معين من النشاط الذي يحقق به فرديته والذي يفيد المجتمع في الوقت نفسه،\tإذ قد ينشط الفرد بما يهدم المجتمع، وإذن فليس الشرط هو ألا ينشط الفرد من حيث هو فرد، بل\tالشرط هو أن يوجه نشاطه الفردي نحو خدمة الناس، افرض أن الفرد الذي نخاطبه بهذا الكلام\tيحترف مهنة الحكم في لعبة الكرة، فكيف يمكن أن يمارس حرفته إلا من حيث هو فرد؟ لهذا فنحن لا\tنطالبه بأن يحد من فرديته، بل نطالبه بأن يوجه نشاطه الفردي في أدائه لحرفته نحو هدف معين"
+    },
+    "02_handwritten_paragraph": {
+      "file": "02_handwritten_paragraph.jpg",
+      "scenario": "Handwriting (paragraph)",
+      "ground_truth": "اعتاد الناس إن يسمو تاريخ العرب قبل الإسلام \"التاريخ الجاهلي\" أو تأريخ الجاهلية وان يذهبو إلى إن العرب كانت تغلب عليهم البداوة وانهم كانوا قد نحلفوا عمن حولهم في الحضارة، فعاش أكثرهم عيشة قبائل رحل في جهل وغفلة لم تكن لهم صلات بالعالم الخارجي ولم يكن للعالم الخارجي اتصال بهم أميون عبدة أصنام"
+    },
+    "03_historical_manuscript": {
+      "file": "03_historical_manuscript.jpg",
+      "scenario": "Historical manuscript",
+      "ground_truth": "واليهَا تجتمع اهل محبّتي اخبرنا تمام قال\nواخبرني ابو الحارث بنْ عمارة حدثني\nابى حدثنا محمد بن احمد حدثنا هشام\nعن الوليد عن سعيد عن مكحُول\nقال قال لي كعب الاحبار اتبعني\nفاتبعته حتى وصلنا الى غار في جبل\nيقال له قاسيون فصلى وَصَليت\nمعه فسمعته يجتهد في الدّعَا ثم\nسار حتى دحلنا المدينة من باب\nالفراديس فسمعته يقول يا ايها الناس\nانا كعب الاحبَار وجدت في الواح."
+    },
+    "04_handwritten_archive_line": {
+      "file": "04_handwritten_archive_line.jpg",
+      "scenario": "Handwriting (archive line)",
+      "ground_truth": "وعضوين رديفين ايلي قشوع وجورج أبي سمرا داغر."
+    },
+    "05_scene_text_photo": {
+      "file": "05_scene_text_photo.jpg",
+      "scenario": "Scene text photo",
+      "ground_truth": "سيارة"
+    },
+    "06_table": {
+      "file": "06_table.jpg",
+      "scenario": "Table",
+      "ground_truth": "<!DOCTYPE html>\n<html lang=\"ar\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <style>\n        body {\n            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\n            background-color: #f9f9f9;\n            color: #333;\n            direction: rtl;\n            padding: 20px;\n        }\n        table {\n            width: 100%;\n            border-collapse: collapse;\n            margin: 20px 0;\n            box-shadow: 0 2px 5px rgba(0,0,0,0.1);\n        }\n        th, td {\n            padding: 10px;\n            text-align: center;\n            border-bottom: 1px solid #ddd;\n        }\n        th {\n            background-color: #2c3e50;\n            color: #fff;\n        }\n        tr:nth-child(even) {\n            background-color: #f2f2f2;\n        }\n        caption {\n            font-size: 1.5em;\n            margin-bottom: 10px;\n            color: #34495e;\n        }\n        @media (min-width: 600px) {\n            th, td {\n                padding: 15px;\n            }\n        }\n    </style>\n    <title>جدول الإيرادات المتوقعة للتطبيقات الجديدة</title>\n</head>\n<body>\n    <table>\n        <caption>الإيرادات المتوقعة للتطبيقات الجديدة المُطورة باستخدام دارت في السوق المحلي</caption>\n        <thead>\n            <tr>\n                <th>الإسم</th>\n                <th>الفئة</th>\n                <th>الإيرادات السنوية المتوقعة</th>\n                <th>السوق المستهدف</th>\n                <th>الأعمال المنافسة</th>\n            </tr>\n        </thead>\n        <tbody>\n            <tr>\n                <td>ChatApp Messenger</td>\n                <td>تطبيقات المراسلة</td>\n                <td>٢٥٠٬٠٠٠ دولار</td>\n                <td>المملكة العربية السعودية</td>\n                <td>واتساب، تلغرام</td>\n            </tr>\n            <tr>\n                <td>HealthTracker Plus</td>\n                <td>تطبيقات الصحة واللياقة</td>\n                <td>١٥٠٬٠٠٠ دولار</td>\n                <td>الإمارات العربية المتحدة</td>\n                <td>فتمبيت، ماي فيتنس بال</td>\n            </tr>\n            <tr>\n                <td>EduLearn Hub</td>\n                <td>تطبيقات التعليم</td>\n                <td>١٢٠٬٠٠٠ دولار</td>\n                <td>مصر</td>\n                <td>كورسيرا، يوديمي</td>\n            </tr>\n            <tr>\n                <td>ShopEase</td>\n                <td>تطبيقات التجارة الإلكترونية</td>\n                <td>٣٥٠٬٠٠٠ دولار</td>\n                <td>الكويت</td>\n                <td>نمشي، سوق.كوم</td>\n            </tr>\n            <tr>\n                <td>TravelBuddy</td>\n                <td>تطبيقات السفر</td>\n                <td>٢٧٠٬٠٠٠ دولار</td>\n                <td>قطر</td>\n                <td>تريب أدفايزور، بوكينج</td>\n            </tr>\n        </tbody>\n    </table>\n</body>\n</html>"
+    },
+    "07_diacritics_tashkeel": {
+      "file": "07_diacritics_tashkeel.jpg",
+      "scenario": "Diacritics (tashkeel)",
+      "ground_truth": "وَإِذا ما سَأَلَتْنِي عَن مَعْنَى لَفَظَهُ \"عرب\" عِنْدَ"
+    },
+    "08_darija_moroccan": {
+      "file": "08_darija_moroccan.jpg",
+      "scenario": "Darija dialect",
+      "ground_truth": "و نهار يبغيو يتكلمو معاك، الحاصول تالكلام هُوَ : ويتي ويتي و شوية تالنخيض بحال أنتي\nيترو تاللبن، و علاش ؟ حيتاش ما تاتهضريش !! واش الهضرة هي بنادم ؟ بسباب هاد الفعلة\nتالكبار، تعطلتي فالتعلام اللولاني فحياتك لي عليه تتبني التعلام لي جاي من بعد !\nمن بعد عامين ول ثلث سنين، على حساب بنادم، نهار تتبداي تخرجي الكلمات اللولانيين\nتتلقايهم متلهفين تعيطي ماما و بابا ، ما عرفت واش على خدمتهم النايحة، ول على القصص لي\nقراو ليك و المسايل لي فسرو ليك نهار ما كنتيش تقدري تجاوبي بالكلام !"
+    },
+    "09_invoice_mixed_degraded": {
+      "file": "09_invoice_mixed_degraded.jpg",
+      "scenario": "Invoice, mixed RTL/LTR, degraded",
+      "ground_truth": "# فاتورة\n\n**فاتورة رقم:** INV-٧٦٨١٢  \n**تاريخ الفاتورة:** ٦/١١/٢٠٢٣  \n**تاريخ الاستحقاق:** ٢٠/١١/٢٠٢٣\n\n**المورّد:** مؤسسة الإتقان للخدمات ذ.م.م — الرقم الضريبي: 665439510366866 — رقم الآيبان: AE51507903552837246874\n\n**إلى:** مؤسسة الإتقان للتقنية للتجارة المحدودة — الرقم الضريبي: 215405639467055\n\n| # | البيان | الكمية | الوحدة | الفئة | ض.ق.م | إجمالي البند |\n|---|---|---|---|---|---|---|\n| 1 | حبوب قهوة ١ كجم | ١٠ | وحدة | ٤١٦٫٠٧ | ٥٪ | ٣٬٧٤٤٫٦٣ |\n| 2 | براغي حديد (١٠٠) | ٧ | كرتون | ٣٩٫٥٦ | ٥٪ | ٢٦٣٫٠٧ |\n\n- **الإجمالي قبل الضريبة:** ٤٬٠٠٧٫٧٠ د.إ\n- **إجمالي الخصم:** ٤٢٩٫٩٢ د.إ\n- **إجمالي الضريبة:** ٢٠٠٫٣٨ د.إ\n- **المجموع: ٤٬٢٠٨٫٠٨ د.إ**"
+    },
+    "10_presentation_slide_text": {
+      "file": "10_presentation_slide_text.jpg",
+      "scenario": "Slide text line",
+      "ground_truth": "وأعيدت القرعة مرة أخرى، فوقعت على يونس، فأعادوا مرة ثالثة فوقعت القرعة عليه"
+    }
+  },
+  "models": {
+    "baseer": {
+      "info": {
+        "repo": "Misraj/Baseer__Nakba",
+        "revision": "0461bb3314b913dad700ed12e3ac116188f00266",
+        "precision": "torch.float16",
+        "prompt": "Extract the text from the above document.",
+        "max_new_tokens": 2048,
+        "load_seconds": 176.8,
+        "environment": {
+          "python": "3.13.15",
+          "torch": "2.11.0+cu130",
+          "transformers": "5.18.0",
+          "peft": "0.21.2",
+          "bitsandbytes": "0.50.2",
+          "google.genai": "2.28.0",
+          "gpu": "Tesla T4"
+        },
+        "load_error": null
+      },
+      "summary": {
+        "cer_mean": 0.5809,
+        "cer_median": 0.8033,
+        "cer_p95": 0.8966,
+        "cer_no_diacritics_mean": 0.5546,
+        "wer_mean": 0.707,
+        "failure_rate": 0.0,
+        "failed_images": [],
+        "latency_median_s": 2.141,
+        "latency_p95_s": 6.041,
+        "peak_vram_gb": 7.91,
+        "cost_per_1k_pages_usd": null,
+        "cer_by_scenario": {
+          "Printed book page": 0.9203,
+          "Handwriting (paragraph)": 0.8116,
+          "Historical manuscript": 0.8676,
+          "Handwriting (archive line)": 0.2727,
+          "Scene text photo": 0.0,
+          "Table": 0.8627,
+          "Diacritics (tashkeel)": 0.3636,
+          "Darija dialect": 0.8487,
+          "Invoice, mixed RTL/LTR, degraded": 0.7949,
+          "Slide text line": 0.0667
+        }
+      },
+      "images": {
+        "01_printed_book_page": {
+          "scenario": "Printed book page",
+          "cer": 0.9203,
+          "cer_no_diacritics": 0.9196,
+          "wer": 0.9568,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 5.451,
+          "peak_vram_gb": 7.66,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "وأسوق مثلا آخرين لاختلاف الربح الموجود بينه تختلف العبارات في لفظها، حتى"
+        },
+        "02_handwritten_paragraph": {
+          "scenario": "Handwriting (paragraph)",
+          "cer": 0.8116,
+          "cer_no_diacritics": 0.8116,
+          "wer": 0.8868,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 2.975,
+          "peak_vram_gb": 7.91,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "كانت تغلب عليهم البلادة وانقسم كانوا قد فهموا حسن الاسلوب في التاريخ"
+        },
+        "03_historical_manuscript": {
+          "scenario": "Historical manuscript",
+          "cer": 0.8676,
+          "cer_no_diacritics": 0.8642,
+          "wer": 0.8676,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 1.759,
+          "peak_vram_gb": 7.68,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "عن الوليد عن سعيد عن سمعته حتى وصلنا إلى عار في جبل"
+        },
+        "04_handwritten_archive_line": {
+          "scenario": "Handwriting (archive line)",
+          "cer": 0.2727,
+          "cer_no_diacritics": 0.2727,
+          "wer": 0.625,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 1.319,
+          "peak_vram_gb": 7.53,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "وعضوين روسفين ايلي قشوع وصهرهم اديس سعدا واغر."
+        },
+        "05_scene_text_photo": {
+          "scenario": "Scene text photo",
+          "cer": 0.0,
+          "cer_no_diacritics": 0.0,
+          "wer": 0.0,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 0.314,
+          "peak_vram_gb": 7.55,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "سيارة"
+        },
+        "06_table": {
+          "scenario": "Table",
+          "cer": 0.8627,
+          "cer_no_diacritics": 0.8625,
+          "wer": 0.8732,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 2.523,
+          "peak_vram_gb": 7.91,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "الإيرادات المتوقعة للتطبيقات الجديدة المطورة باستخدام دارت في السوق المحلي"
+        },
+        "07_diacritics_tashkeel": {
+          "scenario": "Diacritics (tashkeel)",
+          "cer": 0.3636,
+          "cer_no_diacritics": 0.1081,
+          "wer": 0.75,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 1.343,
+          "peak_vram_gb": 7.54,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "وإذا ما سأكثني عن معنَّي لفظة \"عرب\" عِندَ"
+        },
+        "08_darija_moroccan": {
+          "scenario": "Darija dialect",
+          "cer": 0.8487,
+          "cer_no_diacritics": 0.846,
+          "wer": 0.9348,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 3.601,
+          "peak_vram_gb": 7.77,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "و نهار يبغيو يتكلمو معًاك، الحاصلون تالكلام هؤ: ويتني ويتني وشوية تاكنيض بحثي أنتي"
+        },
+        "09_invoice_mixed_degraded": {
+          "scenario": "Invoice, mixed RTL/LTR, degraded",
+          "cer": 0.7949,
+          "cer_no_diacritics": 0.7945,
+          "wer": 0.8684,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 6.524,
+          "peak_vram_gb": 7.91,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "مؤسسة الاتقان للتجارة المحدودة الرقم العتريبي: 215405639467055    إلى أجمالي البند ض قيم ٣٠٧٤٤،٦٣ %                  ١٠                                القنة                                            ٧ براغي حديد (١٠٠)"
+        },
+        "10_presentation_slide_text": {
+          "scenario": "Slide text line",
+          "cer": 0.0667,
+          "cer_no_diacritics": 0.0667,
+          "wer": 0.3077,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 1.497,
+          "peak_vram_gb": 7.53,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "وأعيدت القرعة مرة أخرى، فوقعت علي بونس، فأعلوا مرة ثالثة فوقت القرعة عليه"
+        }
+      }
+    },
+    "gemini": {
+      "info": {
+        "repo": "gemini-3.7-flash",
+        "revision": null,
+        "precision": "api",
+        "prompt": "Extract all text from this image exactly as written. Keep the original language, spelling, diacritics (tashkeel), numbers and reading order. Write tables as Markdown tables. Output only the extracted text, with no explanations.",
+        "max_new_tokens": 2048,
+        "load_seconds": 0.1,
+        "environment": {
+          "python": "3.14.8",
+          "torch": null,
+          "transformers": null,
+          "peft": null,
+          "bitsandbytes": null,
+          "google.genai": "2.28.0",
+          "gpu": null
+        },
+        "load_error": null
+      },
+      "summary": {
+        "cer_mean": 0.2318,
+        "cer_median": 0.1568,
+        "cer_p95": 0.6113,
+        "cer_no_diacritics_mean": 0.1173,
+        "wer_mean": 0.4433,
+        "failure_rate": 0.0,
+        "failed_images": [],
+        "latency_median_s": 8.668,
+        "latency_p95_s": 18.803,
+        "peak_vram_gb": null,
+        "cost_per_1k_pages_usd": null,
+        "cer_by_scenario": {
+          "Printed book page": 0.0069,
+          "Handwriting (paragraph)": 0.0514,
+          "Historical manuscript": 0.2817,
+          "Handwriting (archive line)": 0.6364,
+          "Scene text photo": 0.0,
+          "Table": 0.5807,
+          "Diacritics (tashkeel)": 0.1455,
+          "Darija dialect": 0.1681,
+          "Invoice, mixed RTL/LTR, degraded": 0.4336,
+          "Slide text line": 0.0133
+        }
+      },
+      "images": {
+        "01_printed_book_page": {
+          "scenario": "Printed book page",
+          "cer": 0.0069,
+          "cer_no_diacritics": 0.0023,
+          "wer": 0.0247,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 5.833,
+          "peak_vram_gb": null,
+          "input_tokens": 1151,
+          "output_tokens": 671,
+          "error": null,
+          "prediction": "وأسوق مثلاً آخر وأخيرًا، لاختلاف الرأي الموهوم، حين تختلف العبارات في لفظها، حتى\nإذا ما أمعنت النظر في مدلولاتها، ألفيتها تستهدف هدفًا واحدًا، والمثل الذي\nأسوقه هو اختلاف القائلين بالفردية والاجتماعية، ففي ظني أنه لو ترك التقابل بين\nالطرفين هكذا مطلقًا من القيود، لأفرغناه من معناه، فالمعنى الحقيقي المقصود\nهو ألا ينشط الفرد في ميادين العمل والفكر إلا بما عساه أن تخدم المجموع، لكن\nهذا نفسه لا ينفي أن يكون الفرد في نشاطه فردًا، وإنما هو مطالب بنوع معين من\nالنشاط الذي تحقق به فرديته والذي يفيد المجتمع في الوقت نفسه، إذ قد\nينشط الفرد بما يهدم المجتمع، وإذن فليس الشرط هو ألا ينشط الفرد من حيث\nهو فرد، بل الشرط هو أن يوجه نشاطه الفردي نحو خدمة الناس، افرض أن الفرد\nالذي نخاطبه بهذا الكلام يحترف مهنة الحكم في لعبة الكرة، فكيف يمكن أن\nيمارس حرفته إلا من حيث هو فرد؟ لهذا فنحن لا نطالبه بأن يحد من فرديته، بل\nنطالبه بأن يوجه نشاطه الفردي في أدائه لحرفته نحو هدف معين"
+        },
+        "02_handwritten_paragraph": {
+          "scenario": "Handwriting (paragraph)",
+          "cer": 0.0514,
+          "cer_no_diacritics": 0.0514,
+          "wer": 0.1887,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 6.258,
+          "peak_vram_gb": null,
+          "input_tokens": 1130,
+          "output_tokens": 249,
+          "error": null,
+          "prediction": "اعتاد الناس أن يسموا تاريخ العرب قبل الإسلام \"التاريخ\nالجاهلي\" أو \"تأريخ الجاهلية و أن يذهبوا إلى أن العرب\nكانت تغلب عليهم البداوة وأنهم كانوا قد تراجعو عمن حولهم\nفي الحضارة، فعاش أكثرهم عيشة قبائل رحل، في جهل وغفلة\nلم تكن لهم صلات بالعالم الخارجي ولم يكن للعالم الخارجي اتصال بهم\nأميون عبدة أصنام"
+        },
+        "03_historical_manuscript": {
+          "scenario": "Historical manuscript",
+          "cer": 0.2817,
+          "cer_no_diacritics": 0.0173,
+          "wer": 0.5882,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 6.24,
+          "peak_vram_gb": null,
+          "input_tokens": 1141,
+          "output_tokens": 991,
+          "error": null,
+          "prediction": "وإِلَيْهَا تَجْتَمِعُ اهل مَحَبَّتِي اخْبَرَنَا تمام قال\nواخبرني ابو الحارثِ بنُ عُمَارَةَ حدَّثَنِي\nابى حدثنا محمد بن احمد حدثنا هشامُ\nعنِ الوليدِ عن سعيدٍ عن مكحول\nقالَ قالَ كعبُ الاحبار اتبعني\nفَاتَّبَعْتُه حتَّى وَصَلْنَا الى غارٍ في جبل\nيُقَال لَهُ قَاسِيُون فَصَلَّى وَصَلَّيْت\nمعَه فَسَمِعْتُه يَجْتَهِدُ فِي الدُّعَاءِ ثم\nسَارَ حَتَّى دَخَلْنَا المدِينَةَ من بابِ\nالفراديس فسمعته يقول يا ايها النَّاسُ\nانا كعبُ الاحْبَارِ وجدت فِي الواح."
+        },
+        "04_handwritten_archive_line": {
+          "scenario": "Handwriting (archive line)",
+          "cer": 0.6364,
+          "cer_no_diacritics": 0.0455,
+          "wer": 1.125,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 15.676,
+          "peak_vram_gb": null,
+          "input_tokens": 1081,
+          "output_tokens": 756,
+          "error": null,
+          "prediction": "وَعُضْوَيْنِ رَدِيفَيْنِ إِيلِي قَشُّوع وَجُورْج أَبِي سَمْرَا دَاغِر ."
+        },
+        "05_scene_text_photo": {
+          "scenario": "Scene text photo",
+          "cer": 0.0,
+          "cer_no_diacritics": 0.0,
+          "wer": 0.0,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 15.857,
+          "peak_vram_gb": null,
+          "input_tokens": 1127,
+          "output_tokens": 72,
+          "error": null,
+          "prediction": "سيارة"
+        },
+        "06_table": {
+          "scenario": "Table",
+          "cer": 0.5807,
+          "cer_no_diacritics": 0.5818,
+          "wer": 0.7324,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 6.181,
+          "peak_vram_gb": null,
+          "input_tokens": 1129,
+          "output_tokens": 660,
+          "error": null,
+          "prediction": "### الإيرادات المتوقعة للتطبيقات الجديدة المُطورة باستخدام دارت في السوق المحلي\n\n| الأعمال المنافسة | السوق المستهدف | الإيرادات السنوية المتوقعة | الفئة | الإسم |\n| :--- | :--- | :--- | :--- | :--- |\n| واتساب، تلغرام | المملكة العربية السعودية | ٢٥٠،٠٠٠ دولار | تطبيقات المراسلة | ChatApp Messenger |\n| فتمبيت، ماي فيتنس بال | الإمارات العربية المتحدة | ١٥٠،٠٠٠ دولار | تطبيقات الصحة واللياقة | HealthTracker Plus |\n| كورسيرا، يوديمي | مصر | ١٢٠،٠٠٠ دولار | تطبيقات التعليم | EduLearn Hub |\n| نمشي، سوق.كوم | الكويت | ٣٥٠،٠٠٠ دولار | تطبيقات التجارة الإلكترونية | ShopEase |\n| تريب أدفايزور، بوكينج | قطر | ۲۷۰،۰۰۰ دولار | تطبيقات السفر | TravelBuddy |"
+        },
+        "07_diacritics_tashkeel": {
+          "scenario": "Diacritics (tashkeel)",
+          "cer": 0.1455,
+          "cer_no_diacritics": 0.027,
+          "wer": 0.5,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 7.764,
+          "peak_vram_gb": null,
+          "input_tokens": 1155,
+          "output_tokens": 1502,
+          "error": null,
+          "prediction": "وَإِذَا مَا سَأُلْتَنِي عَن مَعْنَى لَفْظَةَ \"عرب\" عِنْدَ"
+        },
+        "08_darija_moroccan": {
+          "scenario": "Darija dialect",
+          "cer": 0.1681,
+          "cer_no_diacritics": 0.0021,
+          "wer": 0.5652,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 21.214,
+          "peak_vram_gb": null,
+          "input_tokens": 1099,
+          "output_tokens": 1829,
+          "error": null,
+          "prediction": "و نَهَار يبغيو يتكلمو مَعَاك، الحَاصول تَالكلَام هُوَ : ويتي ويتي و شوية تَالنخيض بحَالّ أُنتِي\nيترو تَالّلبن، و علَاش ؟ حيتَاش مَا تَاتهضريش !! وَاش الهضرة هِيَ بنَادم ؟ بسبَاب هَاد الفعلة\nتَالكَبَار، تعطّلتِي فَالتّعلَام اللّولَانِي فحَيَاتك لي عليه تَتَبنِي التعلَام لي جَاي من بعد !\n\nمن بعد عَامين ولّ ثلث سنين، علَى حسَاب بنَادم، نهَار تتبدَاي تخرّجي الكلمَات اللّولَانِيين\nتَتلَقَايْهُم متلهفين تعيطي مَامَا و بَابَا ، مَا عرفت وَاش علَى خدمتهم النَايحة، ولّ علَى القِصَص لي\nقرَاو ليك و المسَايل لي فسرو ليك نهَار مَاكنتيش تقدري تجَاوبي بَالكَلَام !"
+        },
+        "09_invoice_mixed_degraded": {
+          "scenario": "Invoice, mixed RTL/LTR, degraded",
+          "cer": 0.4336,
+          "cer_no_diacritics": 0.4325,
+          "wer": 0.6316,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 15.529,
+          "peak_vram_gb": null,
+          "input_tokens": 1129,
+          "output_tokens": 844,
+          "error": null,
+          "prediction": "مؤسسة\n\nفاتورة\n\nالمورّد\nمؤسسة الإتقان للخدمات ذ.م.م\nالرقم الضريبي: 665439510366866\nرقم الآيبان: AE51507903552837246874\n\nإلى\nمؤسسة الإتقان للتقنية للتجارة المحدودة\nالرقم الضريبي: 215405639467055\n\nفاتورة رقم\n76812-INV\nتاريخ الفاتورة: 6/11/2023\nتاريخ الاستحقاق: 20/11/2023\n\n| # | البيان | الكمية | الفئة | ض.ق.م | إجمالي البند |\n| :-: | :-: | :-: | :-: | :-: | :-: |\n| 1 | حبوب قهوة 1 كجم | 10 | 416,07 | %5 | 3,744,63 |\n| 2 | براغي حديد (100) | 7 | 39,56 | %5 | 263,07 |\n\n| الإجمالي قبل الضريبة | 4,007,70 د.إ |\n| :--- | :--- |\n| إجمالي الخصم | 429,92 د.إ |\n| إجمالي الضريبة | 200,38 د.إ |\n| **المجموع** | **4,208,08 د.إ** |\n\nشكراً لكم!"
+        },
+        "10_presentation_slide_text": {
+          "scenario": "Slide text line",
+          "cer": 0.0133,
+          "cer_no_diacritics": 0.0133,
+          "wer": 0.0769,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 9.572,
+          "peak_vram_gb": null,
+          "input_tokens": 1087,
+          "output_tokens": 653,
+          "error": null,
+          "prediction": "فأعيدت القرعة مرة أخرى، فوقعت على يونس، فأعادوا مرة ثالثة فوقعت القرعة عليه"
+        }
+      }
+    },
+    "katib": {
+      "info": {
+        "repo": "oddadmix/Katib-Qwen3.5-0.8B-0.1",
+        "revision": "5349f52adc1fa7cc806cc77233be1a591db9bf57",
+        "precision": "torch.float16",
+        "prompt": "Free OCR",
+        "max_new_tokens": 2048,
+        "load_seconds": 14.9,
+        "environment": {
+          "python": "3.13.15",
+          "torch": "2.11.0+cu130",
+          "transformers": "5.18.0",
+          "peft": "0.21.2",
+          "bitsandbytes": "0.50.2",
+          "google.genai": "2.28.0",
+          "gpu": "Tesla T4"
+        },
+        "load_error": null
+      },
+      "summary": {
+        "cer_mean": 0.5417,
+        "cer_median": 0.1775,
+        "cer_p95": 1.956,
+        "cer_no_diacritics_mean": 0.4974,
+        "wer_mean": 0.7725,
+        "failure_rate": 0.1,
+        "failed_images": [
+          "06_table"
+        ],
+        "latency_median_s": 7.747,
+        "latency_p95_s": 80.832,
+        "peak_vram_gb": 2.57,
+        "cost_per_1k_pages_usd": null,
+        "cer_by_scenario": {
+          "Printed book page": 0.6016,
+          "Handwriting (paragraph)": 0.25,
+          "Historical manuscript": 0.6845,
+          "Handwriting (archive line)": 0.0455,
+          "Scene text photo": 0.0,
+          "Table": 2.9963,
+          "Diacritics (tashkeel)": 0.0727,
+          "Darija dialect": 0.105,
+          "Invoice, mixed RTL/LTR, degraded": 0.6348,
+          "Slide text line": 0.0267
+        }
+      },
+      "images": {
+        "01_printed_book_page": {
+          "scenario": "Printed book page",
+          "cer": 0.6016,
+          "cer_no_diacritics": 0.2471,
+          "wer": 0.9753,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 46.057,
+          "peak_vram_gb": 1.81,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "وَلَسِو مِثْلًا آخَرَ وَأَخْبِرُوا بِإِخْتِلافِ الرِّأْيِ الموهوم، حِينَ عَتَقَ العيلاتُ فِي لفظِها، حنرٍ إِخَامًا لمعنتِ النطَرِفيِ محيلِإلها، أَلفيها تسنوحُفٍ وحفًا وإلها، والمِثْرُ الحَيِّ لَسَوقُهُ هو اِخْتِلافُ القَلْطِينِ بِالْفَرِدِيَّةِ وإِلِجِنَمايةُ فَفيْ طَنِيْهُ لَوْ نَتركَ المتقَيلَ بَينَ الطَرِفِينِ وحكَا مِطْلَقًا منَ القَيوَحِ.أَلفيَرنهُ مَز منَها، فالمنعُ المَقِيغِي المَقحُوحِ وَاَلإِينْشطِ الفَرحِ فِي مَيلِحِينِ العِمرِ وَالفَكرِ إِلاَّ بِما سَلاءٌ أنْ نَحمَ المَجمُوعِ، لَكِنْ وحَا نَفسَهُ إِليَفيْ غيْ أنْ يَكُونَ الفَرحُ فِي شَاطِلهُ فَرحًا، وإِنما هو مَطلَبُ بنُو مَعينٍ منَ النَشاطِ الحَيِّ سَعَقَ بلْ فَرِحِينُُ والْحيِّ يَفِيحُ المِجنتَوفِي الوَقتَ نَفسَهُ.إخْ قَح بَيشط الفَرحَ بِما يَحمَدِ المِجنتَوفِ، وإخْ فَلبِسرِ الشَطرِ وَاَلإِينْشط الفَرحَ منَ سَيتِ ووفَرح، بل الشَطرِ وِوْ أنْ يَوجهُ شَاطِلهُ الفَرحِ فِي نَوحَة المَثلِ، افْرِضْ أنْ الفَرحُ الحَيُّ نَخالِبهُ بهُواهُ الحَفاظِ عَنتَرفَ مَنةُ المَحمِّ فِي لَحيةِ الكَرةُ، فَحَيفُ بِمَكْرٍ أنْ يَمارسَ سَرفَتُهُ إِلاَّ مَزَ حَيبُ ووفَرح؟ لِهَوا فَنيزَ إِلا نَطلابُهُ بِأَنَّ عَعدَ مَن فَرِحِينُ.بلْ نَطلابُهُ بِأَنَّ يَوجَهُ شَاطِلهُ الفَرحِ فِي أحَاثٍ لَرفَتُهُ نَوحَهوفَ مَعينِ"
+        },
+        "02_handwritten_paragraph": {
+          "scenario": "Handwriting (paragraph)",
+          "cer": 0.25,
+          "cer_no_diacritics": 0.25,
+          "wer": 0.5472,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 6.463,
+          "peak_vram_gb": 2.57,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "اعتاد الناس إن يسمووا ببعض العرب، قبل الإسلام \"الغارقين\nالجاهلي\"، أو \"تأريخ الجاهلية\"، وان يذهبوا إلى إن العرب\nعانت نظب تلميهم البدائية وانغمس في مفهوم الوحدة من سلسهم\nفي الحضارة، قعانس أكثرهم عيشة فبائئهم عمل، في مقابل عيشة\nلم تكن لهم ميلات بالعالم الخارجي، ولم يكن للعالم الخارجي اتصالهم\nأم يكون عبدة أصدقائه"
+        },
+        "03_historical_manuscript": {
+          "scenario": "Historical manuscript",
+          "cer": 0.6845,
+          "cer_no_diacritics": 0.6821,
+          "wer": 1.0735,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 9.031,
+          "peak_vram_gb": 1.82,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "والبها تجمّع أهل جبّث، اختلفوا عن أهل عثر قال\nطاجيتي، و بلغ طولها وامتدّيت إلى عثر على ضفة\nإلى حدنا، عدد محلاتها منذ عشر سنوات، منها في\nعنها which is about the early Christian belief in\nقال قالا \"لكم لا الجاهلية، ولا الجاهلية التي تغمي\nفابتعثنه حتى وصلنا إلى عارفين جبل\nبقال له في قانون فيقضي وثكلت\nمنه فسميته \"عرب قبيات في التداعش\nسارخ في معلناها المحدثية من باب\nالفرد بيوس تسمحتله يقول بإيه الفخ\nان اكليب الجبابور وجين شت في العولح"
+        },
+        "04_handwritten_archive_line": {
+          "scenario": "Handwriting (archive line)",
+          "cer": 0.0455,
+          "cer_no_diacritics": 0.0455,
+          "wer": 0.25,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 1.214,
+          "peak_vram_gb": 1.76,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "وعضوين رديفين ايلي قشوع وجورج أي سمرا داغى."
+        },
+        "05_scene_text_photo": {
+          "scenario": "Scene text photo",
+          "cer": 0.0,
+          "cer_no_diacritics": 0.0,
+          "wer": 0.0,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 0.308,
+          "peak_vram_gb": 1.77,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "سيارة"
+        },
+        "06_table": {
+          "scenario": "Table",
+          "cer": 2.9963,
+          "cer_no_diacritics": 3.0,
+          "wer": 3.1831,
+          "failed": true,
+          "failure_reasons": [
+            "CER > 1.0 (hallucination / repetition)"
+          ],
+          "latency_s": 109.285,
+          "peak_vram_gb": 1.89,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "الإيرادات المتوقعة للتطبيقات الجديدة المطورة باستخدام دارت في السوق المحلي\nالإسم\nالفئة\nالإيرادات السنوية المتوقعة\nالسوق المستهدف\nالعمال المنافسة\nاتساب، نلغرام\nChatApp Messenger\nتطبيقات المراسلة\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥٠٠٠٠٠\nالمراسلة\n٥�"
+        },
+        "07_diacritics_tashkeel": {
+          "scenario": "Diacritics (tashkeel)",
+          "cer": 0.0727,
+          "cer_no_diacritics": 0.0,
+          "wer": 0.375,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 1.636,
+          "peak_vram_gb": 1.76,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "وَإِذا ما سَأَلْتُنِي عن مَعْنَى لَفْظَهُ \"عرب\" عِنْدَ"
+        },
+        "08_darija_moroccan": {
+          "scenario": "Darija dialect",
+          "cer": 0.105,
+          "cer_no_diacritics": 0.0907,
+          "wer": 0.4022,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 10.55,
+          "peak_vram_gb": 1.85,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "و نهار يفيض يتكلمو معاك، الحاصول تالكالم هُوَ: ويئي ويتي و شوية تالخيض بحالّ أتني\nيترو تالبن، و عاش ؟ حيثاش ما تتهضريش !ّ واش الهضرة هيّ بنادم؟ بسباب هاد الفعلة\nتالتكار، تعطلتي فالتعلام اللولائي فحياتك لي عليه تبتني التعلم لي جاي من بعد !\nمن بعد عامين ولّ ثلث سنين، على حساب بنادم، نهار تتبادل تجرّحي الكلمات اللولوانيين\nتتلقائهم متلففين تعطيّ ماذا و بابا ، ما عرفت واش على حدهم النابعة، ولّ على القِصص لي\nقراءو ليك و المسائل لي فسرو ليك نهار ما كنتيش تقديري تجاوبي بالكالم!"
+        },
+        "09_invoice_mixed_degraded": {
+          "scenario": "Invoice, mixed RTL/LTR, degraded",
+          "cer": 0.6348,
+          "cer_no_diacritics": 0.6321,
+          "wer": 0.8421,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 17.654,
+          "peak_vram_gb": 2.53,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "فاتورة\nمؤسسة\nإلى\nفاتورة رقم\nالمورّد\nإلى\nمؤسسة الإلتقان للتقنية للتجارة المحدودة\n٦٧٨١٢-INV\nتاريخ الفاتورة: ٦/١/٢٢ ٢٢ :١١:٤٢\nالرقم الضريبي: 665439510366866\n215405639467055\nتاريخ الاستحقاق: ٢ / ١ / ٢٠٠٠\n٢ / ١ / ٢٠٠٠\nإجمالي البند\n#\nالقيمة\nحبوب قهوة ١\n١\n٣٠٣,٦٦٢\n٣٠٣,٠٦\n٣٠٣,٦٦٢\n٣٠٣,٦٦٢\nالإجمالي قبل الضريبة\n٣٠٣,٠٠٠,٠٠٠\nإجمالي الخصم\n٣٢٩,٩٩٢\nإجمالي الضريبة\n٣٠٠,٠٠٠,٠٠٠\nالمجموع\nشكراً لكم!"
+        },
+        "10_presentation_slide_text": {
+          "scenario": "Slide text line",
+          "cer": 0.0267,
+          "cer_no_diacritics": 0.0267,
+          "wer": 0.0769,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 1.41,
+          "peak_vram_gb": 1.76,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "وأعيدت القرعة مرة أخرى، فوقعت على يونس، فأعادوا مرة الثالثة فوقعت القرعة عليه"
+        }
+      }
+    },
+    "legal": {
+      "info": {
+        "repo": "bakrianoo/arabic-legal-documents-ocr-1.0",
+        "revision": "9eb86fb9fbbc044f8a845cd3fbb6663f285d1a21",
+        "precision": "nf4 weights, fp32 compute (no bf16 on this GPU)",
+        "prompt": "Extract details to JSON.",
+        "max_new_tokens": 2048,
+        "load_seconds": 154.4,
+        "environment": {
+          "python": "3.13.15",
+          "torch": "2.11.0+cu130",
+          "transformers": "5.18.0",
+          "peft": "0.21.2",
+          "bitsandbytes": "0.50.2",
+          "google.genai": "2.28.0",
+          "gpu": "Tesla T4"
+        },
+        "load_error": null
+      },
+      "summary": {
+        "cer_mean": 1.8546,
+        "cer_median": 1.3403,
+        "cer_p95": 4.4275,
+        "cer_no_diacritics_mean": 1.885,
+        "wer_mean": 1.948,
+        "failure_rate": 0.7,
+        "failed_images": [
+          "01_printed_book_page",
+          "04_handwritten_archive_line",
+          "05_scene_text_photo",
+          "06_table",
+          "07_diacritics_tashkeel",
+          "09_invoice_mixed_degraded",
+          "10_presentation_slide_text"
+        ],
+        "latency_median_s": 23.224,
+        "latency_p95_s": 96.864,
+        "peak_vram_gb": 5.17,
+        "cost_per_1k_pages_usd": null,
+        "cer_by_scenario": {
+          "Printed book page": 1.5716,
+          "Handwriting (paragraph)": 0.6986,
+          "Historical manuscript": 0.8113,
+          "Handwriting (archive line)": 4.6136,
+          "Scene text photo": 4.2,
+          "Table": 1.0148,
+          "Diacritics (tashkeel)": 1.1091,
+          "Darija dialect": 0.8992,
+          "Invoice, mixed RTL/LTR, degraded": 2.0547,
+          "Slide text line": 1.5733
+        }
+      },
+      "images": {
+        "01_printed_book_page": {
+          "scenario": "Printed book page",
+          "cer": 1.5716,
+          "cer_no_diacritics": 1.5816,
+          "wer": 1.9383,
+          "failed": true,
+          "failure_reasons": [
+            "CER > 1.0 (hallucination / repetition)"
+          ],
+          "latency_s": 89.804,
+          "peak_vram_gb": 5.16,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "إسناد مثلًا للقرض بين الراوي والمروي\nAssignment of a model for borrowing between the narrator and the reporter\nالقرض\nالرض\nالراوي\nالمروي\nالمال\nالنظام\nقرض\nقرض المال\nالراوي\nالمروي\nالمال\nالنظام/القواعد\nوأسوغ مثلًا للقرض بين الراوي والمروي، هو: تثلف العبايات فيhorizontalLayout\nإحداهما من النطر في محلها لقناعتها الستين تستوفى وحقها وياء آخرها والعطر للشيء\nأسوقه ومانثاقه القائل بالرض والابتعاشية ففي نظريه لقونه وتب على الثاني بن بن\nالطرفين يحلها ملاحقها لقينه - للرض سنة من عمله للعيني المقبوض\nفي الابنظاظ للرض في ميابره العمل، والقرض را بما مسله أن يخصه المجهوي لمكن\nوينافسه إيا بني في كون للرض في نشاطه قرضا، وإنما هو طلب بنو معين من\nالنشاط للرض في قرضته والرض يفيد المعتنه في الوقت نفسه إف قده\nينشط للرض بما يوجه المعتنه واذ غابش يس للرض هو ابنشب للرض من بيت\nومفرط، بل للرض هو أو يؤد نشاطه للرض، ثم حصة الناس، لفرض أن للرض\nالشيء تخالطه لهذا الكلمة تنشؤ مهنة المحكمة في لبنية الكلب؛ فكيف يمكن أن\nيغرس صرفته إلى بيت هو فرد؟ لقوله فإنه إن للطالب بأن تصد فيرضيته، بل\nنظرله بأن يؤد نشاطه للرض في أخالته لرفته ثم وصف معين\nFalse\nFalse\nFalse\ntext\nlegal_ruling\nوأسوغ مثلًا للقرض بين الراوي والمروي، هو: تثلف العبايات فيhorizontalLayout\nإحداهما من النطر في محلها لقناعتها الستين تستوفى وحقها وياء آخرها والعطر للشيء\nأسوقه ومانثاقه القائل بالرض والابتعاشية ففي نظريه لقونه وتب على الثاني بن بن\nالطرفين يحلها ملاحقها لقينه - للرض سنة من عمله للعيني المقبوض\nفي الابنظاظ للرض في ميابره العمل، والقرض را بما مسله أن يخصه المجهوي لمكن\nوينافسه إيا بني في كون للرض في نشاطه قرضا، وإنما هو طلب بنو معين من\nالنشاط للرض في قرضته والرض يفيد المعتنه في الوقت نفسه إف قده\nينشط للرض بما يوجه المعتنه واذ غابش يس للرض هو ابنشب للرض من بيت\nومفرط، بل للرض هو أو يؤد نشاطه للرض، ثم حصة الناس، لفرض أن للرض\nالشيء تخالطه لهذا الكلمة تنشؤ مهنة المحكمة في لبنية الكلب؛ فكيف يمكن أن\nيغرس صرفته إلى بيت هو فرد؟ لقوله فإنه إن للطالب بأن تصد فيرضيته، بل\nنظرله بأن يؤد نشاطه للرض في أخالته لرفته ثم وصف معين\nقواعد وأحكام القرض\nالرض\nالراوي\nالمروي\nالمال"
+        },
+        "02_handwritten_paragraph": {
+          "scenario": "Handwriting (paragraph)",
+          "cer": 0.6986,
+          "cer_no_diacritics": 0.6986,
+          "wer": 1.0943,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 21.155,
+          "peak_vram_gb": 5.06,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "تاريخ العلاقة بين العرب والبدواة\nالعرب\nالبدواة\nنصوص\nخطوط\nصلاة\nالعالي\nاتحاد الناس إلى يسوقنا يجيء العرب قبل الإسلام التاريخ الجاهلية أو تاريخ العلاقة و إن نصوص إلى إن العرب كانت تطبع بمدد البلاد و انهم كلوا و شربوا من الحضر/ قرونها قحشان أكثرهم حيثة قباطل حل/ في حبله و قحلة ثم تلك صلات بالعم للعاري و لمكة للعالي العاري تصل إلى الصبح أسبوع بعده أصهام\nFalse\nFalse\nFalse\narabic"
+        },
+        "03_historical_manuscript": {
+          "scenario": "Historical manuscript",
+          "cer": 0.8113,
+          "cer_no_diacritics": 0.8035,
+          "wer": 1.2059,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 25.293,
+          "peak_vram_gb": 5.06,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "نص شعري/غزوة\nالرؤية\nالمياه\nالصحراء\nالإجبار\nالعدوان\nالنص عبارة عن قصيدة أو نص شعري يتناول مواضيع متعددة بدءً من رؤية المياه ووصًل لغزوة عسكرية\nوالباقية من أهل مكة حقاً أمرنا قال\nلأحبيني إبراهيم بن مائة حتى\nأي حد غناهحمد بن مائة حدثنا\nعن لوله بن سعيد ثم حدثنا\nقال لك عن سعيد ثم حدثنا\nفأتبعته حتى وصلنا إلى غار وقعبل\nبقال له فأسفوت و معه في وصلت\nسعد ثم صنع له مياه في القاعة\nسار حتى سلطه الله بينه عن باب\nالغراب بين سمعته يقول بما أتى\nإليه الإجبار وجدنت في الروح"
+        },
+        "04_handwritten_archive_line": {
+          "scenario": "Handwriting (archive line)",
+          "cer": 4.6136,
+          "cer_no_diacritics": 4.6136,
+          "wer": 3.125,
+          "failed": true,
+          "failure_reasons": [
+            "CER > 1.0 (hallucination / repetition)"
+          ],
+          "latency_s": 8.898,
+          "peak_vram_gb": 5.06,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "{\"legal_entity\": \"دیوان ردیه\", \"entity_type\": \"administrative_body\", \"location\": null, \"other_info\": \"رصد اموال\", \"notes\": \"The text is entirely composed of repeating a legal title and its ordinal position/instance.\"}"
+        },
+        "05_scene_text_photo": {
+          "scenario": "Scene text photo",
+          "cer": 4.2,
+          "cer_no_diacritics": 4.2,
+          "wer": 4.0,
+          "failed": true,
+          "failure_reasons": [
+            "CER > 1.0 (hallucination / repetition)"
+          ],
+          "latency_s": 7.668,
+          "peak_vram_gb": 5.06,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "سيجارة\nسيجارة\nسيجارة\nother"
+        },
+        "06_table": {
+          "scenario": "Table",
+          "cer": 1.0148,
+          "cer_no_diacritics": 1.0149,
+          "wer": 1.338,
+          "failed": true,
+          "failure_reasons": [
+            "CER > 1.0 (hallucination / repetition)"
+          ],
+          "latency_s": 47.897,
+          "peak_vram_gb": 5.06,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "الإيرادات المتوقعة للتطبيقات الجديدة باستخدام درابات في السوق المحلي\nThis table shows the projected revenue for new applications using branded apps (SmyleAds) in Saudi Arabia's markets.\nTrue\nالاسم\nالقطعة\nالسوق المستهدف\nالإيرادات السنوية المتوقعة\nالأعمال المناسبة\nChatApp Messenger\nMessaging\nالمملكة العربية السعودية\n٣٥,٠٠٠,٠٠٠ - ١٠٠,٠٠٠,٠٠٠\nواتس أب, تاعرام\nHealthTracker Plus\nHealth & Fitness\nالمملكة العربية المتحدة\n١٥,٠٠٠,٠٠٠ - ١٠٠,٠٠٠,٠٠٠\nفيتمين, ماي فينتس بالل\nEduLearn Hub\nEducation\nالمملكة العربية السعودية\n١٣,٠٠٠,٠٠٠ - ٢٧,٠٠٠,٠٠٠\nكورسزار, يوديمي\nShopEase\nE-commerce\nالمملكة العربية السعودية\n٣٥,٠٠٠,٠٠٠ - ٧٥,٠٠٠,٠٠٠\nنمشية, سوق, كومو\nTravelBuddy\nTravel\nالمملكة العربية السعودية\n٣٠,٠٠٠,٠٠٠ - ٧٠,٠٠٠,٠٠٠\nقظار, تريب آدثون, بوكنج\nThe table is a part of a larger document or presentation regarding branded apps in Saudi markets.\nfinancial\nدولار"
+        },
+        "07_diacritics_tashkeel": {
+          "scenario": "Diacritics (tashkeel)",
+          "cer": 1.1091,
+          "cer_no_diacritics": 1.4054,
+          "wer": 1.5,
+          "failed": true,
+          "failure_reasons": [
+            "CER > 1.0 (hallucination / repetition)"
+          ],
+          "latency_s": 11.047,
+          "peak_vram_gb": 5.06,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "True\nوَإِذَا سَأَلْتَنِي عَنْ مَعْنَى لَفظِه \"عرب\" عند رب العزة\narabic\nFalse\nFalse\nlegal_provisions"
+        },
+        "08_darija_moroccan": {
+          "scenario": "Darija dialect",
+          "cer": 0.8992,
+          "cer_no_diacritics": 0.9008,
+          "wer": 1.0,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 18.033,
+          "peak_vram_gb": 5.06,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "Communication challenges after a long separation\nThe text describes the difficulties of re-establishing communication with people after a long period of silence (indicated by the phrases 'ثالثًا' and 'عادتلي').\nتكلمكم\nفترة\nعودة\nالمسائل\nالتعامل\nالكليفات\nThe passage uses formal or literary language, as evidenced by the repeated use of 'ن' at the beginning of clauses and the description of 'الكليفات' (Klifat) as people they used to interact with.\nFalse"
+        },
+        "09_invoice_mixed_degraded": {
+          "scenario": "Invoice, mixed RTL/LTR, degraded",
+          "cer": 2.0547,
+          "cer_no_diacritics": 2.0587,
+          "wer": 2.3553,
+          "failed": true,
+          "failure_reasons": [
+            "CER > 1.0 (hallucination / repetition)"
+          ],
+          "latency_s": 102.64,
+          "peak_vram_gb": 5.17,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "فهرس مقطوعات موسيقية\nمخطط\n20/10/2030\n1:1\nفهرس مقطوعات موسيقية\nFalse\ntext\nالمودود موسى\nblack\nFalse\nFalse\nFalse\ntext\nموسى الإتقان للтностиزياء المحدودة\nblack\nFalse\nFalse\nFalse\ntext\nالرقم المسردي: 66543935\nblack\nFalse\nFalse\nFalse\ntext\nالرقم الثاني: 66545964055\nblack\nFalse\nFalse\nFalse\ntext\nتاريخ الدفاتروم: 20/10/2033\nblack\nFalse\nFalse\nFalse\ntext\nتاريخ الاستحقاق: 20/10/2030\nblack\nFalse\nFalse\nFalse\nother\nموسى الإتقان للтностиزياء المحدودة\nاسم مؤسسة أو شركة\norganization\nother\n66543935\nالرقم المسردي\nidentifier\nother\n66545964055\nالرقم الثاني\nidentifier\nother\n20/10/2033\nتاريخ الدفاتروم\ndate\nother\n20/10/2030\nتاريخ الاستحقاق\ndate\nitemized\nالمودود موسى\nother\nموسى الإتقان للтностиزياء المحدودة\norganization\nالرقم المسردي\n66543935\nidentifier\nالرقم الثاني\n66545964055\nidentifier\nتاريخ الدفاتروم\n20/10/2033\ndate\nتاريخ الاستحقاق\n20/10/2030\ndate\nTrue\nفهرس مقطوعات موسيقية\ntable\nالمودود موسى\nother\nFalse\nFalse\nTrue\nموسى الإتقان للтностиزياء المحدودة\nعنوان المؤسسة أو الجهة الصادرة للمخطوطة\nTrue\nالرقم المسردي 66543935\nمكتشف رقم مرجعي للمودع\nTrue\nالرقم الثاني 66545964055\nمكتشف رقم مرجعي للمودع\nTrue\nتاريخ الدفاتروم 20/10/2033\nيظهر في رأس الصفحة أو الترويسة\nTrue\nتاريخ الاستحقاق 20/10/2030\nيظهر في رأس الصفحة أو الترويسة\nother\nنسخ أكرام\ngray\nFalse\nFalse\nFalse\nmedium\nblack\nTrue\nشعار أو اسم مؤسسة متكرر في الخلفية"
+        },
+        "10_presentation_slide_text": {
+          "scenario": "Slide text line",
+          "cer": 1.5733,
+          "cer_no_diacritics": 1.5733,
+          "wer": 1.9231,
+          "failed": true,
+          "failure_reasons": [
+            "CER > 1.0 (hallucination / repetition)"
+          ],
+          "latency_s": 54.6,
+          "peak_vram_gb": 5.09,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "HELLO\nTrue\nCharacter-based\nletter\nblack\n0\n0\nFalse\nletter\nblack\n0\n0\nFalse\nletter\nblack\n0\n0\nFalse\nletter\nblack\n0\n0\nFalse\nwhite\nFalse"
+        }
+      }
+    },
+    "qari": {
+      "info": {
+        "repo": "NAMAA-Space/Qari-OCR-0.4.0-VL-4B-Instruct",
+        "revision": "aa65b4a46336c6cc608e7da5a015f8e71472a68b",
+        "precision": "torch.float16",
+        "prompt": "Free OCR.",
+        "max_new_tokens": 2048,
+        "load_seconds": 174.6,
+        "environment": {
+          "python": "3.13.15",
+          "torch": "2.11.0+cu130",
+          "transformers": "5.18.0",
+          "peft": "0.21.2",
+          "bitsandbytes": "0.50.2",
+          "google.genai": "2.28.0",
+          "gpu": "Tesla T4"
+        },
+        "load_error": null
+      },
+      "summary": {
+        "cer_mean": 0.4038,
+        "cer_median": 0.1804,
+        "cer_p95": 1.4517,
+        "cer_no_diacritics_mean": 0.3344,
+        "wer_mean": 0.5736,
+        "failure_rate": 0.1,
+        "failed_images": [
+          "09_invoice_mixed_degraded"
+        ],
+        "latency_median_s": 17.733,
+        "latency_p95_s": 160.769,
+        "peak_vram_gb": 12.02,
+        "cost_per_1k_pages_usd": null,
+        "cer_by_scenario": {
+          "Printed book page": 0.3037,
+          "Handwriting (paragraph)": 0.1884,
+          "Historical manuscript": 0.8507,
+          "Handwriting (archive line)": 0.4318,
+          "Scene text photo": 0.0,
+          "Table": 0.039,
+          "Diacritics (tashkeel)": 0.1091,
+          "Darija dialect": 0.1723,
+          "Invoice, mixed RTL/LTR, degraded": 1.9434,
+          "Slide text line": 0.0
+        }
+      },
+      "images": {
+        "01_printed_book_page": {
+          "scenario": "Printed book page",
+          "cer": 0.3037,
+          "cer_no_diacritics": 0.2949,
+          "wer": 0.642,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 27.384,
+          "peak_vram_gb": 9.11,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "وسقو مثلاً أخ وأخيه إلخاللف ألبأع الموموه، حين تختلف العبارات في فاعلها، منح إخا أم امتنت النظر في محب إهلها القنيتا شتوفى هو فأواحكا والمثل الخ يأسوقه هو اختلف القائلين بالفرصية وإلا فمتعلما فيه، يحذى فأنا ألغ لو ترك التقليل بين الطوفين ويحذاحملقاً أنه القنوح، إلّ فنات من معلق بالغية في المقصود هو إلابن شط الفرد في محبين العمل والمحذ إلّا بمساء أن تخدم المغموم، لكن وحنا فسسه إلابن شقي أن يكون الفرد في شاطل فرد، وإنما هو مطلب بنوع معين من الشاطل الخ يعتق به فريضة والخ يفج المقنوع في الوقت نفسه إخذ فح ينشط الفرد بما يهدم المقنوع واحد فليس الشرط هو إلابنشط الفرد من حيث هو فرد، بل الشطر هو أن يجهل شاطل الفرد في خدمة السف، افرض أن الفرد الخ يغاطل به هو الحذالم تنفرف هو ثمة الحذ في ليلة الحذ في حضر من يحذن أن يمارس حرفته إلا من محب به فرد؟ لحاذن في الحطالة بأن تحد من فرحته، بل تطالبه بأن يجهل شاطل الفرد في قيادته لفرقه نحو فرد معين"
+        },
+        "02_handwritten_paragraph": {
+          "scenario": "Handwriting (paragraph)",
+          "cer": 0.1884,
+          "cer_no_diacritics": 0.1884,
+          "wer": 0.4717,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 18.497,
+          "peak_vram_gb": 12.02,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "أعتقد الناس إن يسمونا بـ (العرب) قبل الإسلام \"الفارسج العجمي\" أو تأريخ العادلية وأن يذهبوا إلى أن العرب كانت تغلب عليهم المدلوة والضم كانوا قد نجحوا من دونهم في الحضارة، فعاش أكثرون ميسرة قبائل حمل في حمل وسطة لم تكن لهم صلات بالعالم الظاهري ولم يكن للعالم الخارجي اتصال بهم أو مبين كبرة أصبهانم"
+        },
+        "03_historical_manuscript": {
+          "scenario": "Historical manuscript",
+          "cer": 0.8507,
+          "cer_no_diacritics": 0.3439,
+          "wer": 1.0,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 31.999,
+          "peak_vram_gb": 9.15,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "والبَائِعُ مَحَقّ اهْلِ مُحَبَّقِ احْمَارِ مَا مَارَقَ وَاحْمَارِ مِنْ مِلْكِ ابْنِ ابْنِ مَارَقِ حَدَثَىْ ابْنِ حَدَثَىْ احْمَارِ مِنْ حَمْدِ حَدَثَىْ اهْلُهَا عَنْ ابْوَلِيْدٍ عَنْ سَعِيدٍ عَنْ مَكَيْدٍ قَالَ قَالَ حَمْدٍ لِاحْمَارِ ابْنِ عَيْ فَانْبَعَثَهُ حَتَّى وَصَلَ النَّا لِي غَارِقَ جَعِلَ بِقَالٍ لَهُ قَاسِوَنَ فِيْهِ مَلَى وَضَلَعَتْ مَعَهُ فَسَعَتْهُ كَيْنَدَ فِيْ لِلْتَّعَاثُمِ سَارِحَتَىْ دِمَالْنَا الْمَدِينَةِ مِنْ بَابِ الْعِلَادِ سِيْرَ فَسَمِعَتْهُ يَقُولُ لِمَا بِهَا النَّا الْكَاتِبُ لِالْخَبَارِ وَجَبَتْ فِيْ الْعِلَحِ."
+        },
+        "04_handwritten_archive_line": {
+          "scenario": "Handwriting (archive line)",
+          "cer": 0.4318,
+          "cer_no_diacritics": 0.4318,
+          "wer": 0.875,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 1.311,
+          "peak_vram_gb": 8.92,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "وعضوين ردعين إلى قطع ومهرجانى مصادري."
+        },
+        "05_scene_text_photo": {
+          "scenario": "Scene text photo",
+          "cer": 0.0,
+          "cer_no_diacritics": 0.0,
+          "wer": 0.0,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 0.313,
+          "peak_vram_gb": 8.94,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "سيارة"
+        },
+        "06_table": {
+          "scenario": "Table",
+          "cer": 0.039,
+          "cer_no_diacritics": 0.0372,
+          "wer": 0.1831,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 16.97,
+          "peak_vram_gb": 9.48,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "الإيرادات المتوقعة للتطبيقات الجديدة المطورة باستخدام دارت في السوق المحلي الأسم  الفئة  الإيرادات السنوية المتوقعة  السوق المستهدف  الأعمال المنافسة ChatApp Messenger تطبيقات المراسلة ٢٥٠٠٠٠ دولار المملكة العربية السعودية وانساب، تلغرام HealthTracker Plus تطبيقات الصحة واللياقة ١٥٠٠٠٠ دولار الإمارات العربية المتحدة قنمييت، ماي فيتنس بال EduLearn Hub تطبيقات التعليم ١٣٠٠٠٠ دولار مصر كورسير، يوديمي ShopEase تطبيقات التجارة الإلكترونية ٣٥٠٠٠٠ دولار الكويت نمشي، سوف، كوم TravelBuddy تطبيقات السفر ٦٧٠٠٠٠ دولار قطر تريب أذهايروز، بوكينج"
+        },
+        "07_diacritics_tashkeel": {
+          "scenario": "Diacritics (tashkeel)",
+          "cer": 0.1091,
+          "cer_no_diacritics": 0.027,
+          "wer": 0.375,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 3.366,
+          "peak_vram_gb": 8.92,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "وَإذا ما سَأَلْتُنِي عَن مَعْنَى لَفْظَة \"عرب\" عِنْدَ"
+        },
+        "08_darija_moroccan": {
+          "scenario": "Darija dialect",
+          "cer": 0.1723,
+          "cer_no_diacritics": 0.0759,
+          "wer": 0.663,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 19.28,
+          "peak_vram_gb": 9.3,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "ونهار بيعبو يتكلمو معاك، الحاصول تالكلام هُو: وبيتي وبيتي وشوية تالنخيض بحال أتى يترو تاللبن، وعلاش؟ حيثاش مَا تامّهريش !!  وَاش الهضرة هي بتأدم؟ بسبّاب هَاد الفعلة تالكبّار، تعطلتي فالتعلّام اللّولاني فغيّاتك لي عليه تَتْبني التعلّام لي جَاي من بعد! من بعد عَامين ولّ ثلث سنين، علّى حسّاب بتأدم، نهار تَتبدّاي تخرّجي الكلمات اللّولّانين تَسَلَقَيْهِم مثلهفين تعيّطي مَامَا و بابًا، مَا عرفت وَاش علَى خدمتُهُم النّائحة، ولّ علّى القِقص لي قرّاو ليك والمسّايل لي فسرو ليك نهار مَاكتيش تقدرى تجاوِي بَالكلّام!"
+        },
+        "09_invoice_mixed_degraded": {
+          "scenario": "Invoice, mixed RTL/LTR, degraded",
+          "cer": 1.9434,
+          "cer_no_diacritics": 1.9452,
+          "wer": 1.5263,
+          "failed": true,
+          "failure_reasons": [
+            "CER > 1.0 (hallucination / repetition)"
+          ],
+          "latency_s": 266.127,
+          "peak_vram_gb": 11.86,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "فأتوره مؤسسة فاتورة رقم ٧٦٨١٢-INV تاريخ الفاتورة: ٦/١١/٢٠٢٣ تاريخ الاستحقاق: ٢٠/١١/٢٠٢٣ إلى مؤسسة الإتقان للتقنية للتجارة المحدودة الرقم الضريبي: ٢١٥٤٥٦٥٩٤٩٦٥٥٥ المورّد مؤسسة الإتقان للخدمات ذ.م.م الرقم الضريبي: ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤٦٢٤٤٦٢٣ ٦٤�"
+        },
+        "10_presentation_slide_text": {
+          "scenario": "Slide text line",
+          "cer": 0.0,
+          "cer_no_diacritics": 0.0,
+          "wer": 0.0,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 1.78,
+          "peak_vram_gb": 8.92,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "وأعيدت القرعة مرة أخرى، فوقعت على يونس، فأعادوا مرة ثالثة فوقعت القرعة عليه"
+        }
+      }
+    },
+    "sherif": {
+      "info": {
+        "repo": "sherif1313/Arabic-handwritten-OCR-4bit-Qwen2.5-VL-3B-v2",
+        "revision": "7ff7c98866e29046a2ce7bf84233d5de58cf8fd2",
+        "precision": "nf4 weights, torch.float16 compute",
+        "prompt": "ارجو استخراج النص العربي كاملاً من هذه الصورة من البداية الى النهاية بدون اي اختصار ودون ذيادة او حذف. اقرأ كل المحتوى النصي الموجود في الصورة:",
+        "max_new_tokens": 2048,
+        "load_seconds": 43.7,
+        "environment": {
+          "python": "3.13.15",
+          "torch": "2.11.0+cu130",
+          "transformers": "5.19.0",
+          "peft": "0.21.2",
+          "bitsandbytes": "0.50.2",
+          "google.genai": "2.28.0",
+          "gpu": "Tesla T4"
+        },
+        "load_error": null
+      },
+      "summary": {
+        "cer_mean": 1.7396,
+        "cer_median": 0.2512,
+        "cer_p95": 8.1443,
+        "cer_no_diacritics_mean": 1.7414,
+        "wer_mean": 2.2433,
+        "failure_rate": 0.2,
+        "failed_images": [
+          "03_historical_manuscript",
+          "09_invoice_mixed_degraded"
+        ],
+        "latency_median_s": 24.078,
+        "latency_p95_s": 190.005,
+        "peak_vram_gb": 4.96,
+        "cost_per_1k_pages_usd": null,
+        "cer_by_scenario": {
+          "Printed book page": 0.3025,
+          "Handwriting (paragraph)": 0.137,
+          "Historical manuscript": 10.9437,
+          "Handwriting (archive line)": 0.0455,
+          "Scene text photo": 0.2,
+          "Table": 0.59,
+          "Diacritics (tashkeel)": 0.3091,
+          "Darija dialect": 0.0924,
+          "Invoice, mixed RTL/LTR, degraded": 4.7227,
+          "Slide text line": 0.0533
+        }
+      },
+      "images": {
+        "01_printed_book_page": {
+          "scenario": "Printed book page",
+          "cer": 0.3025,
+          "cer_no_diacritics": 0.2914,
+          "wer": 0.6728,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 33.691,
+          "peak_vram_gb": 2.56,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "وأسَوق مثلاً آنوأكثيراً للنّهات الرأي الموهم، حين تتكف العمالت قيرقظهما سترد إِخاماً مممت التنظر في محلولتها الفيتان تستخف محقوا لسَاحكا والمثل الذي استوفى هو انناك القائل بالقرية والابتسامة قد يُظني أنه لو ترك التقاليد بين الطائفه وخاطمطقا من القوي واقبضلا من معنى فالمعنى المقبئ المقصود ووالابشط الغرد في ميلادين العمل والغدة إلى بمساسة أن عندم المجموع لكن ومخافسة اليندي أو يطور الغرد في نشاط غردا ولما وهو مطلب بنوع معين من النشاط الذي عقد له قريش وتالذي يفيد المتمتع في الوقت نفسه إنحدد ينشط الغرد بما هدم المفعمة واشن قلبيس الشرط وهلال ينشط الغرد من حيث وورده بل الشرط هو أن يوجة نشطة الغرد في نوعمة النسر اعرض أن الغرد الذي تنطله بهذا الكلام عنق مهنة المحكم في ليلة ٢٠١٨ قطيف يمكن أن يمارس حرفتا إلا من حيث وفرته الهضافية النطلاليه أي على مر قصبة بل نطلبا بأن يوجب نشطه الغرد في أدلة لمراقة نموهف معين"
+        },
+        "02_handwritten_paragraph": {
+          "scenario": "Handwriting (paragraph)",
+          "cer": 0.137,
+          "cer_no_diacritics": 0.137,
+          "wer": 0.3396,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 26.273,
+          "peak_vram_gb": 4.96,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "اعتاد الناس إن يسمو تاريخ العرب قبل الإسلام \"تاريخ الجاهلية\" أو تأريخ الجاهلية وان يذهب إلى ان العرب كانت تغلب عليهم البداوة وانهم كانوا قد نجحو عمن دولهم في الحضارة فعاث أكثهم غيشة قبائل رحل في جبال وغطة لم تكون لهم صلات بالعالم الغاري ولم يكن للعالم الغاري اتصال بهم"
+        },
+        "03_historical_manuscript": {
+          "scenario": "Historical manuscript",
+          "cer": 10.9437,
+          "cer_no_diacritics": 11.2254,
+          "wer": 12.8824,
+          "failed": true,
+          "failure_reasons": [
+            "CER > 1.0 (hallucination / repetition)"
+          ],
+          "latency_s": 164.004,
+          "peak_vram_gb": 2.61,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "والي تجتمع اهل عبقة اخبرنا ان قرط بن خورشيد نزل في مكة وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان يحبه وانه كان ي"
+        },
+        "04_handwritten_archive_line": {
+          "scenario": "Handwriting (archive line)",
+          "cer": 0.0455,
+          "cer_no_diacritics": 0.0455,
+          "wer": 0.375,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 2.777,
+          "peak_vram_gb": 2.48,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "وعضوين رديفين ايلي قشوع وجورج أدي سمرا داغر ."
+        },
+        "05_scene_text_photo": {
+          "scenario": "Scene text photo",
+          "cer": 0.2,
+          "cer_no_diacritics": 0.2,
+          "wer": 1.0,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 1.324,
+          "peak_vram_gb": 2.49,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "بيارة"
+        },
+        "06_table": {
+          "scenario": "Table",
+          "cer": 0.59,
+          "cer_no_diacritics": 0.5911,
+          "wer": 0.7606,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 28.717,
+          "peak_vram_gb": 2.82,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "الإيرادات المتوقعة للتطبيقات الجديدة المُطورة باستخدام دارت في السوق المحلي\n\nالأعمال المنافسة                                                                                       السوق المستهدف                                                                                                                                                                       الإيرادات السنوية المتوقعة                                                                                                                                                                      الفئة                                                                                                                                                                     الاسم\nواتساب، تلفرام                                                                                                  المملكة العربية السعودية                                                                                                                                                                    ٢٥٠,٠٠٠ دولار                                                                                                                                                                   تطبيقات المراسلة                                                                                                                                                                ChatApp Messenger\nقمبيت، ماي فتنس بال                                                                                                                                                                             الإمارات العربية المتحدة                                                                                                                                                               ١٥٠,٠٠٠ دولار                                                                                                                                                              تطبيقات الصحة واللياقة                                                                                                                                                           HealthTracker Plus\nكورسيرا، يودمي                                                                                                                                                             كورسيرو، سوق.كوم                                                                                                                                                                 ١٣٠,٠٠٠ دولار                                                                                                                                                            تطبيقات التعليم                                                                                                                                                          EduLearn Hub\nتمشي، سوق.كوم                                                                                                                                                         الكويت                                                                                                                                                                        ٢٥٠,٠٠٠ دولار                                                                                                                                                        تطبيقات التجارة الإلكترونية                                                                                                                                                      ShopEase\nتريب أدفايزور، بوكينج                                                                                                                                                   قطر                                                                                                                                                                         ٣٧٠,٠٠٠ دولار                                                                                                                                                     تطبيقات السفر                                                                                                                                                          TravelBuddy"
+        },
+        "07_diacritics_tashkeel": {
+          "scenario": "Diacritics (tashkeel)",
+          "cer": 0.3091,
+          "cer_no_diacritics": 0.0541,
+          "wer": 0.875,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 2.375,
+          "peak_vram_gb": 2.48,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "و٢ إذا ما سألتني عن معنى لَفظهُ \"عرب\" عند"
+        },
+        "08_darija_moroccan": {
+          "scenario": "Darija dialect",
+          "cer": 0.0924,
+          "cer_no_diacritics": 0.0865,
+          "wer": 0.4674,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 21.884,
+          "peak_vram_gb": 2.68,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "ونهار يغيو يتكلم معاك، الخاصول تالكلام هُو : ويتي ويتى و شوية تالنخيص بحال أتتي\n\nيتو تاللبن ، و علاش ؟ حيثاش ما تاتحضريش ! واش الهضرة هي بنادم؟ بسباب قاد الفعلة\n\nتالكتار تعطلتي قالتلام اللولاني فحياتك لي عليه تتنبي التعلام لي جاي من بعد! \n\nمن بعد غامين ولّ ثث سنين على حساب بنادم نهار تبذاي تخرجي الكلمات اللولانيين\n\nتتلقاهم متلهفين تعطي فاما و تابا، ما عرفت واش على خدمتهم التايحة، ولّ على الققص لي\n\nقراو ليك والشايل لي قسوو ليك نهار ما كنتيش تقدري تجاويي بالكلام!"
+        },
+        "09_invoice_mixed_degraded": {
+          "scenario": "Invoice, mixed RTL/LTR, degraded",
+          "cer": 4.7227,
+          "cer_no_diacritics": 4.7299,
+          "wer": 4.8289,
+          "failed": true,
+          "failure_reasons": [
+            "CER > 1.0 (hallucination / repetition)"
+          ],
+          "latency_s": 211.279,
+          "peak_vram_gb": 4.7,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "فاتورة\nمؤسسة\nالمورد\nمؤسسة الإتقان للخدمات ذ.م.م\nالرقم الضريبي : 665439510366866\nرقم الأبيان : AE51507903552837246874\nرقم الضريبي : 215405639467055\nالرقم الصدريبي : ٢٠/١١/٣٠٢٣ تاريخ الاستحقاق : ٦/١١/٣٠٢٣ تاريخ الفاتورة : ٧/٨/١٩٦ رقم فاتورة : ٧٦٨١٣-INV\n\nفاتورة رقم ٧٦٨١٣ - INV\nتاريخ الفاتورة : ٦/١١/٣٠٢٣\nتاريخ الاستحقاق : ٢٠/١١/٣٠٢٣\nالى\n مؤسسة الإتقان للتجارة المحدودة\nالرقم الصدريبي : 215405639467055\nالرقم الصدريبي : 215405639467055\nرقم الأبيان : 665439510366866\nرقم الأبيان : AE51507903552837246874\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 215405639467055\nرقم الأبيان : 2154056"
+        },
+        "10_presentation_slide_text": {
+          "scenario": "Slide text line",
+          "cer": 0.0533,
+          "cer_no_diacritics": 0.0533,
+          "wer": 0.2308,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 2.668,
+          "peak_vram_gb": 2.47,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "واعيدت القرعة مرة أخرى، فوقعت على يونس، فأعلنوا مرة ثالثة فوقت القرعة عليه"
+        }
+      }
+    },
+    "waqf": {
+      "info": {
+        "repo": "Waqf-AI/waqf-ocr-hand-written-v1",
+        "revision": "8e5c79e3c3c1cd6fc8a803b0793b3372829cd054",
+        "precision": "torch.float16",
+        "prompt": "OCR:",
+        "max_new_tokens": 2048,
+        "load_seconds": 6.6,
+        "environment": {
+          "python": "3.13.15",
+          "torch": "2.11.0+cu130",
+          "transformers": "4.57.6",
+          "peft": "0.21.2",
+          "bitsandbytes": "0.50.2",
+          "google.genai": "2.28.0",
+          "gpu": "Tesla T4"
+        },
+        "load_error": null
+      },
+      "summary": {
+        "cer_mean": 0.9763,
+        "cer_median": 0.7015,
+        "cer_p95": 2.6639,
+        "cer_no_diacritics_mean": 0.9396,
+        "wer_mean": 1.2819,
+        "failure_rate": 0.3,
+        "failed_images": [
+          "03_historical_manuscript",
+          "04_handwritten_archive_line",
+          "09_invoice_mixed_degraded"
+        ],
+        "latency_median_s": 139.704,
+        "latency_p95_s": 349.148,
+        "peak_vram_gb": 2.42,
+        "cost_per_1k_pages_usd": null,
+        "cer_by_scenario": {
+          "Printed book page": 0.7229,
+          "Handwriting (paragraph)": 0.4658,
+          "Historical manuscript": 1.2254,
+          "Handwriting (archive line)": 3.8409,
+          "Scene text photo": 0.0,
+          "Table": 0.7477,
+          "Diacritics (tashkeel)": 0.3636,
+          "Darija dialect": 0.6618,
+          "Invoice, mixed RTL/LTR, degraded": 1.0547,
+          "Slide text line": 0.68
+        }
+      },
+      "images": {
+        "01_printed_book_page": {
+          "scenario": "Printed book page",
+          "cer": 0.7229,
+          "cer_no_diacritics": 0.7203,
+          "wer": 0.963,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 154.918,
+          "peak_vram_gb": 2.16,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "واسعة منها ومن أرقى أن يتطلب منها الذهاب الذهابي ومن هنا تباينت وتواصلت\nإبراهيم، خريج جامعة الطب والعقاقير التقليدية الصينية ببكين، الذي يأتي من\nأساتذتها. في بداية حياته درس النقش على الألواح الحجرية، مثل معاصريه،\nالحضرون المحصورة بن الخليج العربي، ومن شاء أن الحضرون المحدثين والمحدثين من\nوإذا ما سألتني عن معنى لفظة \"عرب\" عند علماء العربية، فإني أسسها على\nمما أدخل الإسلام في أهمية الدراسات الآثار\nاللغة والأدب والشعر الني وردت استطراداً عن أهل الحيرة\nيشرف على ما يتضمن من الأمثال، حتى ينتهي منه؛ ويقف عند الفساد والمرض\nوقد نشر القدامى في بكين للعقاقير والتجارة من قبيل الإسلام بقليل \"أول ديواناً\"\nالذي يعنيه ما سبق أن الفن الإسلامي مذهب، فهذه البوابة التي\nيعتبر شعارات صاحب البحر وضفة النهر، ويتعب وينامون بطريقة"
+        },
+        "02_handwritten_paragraph": {
+          "scenario": "Handwriting (paragraph)",
+          "cer": 0.4658,
+          "cer_no_diacritics": 0.4658,
+          "wer": 0.7358,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 164.246,
+          "peak_vram_gb": 2.32,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "اعتداء الناس إن سعيد تشيباو يخرج المريض بقليل الإسلام،\nالجاهلي\"، أو \"تأريخ الجاهلية\"، وان يذهبوا إلى إن العرب\nعاش تغلب على مهم البادية وانهم كثيراً، ومن حضور\nفي الحضارة،  وقعنا أثر عهم بالتقويم المذكور، في بحث وفي\nلم تكن لهم محطات البعض الخارجية والجمال،\nأمريكي في تذكرة سعرها الأصلي عشرة آلاف"
+        },
+        "03_historical_manuscript": {
+          "scenario": "Historical manuscript",
+          "cer": 1.2254,
+          "cer_no_diacritics": 1.2428,
+          "wer": 1.5441,
+          "failed": true,
+          "failure_reasons": [
+            "CER > 1.0 (hallucination / repetition)"
+          ],
+          "latency_s": 152.193,
+          "peak_vram_gb": 2.16,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "والذي يأتضمن محطات طريق الحج والتجارة اليمني الساحلي\nولجبنا مع ذلك، إن غالبية أهل الجاهلية كان من أهل التاريخ،\nاليمن كانوا يتداولون قصص رستم واسفنديار وملوك فارس، وأن \"النصر بن الحارث\" الذي كان\nفيها كلمة \"عربي\" و \"عرب\" في التوراة، نجدها بهذا المعنى تماماً  ففي كل المواضع\nباقي المصارف سواء لجهة العملاء أو لجهة الأدوات الاستثمارية،\nبقال لها: \"كولد تزهير\" و \"تذهب\" بوجود أثر فارسي في ظل العرض\nمنهم من برز وألّف في @ موضوعات دينية وتارخية، كما ورد في أخبار أهل\nبالرحلة، وان كان لهم كتبهم من أجل يأتون @ بمختلف\nالفلاحون الذين يعملون في المدن سن الزواج وسن الإنجاب ،\nأن الكتب الأثار وهي أكثر تفضيلا في العولمة"
+        },
+        "04_handwritten_archive_line": {
+          "scenario": "Handwriting (archive line)",
+          "cer": 3.8409,
+          "cer_no_diacritics": 3.75,
+          "wer": 4.0,
+          "failed": true,
+          "failure_reasons": [
+            "CER > 1.0 (hallucination / repetition)"
+          ],
+          "latency_s": 10.03,
+          "peak_vram_gb": 2.0,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "الصين هي أكبر دولة منتجة للأجهزة الكهربائية المنزلية في العالم، وفي عام الفين وسبعه\nالعرب والعربية،فقد كان أولئك وهؤلاء عرباً أيضاً، مثل عرب\nالعرب والعربية،فقد كان أولئك وهؤلاء عرباً أيضاً، مثل عرب"
+        },
+        "05_scene_text_photo": {
+          "scenario": "Scene text photo",
+          "cer": 0.0,
+          "cer_no_diacritics": 0.0,
+          "wer": 0.0,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 0.319,
+          "peak_vram_gb": 1.98,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "سيارة"
+        },
+        "06_table": {
+          "scenario": "Table",
+          "cer": 0.7477,
+          "cer_no_diacritics": 0.7491,
+          "wer": 1.2535,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 303.115,
+          "peak_vram_gb": 2.38,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "الإبرادان المتميزة للتعليمي والإسلامي المذكور، فارض الحضر في المجتمع\nالإسلام، ووقوفهم على القرآن الكريم، وتكلمهم باللغة التي\nالعلاقة خضوع تام من قبل السلطات الإدارية العليا والتي\nالعرب،\nالعرب،\nلقد بذل الهمداني مجهوداً يقدر في تأليف كتبه وفي اختيار\nالعرب،\nكالذي ورد في شعر لامرئ القيس، وفي الأخبار المدونة في كتب\nالعرب،\nتأخير سن الإنجاب يرتبط بارتفاع مكانة النساء في المجتمع  \"مع ارتفاع المستوى\nللدراسة في الصين\nتأخير سن الإنجاب يرتبط بارتفاع مكانة النساء في المجتمع  \"مع ارتفاع مستوى\nتاريخية أصيلة لا يمكن الطعن فيها ولا التجريح فكيف إذا قورن ذلك"
+        },
+        "07_diacritics_tashkeel": {
+          "scenario": "Diacritics (tashkeel)",
+          "cer": 0.3636,
+          "cer_no_diacritics": 0.0811,
+          "wer": 0.75,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 2.355,
+          "peak_vram_gb": 1.99,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "وإذا ما سألتني عن معنى لفظة \"عرب\" عندنا"
+        },
+        "08_darija_moroccan": {
+          "scenario": "Darija dialect",
+          "cer": 0.6618,
+          "cer_no_diacritics": 0.6603,
+          "wer": 0.9674,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 127.215,
+          "peak_vram_gb": 2.2,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "وتيماء ومدائن صالح والعلا وتبوك، ويتعبير اللفظة في\nيترو ثالثين، وعلى الأشجار النادرة، وأن \"الهمداني\" وبأن \"الهمداني\"\nتالكبار، تعطلت عليها قال: \"ترعة بنت بازل بن شرحبيل\"\nمن بعده عدد منهم، ومن الحلول الابتكارية التي تتميز بها التعريف\nتتعلق بتاريخ الجاهلية ومثلهم من الجاهلية،\nقراوية  ولم يبخل الهمداني عليه، فوهب له أما كتبته فليس جديداً؟"
+        },
+        "09_invoice_mixed_degraded": {
+          "scenario": "Invoice, mixed RTL/LTR, degraded",
+          "cer": 1.0547,
+          "cer_no_diacritics": 1.047,
+          "wer": 1.6053,
+          "failed": true,
+          "failure_reasons": [
+            "CER > 1.0 (hallucination / repetition)"
+          ],
+          "latency_s": 386.811,
+          "peak_vram_gb": 2.42,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "من أرقى أنواع الخزف في العالم، ومن الحلول الابتكارية التي كان للفنان المسلم الفضل في\nالمؤرخين، بل نجد فيها أسم كبير من اختصاصات (المجلس القبلي) ، إن ما نلاحظ على أخبار عبيد،\nـ@ 542م  والرأي عندي إن العرب الجنوبيين لم يفههوا هذا المعنى من اللفظة الا بعد دخولهم في\nالعرب والعربية،فقد كان أولئك وهؤلاء عرباً أيضاً، مثل عرب\nالعربية إنما سميت به، فأخذت من اسمه، إنما هم القحطانيون\nالعربية إنما سميت به، فأخذت من اسمه، إنما القحطانيون\nالعرب والعربية،فقد كان أولئك وهؤلاء عرباً أيضاً، مثل عرب\nالإنجليزي المستعرب عدة كتب بالإنكليزية وصف فيها أسفاره في بلاد\nإيصال البحر الأحمر بقوله :\" ومن شاء أن نقل المؤرخين إليها إلى أوروبة\nالجنوبية، وتتصل إلى درجة حرارة خمس  ـ\nشكر أهمها وهي أصل تسميتها \"علم الجنوب\""
+        },
+        "10_presentation_slide_text": {
+          "scenario": "Slide text line",
+          "cer": 0.68,
+          "cer_no_diacritics": 0.68,
+          "wer": 1.0,
+          "failed": false,
+          "failure_reasons": [],
+          "latency_s": 4.161,
+          "peak_vram_gb": 1.99,
+          "input_tokens": null,
+          "output_tokens": null,
+          "error": null,
+          "prediction": "وأحببت القرآن اختلفت لغة القوانين، فأدى أسماء قبائل عربية كثيرة عديدة"
+        }
+      }
+    }
+  }
+}

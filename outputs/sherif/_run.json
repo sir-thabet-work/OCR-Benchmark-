@@ -1,0 +1,82 @@
+{
+  "model": "sherif",
+  "started_at": "2026-10-07T09:08:35.163206+00:00",
+  "prompt": "ارجو استخراج النص العربي كاملاً من هذه الصورة من البداية الى النهاية بدون اي اختصار ودون ذيادة او حذف. اقرأ كل المحتوى النصي الموجود في الصورة:",
+  "max_new_tokens": 2048,
+  "environment": {
+    "python": "3.13.15",
+    "torch": "2.11.0+cu130",
+    "transformers": "5.19.0",
+    "peft": "0.21.2",
+    "bitsandbytes": "0.50.2",
+    "google.genai": "2.28.0",
+    "gpu": "Tesla T4"
+  },
+  "images": {
+    "01_printed_book_page": {
+      "latency_s": 33.691,
+      "peak_vram_gb": 2.56,
+      "output_chars": 808,
+      "error": null
+    },
+    "02_handwritten_paragraph": {
+      "latency_s": 26.273,
+      "peak_vram_gb": 4.96,
+      "output_chars": 268,
+      "error": null
+    },
+    "03_historical_manuscript": {
+      "latency_s": 164.004,
+      "peak_vram_gb": 2.61,
+      "output_chars": 4097,
+      "error": null
+    },
+    "04_handwritten_archive_line": {
+      "latency_s": 2.777,
+      "peak_vram_gb": 2.48,
+      "output_chars": 45,
+      "error": null
+    },
+    "05_scene_text_photo": {
+      "latency_s": 1.324,
+      "peak_vram_gb": 2.49,
+      "output_chars": 5,
+      "error": null
+    },
+    "06_table": {
+      "latency_s": 28.717,
+      "peak_vram_gb": 2.82,
+      "output_chars": 4211,
+      "error": null
+    },
+    "07_diacritics_tashkeel": {
+      "latency_s": 2.375,
+      "peak_vram_gb": 2.48,
+      "output_chars": 41,
+      "error": null
+    },
+    "08_darija_moroccan": {
+      "latency_s": 21.884,
+      "peak_vram_gb": 2.68,
+      "output_chars": 465,
+      "error": null
+    },
+    "09_invoice_mixed_degraded": {
+      "latency_s": 211.279,
+      "peak_vram_gb": 4.7,
+      "output_chars": 2801,
+      "error": null
+    },
+    "10_presentation_slide_text": {
+      "latency_s": 2.668,
+      "peak_vram_gb": 2.47,
+      "output_chars": 74,
+      "error": null
+    }
+  },
+  "repo": "sherif1313/Arabic-handwritten-OCR-4bit-Qwen2.5-VL-3B-v2",
+  "revision": "7ff7c98866e29046a2ce7bf84233d5de58cf8fd2",
+  "precision": "nf4 weights, torch.float16 compute",
+  "load_seconds": 43.7,
+  "finished_at": "2026-10-07T09:17:50.380929+00:00"
+}

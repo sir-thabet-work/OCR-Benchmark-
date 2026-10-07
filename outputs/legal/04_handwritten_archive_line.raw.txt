@@ -1,0 +1,1 @@
+{"output": "{\"legal_entity\": \"دیوان ردیه\", \"entity_type\": \"administrative_body\", \"location\": null, \"other_info\": \"رصد اموال\", \"notes\": \"The text is entirely composed of repeating a legal title and its ordinal position/instance.\"}"}

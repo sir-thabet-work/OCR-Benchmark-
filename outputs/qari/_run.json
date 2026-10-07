@@ -1,0 +1,82 @@
+{
+  "model": "qari",
+  "started_at": "2026-10-06T14:09:02.297613+00:00",
+  "prompt": "Free OCR.",
+  "max_new_tokens": 2048,
+  "environment": {
+    "python": "3.13.15",
+    "torch": "2.11.0+cu130",
+    "transformers": "5.18.0",
+    "peft": "0.21.2",
+    "bitsandbytes": "0.50.2",
+    "google.genai": "2.28.0",
+    "gpu": "Tesla T4"
+  },
+  "images": {
+    "01_printed_book_page": {
+      "latency_s": 27.384,
+      "peak_vram_gb": 9.11,
+      "output_chars": 838,
+      "error": null
+    },
+    "02_handwritten_paragraph": {
+      "latency_s": 18.497,
+      "peak_vram_gb": 12.02,
+      "output_chars": 295,
+      "error": null
+    },
+    "03_historical_manuscript": {
+      "latency_s": 31.999,
+      "peak_vram_gb": 9.15,
+      "output_chars": 547,
+      "error": null
+    },
+    "04_handwritten_archive_line": {
+      "latency_s": 1.311,
+      "peak_vram_gb": 8.92,
+      "output_chars": 37,
+      "error": null
+    },
+    "05_scene_text_photo": {
+      "latency_s": 0.313,
+      "peak_vram_gb": 8.94,
+      "output_chars": 5,
+      "error": null
+    },
+    "06_table": {
+      "latency_s": 16.97,
+      "peak_vram_gb": 9.48,
+      "output_chars": 537,
+      "error": null
+    },
+    "07_diacritics_tashkeel": {
+      "latency_s": 3.366,
+      "peak_vram_gb": 8.92,
+      "output_chars": 53,
+      "error": null
+    },
+    "08_darija_moroccan": {
+      "latency_s": 19.28,
+      "peak_vram_gb": 9.3,
+      "output_chars": 508,
+      "error": null
+    },
+    "09_invoice_mixed_degraded": {
+      "latency_s": 266.127,
+      "peak_vram_gb": 11.86,
+      "output_chars": 1215,
+      "error": null
+    },
+    "10_presentation_slide_text": {
+      "latency_s": 1.78,
+      "peak_vram_gb": 8.92,
+      "output_chars": 75,
+      "error": null
+    }
+  },
+  "repo": "NAMAA-Space/Qari-OCR-0.4.0-VL-4B-Instruct",
+  "revision": "aa65b4a46336c6cc608e7da5a015f8e71472a68b",
+  "precision": "torch.float16",
+  "load_seconds": 174.6,
+  "finished_at": "2026-10-06T14:18:40.201992+00:00"
+}

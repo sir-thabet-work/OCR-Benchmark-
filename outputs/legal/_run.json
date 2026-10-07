@@ -1,0 +1,82 @@
+{
+  "model": "legal",
+  "started_at": "2026-10-06T14:22:48.068186+00:00",
+  "prompt": "Extract details to JSON.",
+  "max_new_tokens": 2048,
+  "environment": {
+    "python": "3.13.15",
+    "torch": "2.11.0+cu130",
+    "transformers": "5.18.0",
+    "peft": "0.21.2",
+    "bitsandbytes": "0.50.2",
+    "google.genai": "2.28.0",
+    "gpu": "Tesla T4"
+  },
+  "images": {
+    "01_printed_book_page": {
+      "latency_s": 89.804,
+      "peak_vram_gb": 5.16,
+      "output_chars": 1913,
+      "error": null
+    },
+    "02_handwritten_paragraph": {
+      "latency_s": 21.155,
+      "peak_vram_gb": 5.06,
+      "output_chars": 375,
+      "error": null
+    },
+    "03_historical_manuscript": {
+      "latency_s": 25.293,
+      "peak_vram_gb": 5.06,
+      "output_chars": 459,
+      "error": null
+    },
+    "04_handwritten_archive_line": {
+      "latency_s": 8.898,
+      "peak_vram_gb": 5.06,
+      "output_chars": 217,
+      "error": null
+    },
+    "05_scene_text_photo": {
+      "latency_s": 7.668,
+      "peak_vram_gb": 5.06,
+      "output_chars": 26,
+      "error": null
+    },
+    "06_table": {
+      "latency_s": 47.897,
+      "peak_vram_gb": 5.06,
+      "output_chars": 844,
+      "error": null
+    },
+    "07_diacritics_tashkeel": {
+      "latency_s": 11.047,
+      "peak_vram_gb": 5.06,
+      "output_chars": 99,
+      "error": null
+    },
+    "08_darija_moroccan": {
+      "latency_s": 18.033,
+      "peak_vram_gb": 5.06,
+      "output_chars": 453,
+      "error": null
+    },
+    "09_invoice_mixed_degraded": {
+      "latency_s": 102.64,
+      "peak_vram_gb": 5.17,
+      "output_chars": 1300,
+      "error": null
+    },
+    "10_presentation_slide_text": {
+      "latency_s": 54.6,
+      "peak_vram_gb": 5.09,
+      "output_chars": 130,
+      "error": null
+    }
+  },
+  "repo": "bakrianoo/arabic-legal-documents-ocr-1.0",
+  "revision": "9eb86fb9fbbc044f8a845cd3fbb6663f285d1a21",
+  "precision": "nf4 weights, fp32 compute (no bf16 on this GPU)",
+  "load_seconds": 154.4,
+  "finished_at": "2026-10-06T14:31:59.863429+00:00"
+}

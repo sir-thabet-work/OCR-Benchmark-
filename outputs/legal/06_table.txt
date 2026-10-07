@@ -1,0 +1,36 @@
+الإيرادات المتوقعة للتطبيقات الجديدة باستخدام درابات في السوق المحلي
+This table shows the projected revenue for new applications using branded apps (SmyleAds) in Saudi Arabia's markets.
+True
+الاسم
+القطعة
+السوق المستهدف
+الإيرادات السنوية المتوقعة
+الأعمال المناسبة
+ChatApp Messenger
+Messaging
+المملكة العربية السعودية
+٣٥,٠٠٠,٠٠٠ - ١٠٠,٠٠٠,٠٠٠
+واتس أب, تاعرام
+HealthTracker Plus
+Health & Fitness
+المملكة العربية المتحدة
+١٥,٠٠٠,٠٠٠ - ١٠٠,٠٠٠,٠٠٠
+فيتمين, ماي فينتس بالل
+EduLearn Hub
+Education
+المملكة العربية السعودية
+١٣,٠٠٠,٠٠٠ - ٢٧,٠٠٠,٠٠٠
+كورسزار, يوديمي
+ShopEase
+E-commerce
+المملكة العربية السعودية
+٣٥,٠٠٠,٠٠٠ - ٧٥,٠٠٠,٠٠٠
+نمشية, سوق, كومو
+TravelBuddy
+Travel
+المملكة العربية السعودية
+٣٠,٠٠٠,٠٠٠ - ٧٠,٠٠٠,٠٠٠
+قظار, تريب آدثون, بوكنج
+The table is a part of a larger document or presentation regarding branded apps in Saudi markets.
+financial
+دولار

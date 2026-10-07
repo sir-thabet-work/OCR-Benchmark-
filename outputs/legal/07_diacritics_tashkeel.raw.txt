@@ -1,0 +1,1 @@
+{"has_text": true, "text": "وَإِذَا سَأَلْتَنِي عَنْ مَعْنَى لَفظِه "عرب" عند رب العزة", "language": "arabic", "has_tables": false, "tables": [], "has_lists": false, "lists": [], "entities": [], "category": "legal_provisions"}
