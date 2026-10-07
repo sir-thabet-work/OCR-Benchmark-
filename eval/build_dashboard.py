@@ -96,6 +96,9 @@ FINDINGS = [
     dict(title="Round 2 mostly solved repetition loops",
          body="Round 1's leaders all looped somewhere. In round 2, amad-vlm6/5, Fanar and dots.ocr had none; "
               "only AIN looped on text."),
+    dict(title="Eight of ten test images are KITAB-Bench",
+         body="A model tuned on those sources can score better than it reads. Only amad-vlm5/6 say so on their "
+              "cards; for the others, Katib and Qari included, we cannot rule it out."),
     dict(title="Our own documents decide",
          body="On public images, overlap blurs the ranking. The shortlist (amad-vlm6, dots.ocr, Qari, Katib) "
               "goes to a test on our own documents."),
