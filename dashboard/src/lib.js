@@ -14,7 +14,17 @@ export const SHORT = {
   baseer: 'Baseer-Nakba',
   waqf: 'Waqf',
   legal: 'Legal OCR',
+  amad6: 'amad-vlm6',
+  amad5: 'amad-vlm5',
+  dots: 'dots.ocr',
+  hunyuan: 'HunyuanOCR',
+  fanar: 'Fanar',
+  ain: 'AIN',
 }
+
+export const ROUNDS = [...new Set(data.models.map((m) => m.round))].sort()
+
+export const isOverlap = (model, imageId) => model.overlap?.includes(imageId)
 
 export const LEVELS = {
   reference: { icon: '◆', label: 'Reference' },

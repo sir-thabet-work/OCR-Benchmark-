@@ -1,0 +1,24 @@
+<think>
+**Arabic Text Transcription and Analysis**
+
+Okay, here's my breakdown of this Arabic text. I need to get it *precisely* right, so I'm meticulously transcribing each line.
+
+Line 1: The initial phrase is "و نهار يبغيو يتكلمو معَاك، الخاصلو ثالكلَام هُوَ: ويتني ويتني و شوية ثالنخيض بحال أنتي". I had to double-check the diacritics on "والشويه" (with the tanween). It looks like "والشويه" or "والشويه" with a tanween. I also had to confirm that it was "الخاصلو ثالكلَام هُوَ" rather than something else.
+
+Line 2: "يترو ثاللبن، و علاش؟ حيتاش ما تاتهضريش!! واش الهضرة هي بنادم؟ بسبب هاد الفعلة". I had to make sure I got the correct word order and diacritics. I confirmed that it was "حِيَتَاش مَا تَاتِهْضَرِيشِ!! وَأَشْ الهضرة هِيَ بَنَادِمْ؟ بِسَبْبِ هَادِ الفعلة".
+
+Line 3: "ثالكبَار، تعطلتي فالتعلّام اللولاني فياتك لي عليه تتبني التعلّام لي جاي من بعد!". I had to check if it was "فالتعلّام" or "فالتعلّام" (with the tanween).
+
+Line 4: "من بعد عامين ول ثلث سنين، على حساب بنادم، نهار تبتداي تخرجي الكلمات اللولانيين". I had to confirm the spelling of "تبتداي" (with the tanween) and the diacritics on "الكلمات اللولانيين".
+
+Line 5: "تتلقايهُم متلهفين تعيطي مامًا وبابا، ما عرفت واش على خدمتهم الناية، ول على القصص لي". I had to verify the diacritics on "تتلقايهُم" (with the tanween), and confirm the spelling of "وبابا".
+
+Line 6: "قراو ليك والمسايل لي فسو ليك نهار ما كنتيش تقدي تجاوي بالكلام!". I had to confirm the spelling of "المسايل" (with the tanween).
+</think>
+
+و نهار يبغيو يتكلمو معَاك، الخاصلو ثالكلَام هُوَ: ويتني ويتني و شوية ثالنخيض بحال أنتي
+يترو ثاللبن، و علاش؟ حيتاش ما تاتهضريش!! واش الهضرة هي بنادم؟ بسبب هاد الفعلة
+ثالكبَار، تعطلتي فالتعلّام اللولاني فياتك لي عليه تتبني التعلّام لي جاي من بعد!
+من بعد عامين ول ثلث سنين، على حساب بنادم، نهار تبتداي تخرجي الكلمات اللولانيين
+تتلقايهُم متلهفين تعيطي مامًا وبابا، ما عرفت واش على خدمتهم الناية، ول على القصص لي
+قراو ليك والمسايل لي فسو ليك نهار ما كنتيش تقدي تجاوي بالكلام!

@@ -1,35 +1,39 @@
 import { data, modelById, fmt, pct, gb } from '../lib.js'
-import { StatusChip } from './Chips.jsx'
+import { RoundBadge, StatusChip } from './Chips.jsx'
 
-const open = data.models.filter((m) => m.level !== 'reference')
-const bestOpen = open[0]
-const loops = open.reduce((n, m) => n + Object.values(m.outputs).filter((o) => o.loop).length, 0)
-const unusable = open.filter((m) => m.level === 'critical').length
+const names = (list) =>
+  list.length <= 2 ? list.join(' and ') : `${list.slice(0, -1).join(', ')} and ${list[list.length - 1]}`
 
 export function StatTiles() {
   const ref = modelById.gemini
+  const open = data.models.filter((m) => m.level !== 'reference')
+  const best = open[0]
+  const bestFair = [...open].sort((a, b) => a.summary.cerMedianFair - b.summary.cerMedianFair)[0]
+  const loopers = open.filter((m) => m.summary.loops > 0)
+  const loops = loopers.reduce((n, m) => n + m.summary.loops, 0)
+  const unusable = open.filter((m) => m.level === 'critical')
   const tiles = [
     {
-      label: 'Reference median CER',
-      value: fmt(ref.summary.cerMedian),
-      foot: `${ref.name}, no failures`,
+      label: 'Best open model, median CER',
+      value: fmt(best.summary.cerMedian),
+      foot: `${best.name}; Gemini reference ${fmt(ref.summary.cerMedian)}`,
     },
     {
-      label: 'Best open model',
-      value: fmt(bestOpen.summary.cerMedian),
-      foot: `${bestOpen.name}, ${gb(bestOpen.summary.vram)} on a T4`,
+      label: 'Best without training overlap',
+      value: fmt(bestFair.summary.cerMedianFair),
+      foot: `${bestFair.name}, images 02 and 04 left out`,
     },
     {
       label: 'Repetition loops',
       value: `${loops}`,
       unit: `of ${open.length * data.images.length} outputs`,
-      foot: 'Qari, Katib and Sherif',
+      foot: names(loopers.map((m) => m.name)),
     },
     {
       label: 'Not usable',
-      value: `${unusable}`,
+      value: `${unusable.length}`,
       unit: `of ${open.length} candidates`,
-      foot: 'Waqf and Legal OCR',
+      foot: names(unusable.map((m) => m.name)),
     },
   ]
   return (
@@ -61,13 +65,16 @@ export function Findings() {
   )
 }
 
-export function ModelCards({ onPick }) {
+export function ModelCards({ models, onPick }) {
+  let rank = 0
   return (
     <div className="cards">
-      {data.models.map((m, i) => (
+      {models.map((m) => (
         <button className={`card card-${m.level}`} key={m.id} onClick={() => onPick(m.id)}>
           <div className="card-top">
-            <span className="card-rank">{m.level === 'reference' ? 'Ref' : `#${i}`}</span>
+            <span className="card-rank">
+              {m.level === 'reference' ? 'Ref' : `#${++rank}`} <RoundBadge round={m.round} />
+            </span>
             <StatusChip level={m.level}>{m.verdict}</StatusChip>
           </div>
           <div className="card-name">{m.name}</div>

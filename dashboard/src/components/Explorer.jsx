@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
-import { data, imageById, fmt, secs } from '../lib.js'
-import { ErrorPill, StatusChip } from './Chips.jsx'
+import { data, imageById, fmt, isOverlap, secs } from '../lib.js'
+import { ErrorPill, RoundBadge, StatusChip } from './Chips.jsx'
 
 const GT_FORMAT = { '06': 'HTML source', '09': 'Markdown source' }
 
@@ -26,7 +26,7 @@ function OutputText({ output }) {
   )
 }
 
-export default function Explorer({ imageId, setImageId, focusModel }) {
+export default function Explorer({ models, imageId, setImageId, focusModel }) {
   const img = imageById[imageId]
   const cardRefs = useRef({})
 
@@ -36,7 +36,7 @@ export default function Explorer({ imageId, setImageId, focusModel }) {
     }
   }, [focusModel, imageId])
 
-  const ranked = [...data.models].sort((a, b) => a.outputs[imageId].cer - b.outputs[imageId].cer)
+  const ranked = [...models].sort((a, b) => a.outputs[imageId].cer - b.outputs[imageId].cer)
 
   return (
     <div className="explorer">
@@ -87,6 +87,7 @@ export default function Explorer({ imageId, setImageId, focusModel }) {
               <div className="out-head">
                 <span className="out-rank">{i + 1}</span>
                 <span className="out-name">{m.name}</span>
+                <RoundBadge round={m.round} />
                 <StatusChip level={m.level}>{m.verdict}</StatusChip>
               </div>
               <div className="out-metrics">
@@ -100,6 +101,9 @@ export default function Explorer({ imageId, setImageId, focusModel }) {
                   <StatusChip level="critical">Failed: {o.reasons.join(', ')}</StatusChip>
                 )}
                 {o.loop && <StatusChip level="warning">Repetition loop</StatusChip>}
+                {isOverlap(m, imageId) && (
+                  <StatusChip level="warning">Trained on this image&apos;s source</StatusChip>
+                )}
               </div>
               <OutputText output={o} />
             </li>

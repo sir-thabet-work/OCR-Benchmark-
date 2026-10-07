@@ -1,30 +1,34 @@
 import { useState } from 'react'
-import { SHORT, data, fmt, gb, secs } from '../lib.js'
+import { SHORT, fmt, gb, secs } from '../lib.js'
 
 const W = 720
-const H = 380
+const H = 470
 const M = { l: 56, r: 28, t: 20, b: 52 }
 const PW = W - M.l - M.r
 const PH = H - M.t - M.b
+// Both axes are log scales: the usable models crowd into 7-25 s and CER 0.13-0.28.
 const X_MIN = 1
 const X_MAX = 200
-const Y_MAX = 1.4
+const Y_MIN = 0.1
+const Y_MAX = 2
 const X_TICKS = [1, 2, 5, 10, 20, 50, 100, 200]
-const Y_TICKS = [0, 0.2, 0.4, 0.6, 0.8, 1.0, 1.2, 1.4]
+const Y_TICKS = [0.1, 0.2, 0.5, 1, 2]
 
 const x = (v) => M.l + (Math.log10(v / X_MIN) / Math.log10(X_MAX / X_MIN)) * PW
-const y = (v) => M.t + (1 - v / Y_MAX) * PH
+const y = (v) => M.t + (1 - Math.log10(Math.max(v, Y_MIN) / Y_MIN) / Math.log10(Y_MAX / Y_MIN)) * PH
 
-// Hand-placed labels: Gemini and Katib sit almost on top of each other.
+// Hand-placed labels where points sit close together.
 const LABEL = {
-  gemini: { dx: -12, dy: -10, anchor: 'end' },
-  katib: { dx: -12, dy: 18, anchor: 'end' },
+  gemini: { dx: -12, dy: 18, anchor: 'end' },
+  katib: { dx: -12, dy: 0, anchor: 'end' },
+  hunyuan: { dx: -12, dy: 4, anchor: 'end' },
+  dots: { dx: 0, dy: -14, anchor: 'middle' },
   waqf: { dx: -12, dy: 4, anchor: 'end' },
 }
 
-export default function SpeedChart({ onPick }) {
+export default function SpeedChart({ models, onPick }) {
   const [hover, setHover] = useState(null)
-  const points = data.models.map((m) => ({
+  const points = models.map((m) => ({
     m,
     cx: x(m.summary.latencyMedian),
     cy: y(m.summary.cerMedian),
@@ -42,16 +46,17 @@ export default function SpeedChart({ onPick }) {
         </span>
       </div>
       <div className="chart-box">
-        <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label="Median CER against median latency per page, one point per model">
+        <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label="Median CER against median latency per page, one point per model, log scales">
           <rect x={M.l} y={M.t} width={PW} height={PH} className="plot-bg" />
           {Y_TICKS.map((t) => (
             <g key={`y${t}`}>
-              <line x1={M.l} x2={M.l + PW} y1={y(t)} y2={y(t)} className={t === 0 ? 'axis' : 'grid'} />
+              <line x1={M.l} x2={M.l + PW} y1={y(t)} y2={y(t)} className="grid" />
               <text x={M.l - 10} y={y(t) + 4} className="tick" textAnchor="end">
-                {t.toFixed(1)}
+                {t}
               </text>
             </g>
           ))}
+          <line x1={M.l} x2={M.l + PW} y1={M.t + PH} y2={M.t + PH} className="axis" />
           {X_TICKS.map((t) => (
             <g key={`x${t}`}>
               <line x1={x(t)} x2={x(t)} y1={M.t} y2={M.t + PH} className="grid" />
@@ -68,7 +73,7 @@ export default function SpeedChart({ onPick }) {
             className="axis-title"
             textAnchor="middle"
           >
-            Median CER
+            Median CER (log scale)
           </text>
           <text x={M.l + 10} y={M.t + PH - 10} className="corner-note">
             ↙ faster and more accurate
@@ -83,7 +88,7 @@ export default function SpeedChart({ onPick }) {
                 className={`pt ${hover === m.id ? 'pt-on' : ''}`}
                 tabIndex={0}
                 role="button"
-                aria-label={`${m.name}: median CER ${fmt(m.summary.cerMedian)}, ${secs(m.summary.latencyMedian)} per page`}
+                aria-label={`${m.name}, round ${m.round}: median CER ${fmt(m.summary.cerMedian)}, ${secs(m.summary.latencyMedian)} per page`}
                 onMouseEnter={() => setHover(m.id)}
                 onMouseLeave={() => setHover(null)}
                 onFocus={() => setHover(m.id)}
@@ -91,10 +96,10 @@ export default function SpeedChart({ onPick }) {
                 onClick={() => onPick(m.id)}
                 onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && onPick(m.id)}
               >
-                <circle cx={cx} cy={cy} r={16} className="hit" />
-                <circle cx={cx} cy={cy} r={6.5} className={ref ? 'mark mark-ref' : 'mark mark-open'} />
+                <circle cx={cx} cy={cy} r={14} className="hit" />
+                <circle cx={cx} cy={cy} r={6} className={ref ? 'mark mark-ref' : 'mark mark-open'} />
                 <text x={cx + l.dx} y={cy + l.dy} textAnchor={l.anchor} className="pt-label">
-                  {SHORT[m.id]}
+                  {SHORT[m.id] ?? m.name}
                 </text>
               </g>
             )
@@ -106,7 +111,9 @@ export default function SpeedChart({ onPick }) {
             style={{ left: `${(hp.cx / W) * 100}%`, top: `${(hp.cy / H) * 100}%` }}
             role="status"
           >
-            <strong>{hp.m.name}</strong>
+            <strong>
+              {hp.m.name} · round {hp.m.round}
+            </strong>
             <span>Median CER {fmt(hp.m.summary.cerMedian)}</span>
             <span>
               {secs(hp.m.summary.latencyMedian)} per page ·{' '}
@@ -117,8 +124,8 @@ export default function SpeedChart({ onPick }) {
         )}
       </div>
       <figcaption>
-        Open models ran on a Colab T4 in fp16; Gemini ran through the API. Latency caveats are marked ⚠ in
-        the leaderboard and in each tooltip.
+        Open models ran on a Colab T4 (7–8B models in 4-bit); Gemini ran through the API. Latency caveats are
+        marked ⚠ in the leaderboard and in each tooltip.
       </figcaption>
     </figure>
   )

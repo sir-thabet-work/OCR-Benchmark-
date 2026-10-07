@@ -1,0 +1,83 @@
+{
+  "model": "dots",
+  "round": 2,
+  "started_at": "2026-10-07T11:05:22.946774+00:00",
+  "prompt": "Extract the text content from this image.",
+  "max_new_tokens": 2048,
+  "environment": {
+    "python": "3.13.15",
+    "torch": "2.11.0+cu130",
+    "transformers": "4.51.3",
+    "peft": "0.21.2",
+    "bitsandbytes": "0.50.2",
+    "google.genai": "2.28.0",
+    "gpu": "Tesla T4"
+  },
+  "images": {
+    "01_printed_book_page": {
+      "latency_s": 12.668,
+      "peak_vram_gb": 6.2,
+      "output_chars": 861,
+      "error": null
+    },
+    "02_handwritten_paragraph": {
+      "latency_s": 23.119,
+      "peak_vram_gb": 7.14,
+      "output_chars": 448,
+      "error": null
+    },
+    "03_historical_manuscript": {
+      "latency_s": 16.175,
+      "peak_vram_gb": 6.22,
+      "output_chars": 574,
+      "error": null
+    },
+    "04_handwritten_archive_line": {
+      "latency_s": 2.774,
+      "peak_vram_gb": 6.1,
+      "output_chars": 109,
+      "error": null
+    },
+    "05_scene_text_photo": {
+      "latency_s": 0.311,
+      "peak_vram_gb": 6.12,
+      "output_chars": 4,
+      "error": null
+    },
+    "06_table": {
+      "latency_s": 15.29,
+      "peak_vram_gb": 6.33,
+      "output_chars": 879,
+      "error": null
+    },
+    "07_diacritics_tashkeel": {
+      "latency_s": 1.615,
+      "peak_vram_gb": 6.1,
+      "output_chars": 60,
+      "error": null
+    },
+    "08_darija_moroccan": {
+      "latency_s": 10.751,
+      "peak_vram_gb": 6.26,
+      "output_chars": 532,
+      "error": null
+    },
+    "09_invoice_mixed_degraded": {
+      "latency_s": 23.587,
+      "peak_vram_gb": 7.39,
+      "output_chars": 505,
+      "error": null
+    },
+    "10_presentation_slide_text": {
+      "latency_s": 1.407,
+      "peak_vram_gb": 6.09,
+      "output_chars": 76,
+      "error": null
+    }
+  },
+  "repo": "dots-studio/dots.ocr",
+  "revision": "c0111ce6bc07803dbc267932ffef0ae3a51dc951",
+  "precision": "torch.float16",
+  "load_seconds": 7.8,
+  "finished_at": "2026-10-07T11:07:27.561955+00:00"
+}

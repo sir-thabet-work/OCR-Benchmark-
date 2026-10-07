@@ -1,0 +1,83 @@
+{
+  "model": "hunyuan",
+  "round": 2,
+  "started_at": "2026-10-07T10:52:32.009491+00:00",
+  "prompt": "请提取图片中的文字内容。",
+  "max_new_tokens": 2048,
+  "environment": {
+    "python": "3.13.15",
+    "torch": "2.11.0+cu130",
+    "transformers": "5.19.0",
+    "peft": "0.21.2",
+    "bitsandbytes": "0.50.2",
+    "google.genai": "2.28.0",
+    "gpu": "Tesla T4"
+  },
+  "images": {
+    "01_printed_book_page": {
+      "latency_s": 72.756,
+      "peak_vram_gb": 4.58,
+      "output_chars": 2487,
+      "error": null
+    },
+    "02_handwritten_paragraph": {
+      "latency_s": 17.164,
+      "peak_vram_gb": 5.96,
+      "output_chars": 288,
+      "error": null
+    },
+    "03_historical_manuscript": {
+      "latency_s": 7.03,
+      "peak_vram_gb": 4.2,
+      "output_chars": 318,
+      "error": null
+    },
+    "04_handwritten_archive_line": {
+      "latency_s": 1.297,
+      "peak_vram_gb": 4.11,
+      "output_chars": 43,
+      "error": null
+    },
+    "05_scene_text_photo": {
+      "latency_s": 0.723,
+      "peak_vram_gb": 4.09,
+      "output_chars": 15,
+      "error": null
+    },
+    "06_table": {
+      "latency_s": 13.113,
+      "peak_vram_gb": 4.42,
+      "output_chars": 635,
+      "error": null
+    },
+    "07_diacritics_tashkeel": {
+      "latency_s": 1.752,
+      "peak_vram_gb": 4.09,
+      "output_chars": 52,
+      "error": null
+    },
+    "08_darija_moroccan": {
+      "latency_s": 9.814,
+      "peak_vram_gb": 4.3,
+      "output_chars": 470,
+      "error": null
+    },
+    "09_invoice_mixed_degraded": {
+      "latency_s": 30.906,
+      "peak_vram_gb": 5.87,
+      "output_chars": 729,
+      "error": null
+    },
+    "10_presentation_slide_text": {
+      "latency_s": 2.138,
+      "peak_vram_gb": 4.11,
+      "output_chars": 75,
+      "error": null
+    }
+  },
+  "repo": "tencent/HunyuanOCR",
+  "revision": "47644ecc4fc854efa4f505155158831f36773ee4",
+  "precision": "torch.float32",
+  "load_seconds": 27.8,
+  "finished_at": "2026-10-07T10:55:51.908065+00:00"
+}

@@ -1,32 +1,37 @@
 import { useMemo, useState } from 'react'
-import { data, fmt, pct, secs, gb } from '../lib.js'
-import { Caveat, StatusChip } from './Chips.jsx'
+import { fmt, pct, secs, gb } from '../lib.js'
+import { Caveat, RoundBadge, StatusChip } from './Chips.jsx'
 
 const COLUMNS = [
   { key: 'cerMedian', label: 'Median CER', get: (s) => s.cerMedian, bar: true },
+  { key: 'cerMedianFair', label: 'Median w/o 02, 04', get: (s) => s.cerMedianFair,
+    title: 'Median CER without images 02 and 04, whose sources amad-vlm5/6 trained on' },
   { key: 'cerMean', label: 'Mean CER', get: (s) => s.cerMean },
+  { key: 'cerMeanLoopCut', label: 'Loop-cut mean', get: (s) => s.cerMeanLoopCut,
+    title: 'Mean CER after cutting repetition loops (secondary score)' },
   { key: 'cerNdMean', label: 'CER, no diacritics', get: (s) => s.cerNdMean },
   { key: 'werMean', label: 'WER', get: (s) => s.werMean },
   { key: 'cerP95', label: 'p95 CER', get: (s) => s.cerP95 },
   { key: 'failureRate', label: 'Failures', get: (s) => s.failureRate, format: pct },
+  { key: 'loops', label: 'Loops', get: (s) => s.loops, format: (v) => String(v) },
   { key: 'latencyMedian', label: 'Latency / page', get: (s) => s.latencyMedian, format: secs, caveat: true },
   { key: 'vram', label: 'Peak memory', get: (s) => s.vram, format: gb },
 ]
 const BAR_MAX = 1.4
 
-export default function Leaderboard({ onPick }) {
+export default function Leaderboard({ models, onPick }) {
   const [sort, setSort] = useState({ key: 'cerMedian', dir: 1 })
 
   const rows = useMemo(() => {
     const col = COLUMNS.find((c) => c.key === sort.key)
-    return [...data.models].sort((a, b) => {
+    return [...models].sort((a, b) => {
       const va = col.get(a.summary)
       const vb = col.get(b.summary)
       if (va == null) return 1
       if (vb == null) return -1
       return (va - vb) * sort.dir
     })
-  }, [sort])
+  }, [sort, models])
 
   const toggle = (key) =>
     setSort((s) => (s.key === key ? { key, dir: -s.dir } : { key, dir: 1 }))
@@ -43,7 +48,7 @@ export default function Leaderboard({ onPick }) {
                 key={c.key}
                 aria-sort={sort.key === c.key ? (sort.dir === 1 ? 'ascending' : 'descending') : 'none'}
               >
-                <button className="sort" onClick={() => toggle(c.key)}>
+                <button className="sort" onClick={() => toggle(c.key)} title={c.title}>
                   {c.label}
                   <span className="sort-mark" aria-hidden="true">
                     {sort.key === c.key ? (sort.dir === 1 ? '▲' : '▼') : ''}
@@ -61,6 +66,7 @@ export default function Leaderboard({ onPick }) {
                   {m.name}
                 </button>
                 <div className="row-sub">
+                  <RoundBadge round={m.round} />
                   <StatusChip level={m.level}>{m.verdict}</StatusChip>
                   <span className="muted">{m.size}</span>
                 </div>

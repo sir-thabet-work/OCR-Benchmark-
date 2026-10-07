@@ -1,13 +1,14 @@
 import { useState } from 'react'
-import { BINS, METRICS, binOf, data, fmt } from '../lib.js'
+import { BINS, METRICS, binOf, data, fmt, isOverlap } from '../lib.js'
+import { RoundBadge } from './Chips.jsx'
 
-export default function Heatmap({ onSelect }) {
+export default function Heatmap({ models, onSelect }) {
   const [metric, setMetric] = useState('cer')
 
   // best open model per image, for the marker
   const best = Object.fromEntries(
     data.images.map((img) => {
-      const open = data.models.filter((m) => m.level !== 'reference')
+      const open = models.filter((m) => m.level !== 'reference')
       const min = Math.min(...open.map((m) => m.outputs[img.id][metric]))
       return [img.id, min]
     }),
@@ -44,23 +45,26 @@ export default function Heatmap({ onSelect }) {
             </tr>
           </thead>
           <tbody>
-            {data.models.map((m) => (
+            {models.map((m) => (
               <tr key={m.id}>
                 <th scope="row" className={m.level === 'reference' ? 'heat-ref' : ''}>
-                  {m.name}
+                  <RoundBadge round={m.round} /> {m.name}
                 </th>
                 {data.images.map((img) => {
                   const o = m.outputs[img.id]
                   const v = o[metric]
                   const bin = binOf(v)
                   const isBest = m.level !== 'reference' && v === best[img.id]
+                  const overlap = isOverlap(m, img.id)
                   const label = `${m.name} on ${img.num} ${img.scenario}: ${METRICS[metric].label} ${fmt(v)}${
                     o.loop ? ', repetition loop' : ''
-                  }${o.failed ? ', failed' : ''}${isBest ? ', best open model' : ''}`
+                  }${o.failed ? ', failed' : ''}${isBest ? ', best open model' : ''}${
+                    overlap ? ', trained on this image source: not trustworthy' : ''
+                  }`
                   return (
                     <td key={img.id} className="heat-td">
                       <button
-                        className={`heat-cell heat-${bin} ${isBest ? 'is-best' : ''}`}
+                        className={`heat-cell heat-${bin} ${isBest ? 'is-best' : ''} ${overlap ? 'is-overlap' : ''}`}
                         onClick={() => onSelect(img.id, m.id)}
                         aria-label={label}
                         title={label}
@@ -70,6 +74,11 @@ export default function Heatmap({ onSelect }) {
                         {o.loop && (
                           <span className="loop-mark" aria-hidden="true">
                             ↻
+                          </span>
+                        )}
+                        {overlap && (
+                          <span className="overlap-mark" aria-hidden="true">
+                            ⚠
                           </span>
                         )}
                       </button>
@@ -99,6 +108,10 @@ export default function Heatmap({ onSelect }) {
           best open model
         </span>
         <span className="legend-item">↻ repetition loop</span>
+        <span className="legend-item">⚠ trained on this image&apos;s source</span>
+        <span className="legend-item">
+          <RoundBadge round={1} /> <RoundBadge round={2} /> round tested
+        </span>
       </div>
     </div>
   )

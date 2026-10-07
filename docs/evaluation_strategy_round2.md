@@ -214,19 +214,19 @@ For this 10-image round, the structure criteria apply to **06 (table)** and **09
 
 ## 6. Results Template
 
-Round-1 comparison points are filled in; the round-2 rows are filled after the run. Lower is better (↓), higher is better (↑).
+Filled in after the run (2026-10-07); full results and per-model notes in [round2_notes.md](round2_notes.md). Cost and structure scores are still open. Lower is better (↓), higher is better (↑).
 
 | Model | Round | CER (median) ↓ | CER (mean) ↓ | Loop-cut CER (mean) ↓ | CER no-diac ↓ | WER ↓ | Failure rate ↓ | Loops ↓ | p95 CER ↓ | Latency (s/page) ↓ | VRAM (GB) ↓ | $ / 1k pages ↓ | Structure ↑ | Order ↑ |
 |-------|:-----:|---------------:|-------------:|----------------------:|--------------:|------:|---------------:|--------:|----------:|-------------------:|------------:|---------------:|------------:|--------:|
 | Gemini 3.7 Flash (upper bound) | 1 | 0.157 | 0.232 | 0.232 | 0.117 | 0.443 | 0% | 0 | 0.611 | 8.7 | — | | | |
 | Katib | 1 | 0.178 | 0.542 | 0.305 | 0.497 | 0.772 | 10% | 1 | 1.956 | 7.7 | 2.6 | | | |
 | Qari | 1 | 0.180 | 0.404 | 0.276 | 0.334 | 0.574 | 10% | 1 | 1.452 | 17.7 | 12.0 | | | |
-| amad-vlm6 (4-bit) | 2 | | | | | | | | | | | | | |
-| amad-vlm5 (4-bit) | 2 | | | | | | | | | | | | | |
-| HunyuanOCR-1.5 | 2 | | | | | | | | | | | | | |
-| AIN-7B (4-bit) | 2 | | | | | | | | | | | | | |
-| Fanar-2-Oryx-IVU (4-bit) | 2 | | | | | | | | | | | | | |
-| dots.ocr | 2 | | | | | | | | | | | | | |
+| amad-vlm6 (4-bit) | 2 | 0.135 | 0.202 | 0.202 | 0.142 | 0.434 | 0% | 0 | 0.514 | 19.7 | 10.5 | | | |
+| amad-vlm5 (4-bit) | 2 | 0.149 | 0.208 | 0.208 | 0.172 | 0.446 | 0% | 0 | 0.541 | 52.8 | 10.5 | | | |
+| HunyuanOCR-1.5 | 2 | 0.240 | 0.502 | 0.502 | 0.489 | 0.597 | 10% | 1 | 1.599 | 8.4 | 6.0 | | | |
+| AIN-7B (4-bit) | 2 | 0.445 | 0.850 | 0.417 | 0.840 | 0.795 | 10% | 1 | 3.135 | 3.6 | 10.5 | | | |
+| Fanar-2-Oryx-IVU (4-bit) | 2 | 0.270 | 0.375 | 0.375 | 0.316 | 0.609 | 10% | 0 | 0.850 | 13.5 | 10.5 | | | |
+| dots.ocr | 2 | 0.272 | 0.500 | 0.500 | 0.271 | 0.665 | 10% | 0 | 1.480 | 11.7 | 7.4 | | | |
 
 ---
 

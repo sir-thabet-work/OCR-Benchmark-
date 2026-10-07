@@ -1,5 +1,5 @@
-import { useCallback, useState } from 'react'
-import { data } from './lib.js'
+import { useCallback, useMemo, useState } from 'react'
+import { ROUNDS, data } from './lib.js'
 import { Findings, ModelCards, StatTiles } from './components/Overview.jsx'
 import Leaderboard from './components/Leaderboard.jsx'
 import Heatmap from './components/Heatmap.jsx'
@@ -21,6 +21,13 @@ function Section({ id, title, lede, children }) {
 export default function App() {
   const [imageId, setImageId] = useState(data.images[0].id)
   const [focusModel, setFocusModel] = useState(null)
+  const [round, setRound] = useState('all')
+
+  // The Gemini reference stays in every view: it is the comparison point for both rounds.
+  const models = useMemo(
+    () => data.models.filter((m) => round === 'all' || m.round === round || m.level === 'reference'),
+    [round],
+  )
 
   const openOutputs = useCallback((img, model) => {
     setImageId(img)
@@ -43,11 +50,14 @@ export default function App() {
   return (
     <div className="page">
       <header className="masthead">
-        <p className="eyebrow">Round 1 · smoke test · scored {run.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
+        <p className="eyebrow">
+          Rounds 1 and 2 · smoke test · scored{' '}
+          {run.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}
+        </p>
         <h1>Arabic OCR Benchmark</h1>
         <p className="masthead-lede">
-          Six open Arabic OCR models and a Gemini reference, run on the same 10 test images and scored against
-          verified ground truth. Lower error is better.
+          Twelve open Arabic OCR models, tested in two rounds of six, and a Gemini reference, all run on the same 10
+          test images and scored against verified ground truth. Lower error is better.
         </p>
         <nav className="toc" aria-label="Sections">
           <a href="#models">Models</a>
@@ -59,6 +69,21 @@ export default function App() {
           <a href="#method">Method</a>
         </nav>
         <StatTiles />
+        <div className="round-filter" role="radiogroup" aria-label="Show models from">
+          <span className="round-filter-label">Show models from</span>
+          {['all', ...ROUNDS].map((r) => (
+            <button
+              key={r}
+              role="radio"
+              aria-checked={round === r}
+              className={`seg ${round === r ? 'seg-on' : ''}`}
+              onClick={() => setRound(r)}
+            >
+              {r === 'all' ? 'Both rounds' : `Round ${r}`}
+            </button>
+          ))}
+          <span className="muted">The Gemini reference is always shown.</span>
+        </div>
       </header>
 
       <main>
@@ -67,10 +92,10 @@ export default function App() {
           title="Where each model stands"
           lede="Ranked by median CER. Select a model to see its weakest image."
         >
-          <ModelCards onPick={pickModel} />
+          <ModelCards models={models} onPick={pickModel} />
         </Section>
 
-        <Section id="findings" title="What round 1 shows">
+        <Section id="findings" title="What the two rounds show">
           <Findings />
         </Section>
 
@@ -79,7 +104,7 @@ export default function App() {
           title="Leaderboard"
           lede="All ten images, averaged. Select a column to sort. Median CER is the headline: the mean is pulled up by a single loop."
         >
-          <Leaderboard onPick={pickModel} />
+          <Leaderboard models={models} onPick={pickModel} />
         </Section>
 
         <Section
@@ -87,7 +112,7 @@ export default function App() {
           title="Error on every image"
           lede="Each cell is one model reading one image. Select a cell to compare that image's outputs."
         >
-          <Heatmap onSelect={openOutputs} />
+          <Heatmap models={models} onSelect={openOutputs} />
         </Section>
 
         <Section
@@ -95,7 +120,7 @@ export default function App() {
           title="Accuracy against speed"
           lede="Median CER against median seconds per page. Points toward the bottom left are better."
         >
-          <SpeedChart onPick={pickModel} />
+          <SpeedChart models={models} onPick={pickModel} />
         </Section>
 
         <Section
@@ -103,7 +128,7 @@ export default function App() {
           title="Read the outputs"
           lede="Pick a test image to see what every model wrote, best first. Repetition loops are marked where they begin."
         >
-          <Explorer imageId={imageId} setImageId={setImageId} focusModel={focusModel} />
+          <Explorer models={models} imageId={imageId} setImageId={setImageId} focusModel={focusModel} />
         </Section>
 
         <Section id="method" title="How the scores work">
@@ -139,13 +164,20 @@ export default function App() {
                 <li>Ten images is a smoke test. One image moves a model&apos;s mean a lot.</li>
                 <li>
                   8 of 10 images come from KITAB-Bench training splits, so models trained on those sources may score
-                  better than they would on new documents.
+                  better than they would on new documents. amad-vlm5/6 list the sources of images 02 and 04 in their
+                  training data (marked ⚠).
                 </li>
                 <li>
                   CER depends on reading order. A table read correctly with its columns in another order scores badly;
                   tables and forms need a structure review.
                 </li>
-                <li>Open models ran on a Colab T4 in fp16 (Legal and Sherif in 4-bit). Latency and memory are T4 numbers.</li>
+                <li>
+                  Open models ran on a Colab T4: fp16 in general, 4-bit for Legal, Sherif and the 7–8B round-2 models,
+                  fp32 for HunyuanOCR. Latency and memory are T4 numbers.
+                </li>
+                <li>
+                  Chatty answers are scored as-is: HunyuanOCR sometimes adds a Chinese preamble and Fanar an English one.
+                </li>
                 <li>The reference is Gemini 3.7 Flash; the newer 3.8 Flash was overloaded at run time.</li>
                 <li>Cost per 1,000 pages has not been computed yet.</li>
               </ul>

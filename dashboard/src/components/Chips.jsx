@@ -10,6 +10,14 @@ export function StatusChip({ level, children }) {
   )
 }
 
+export function RoundBadge({ round }) {
+  return (
+    <span className={`round round-${round}`} title={`Tested in round ${round}`}>
+      R{round}
+    </span>
+  )
+}
+
 export function ErrorPill({ value, title }) {
   const bin = binOf(value)
   return (

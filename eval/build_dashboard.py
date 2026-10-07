@@ -46,6 +46,30 @@ MODEL_INFO = {
     "legal": dict(name="Legal documents OCR", org="bakrianoo", base="Gemma-3-4B, 4-bit here", size="4B",
                   level="critical", verdict="Not usable",
                   note="Returns JSON summaries instead of transcriptions, and invents content."),
+    # round 2
+    "amad6": dict(name="amad-vlm6", org="amad-iq", base="Qwen2.5-VL-7B merge, 4-bit here", size="8B",
+                  level="good", verdict="Lead contender",
+                  note="Best median of all 13 models, no failures or loops, best manuscript reading. "
+                       "Trained on the sources of 02 and 04; without them it trails dots.ocr and Qari."),
+    "amad5": dict(name="amad-vlm5", org="amad-iq", base="Qwen2.5-VL-7B, thinking, 4-bit here", size="7B",
+                  level="good", verdict="Contender",
+                  note="Almost as accurate as amad-vlm6 and loop-free, but 2.7x slower: it thinks on most full pages."),
+    "dots": dict(name="dots.ocr", org="rednote / dots-studio", base="1.7B LLM document parser", size="1.7B",
+                 level="good", verdict="Structure specialist",
+                 note="Best table by far, read in the right column order, and best median without the overlap "
+                      "images. Invents text on handwriting."),
+    "hunyuan": dict(name="HunyuanOCR-1.5", org="Tencent", base="HunYuan-VL, fp32 here", size="1B",
+                    level="warning", verdict="Mid-pack",
+                    note="Fast and good on print and Darija, but sometimes answers with a Chinese preamble "
+                         "and misreads handwriting."),
+    "fanar": dict(name="Fanar-2-Oryx-IVU", org="QCRI", base="Qwen2.5-VL-7B, 4-bit here", size="7B",
+                  level="warning", verdict="Mid-pack",
+                  note="Steady and loop-free, but adds an English preamble on some images and invents text "
+                       "on the archive line."),
+    "ain": dict(name="AIN-7B", org="MBZUAI", base="Qwen2-VL-7B, 4-bit here", size="7B",
+                level="critical", verdict="Not usable",
+                note="Stops after the first line on four pages and loops on the invoice. "
+                     "The lines it reads are excellent."),
 }
 
 LATENCY_CAVEATS = {
@@ -54,25 +78,35 @@ LATENCY_CAVEATS = {
     "baseer": "Low because it stops after one line.",
     "waqf": "Slow transformers 4.57 code path.",
     "legal": "4-bit weights with fp32 compute on the T4.",
+    "amad5": "Slow because it reasons before answering on most full pages.",
+    "hunyuan": "Measured in fp32 (no bf16 on the T4); faster in bf16.",
+    "ain": "Low because it stops after one line on several pages.",
 }
 
 FINDINGS = [
-    dict(title="Gemini sets the ceiling",
-         body="Median CER 0.157 and no failures. On the printed page it scores 0.007, "
-              "against 0.302 for the best open model."),
-    dict(title="Katib and Qari tie for best open model",
-         body="Median CER 0.178 and 0.180. Qari leads on printed pages and the table; Katib leads on "
-              "handwriting lines, tashkeel and Darija, with a fifth of the memory."),
-    dict(title="Repetition loops decide the ranking",
-         body="Qari, Katib and Sherif fail only by repeating text until they stop or hit the token "
-              "limit. A loop guard could reorder the top four."),
-    dict(title="CER misjudges tables",
-         body="Gemini got every word of the table right but scored 0.581, because it wrote the columns "
-              "right to left. Tables and forms need a structure review."),
-    dict(title="Scores may be optimistic",
-         body="8 of 10 images come from KITAB-Bench training splits that models may have seen. "
-              "The next round should use our own documents."),
+    dict(title="amad-vlm6 is the best all-rounder",
+         body="Median CER 0.135, the best of all 13 models and below the Gemini reference (0.157), "
+              "with no failures and no loops."),
+    dict(title="Part of that lead is training overlap",
+         body="amad-vlm5/6 trained on the datasets behind images 02 and 04. Without them, dots.ocr (0.135) "
+              "and Qari (0.141) beat amad-vlm6 (0.196)."),
+    dict(title="dots.ocr reads tables",
+         body="It scored 0.013 on the table, the only model to output it in the right column order. "
+              "It fails on handwriting."),
+    dict(title="Round 2 mostly solved repetition loops",
+         body="Round 1's leaders all looped somewhere. In round 2, amad-vlm6/5, Fanar and dots.ocr had none; "
+              "only AIN looped on text."),
+    dict(title="Our own documents decide",
+         body="On public images, overlap blurs the ranking. The shortlist (amad-vlm6, dots.ocr, Qari, Katib) "
+              "goes to a test on our own documents."),
 ]
+
+# Test images whose source dataset a model is known to have trained on (from its card).
+OVERLAP = {
+    "amad6": ["02_handwritten_paragraph", "04_handwritten_archive_line"],
+    "amad5": ["02_handwritten_paragraph", "04_handwritten_archive_line"],
+}
+FAIR_EXCLUDE = ("02", "04")  # images left out of the "median without overlap" column
 
 SOURCES = {
     "01": "KITAB-Bench · Hindawi", "02": "KITAB-Bench · KHATT paragraph", "03": "KITAB-Bench · historical books",
@@ -105,10 +139,16 @@ def main():
                 loop=dict(keptChars=loop[0], unit=loop[1]) if loop else None,
             )
         s = m["summary"]
+        fair = sorted(x["cer"] for stem, x in m["images"].items() if stem[:2] not in FAIR_EXCLUDE)
+        half = len(fair) // 2
+        fair_median = fair[half] if len(fair) % 2 else (fair[half - 1] + fair[half]) / 2
         models.append(dict(
             id=mid, round=m.get("round", 1), **info, latencyCaveat=LATENCY_CAVEATS.get(mid),
             precision=m["info"].get("precision"), repo=m["info"].get("repo"),
+            overlap=OVERLAP.get(mid, []),
             summary=dict(cerMean=s["cer_mean"], cerMedian=s["cer_median"], cerP95=s["cer_p95"],
+                         cerMedianFair=round(fair_median, 4), cerMeanLoopCut=s["cer_mean_loop_cut"],
+                         loops=s["loops"],
                          cerNdMean=s["cer_no_diacritics_mean"], werMean=s["wer_mean"],
                          failureRate=s["failure_rate"], failedImages=s["failed_images"],
                          latencyMedian=s["latency_median_s"], vram=s["peak_vram_gb"],
